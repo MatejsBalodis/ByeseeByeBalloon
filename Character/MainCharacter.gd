@@ -1,4 +1,4 @@
-extends Sprite
+extends Node2D
 
 onready var	restart_button = get_parent().get_parent().get_node("GUILayer").get_node("RestartButton") # For speed and convenience.
 onready var	game_over_text = get_parent().get_parent().get_node("GUILayer").get_node("GameOverText") # For speed and convenience.
