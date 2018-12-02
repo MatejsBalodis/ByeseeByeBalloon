@@ -33,6 +33,7 @@ func reset():
 	restart_button.visible = false
 	game_over_text.visible = false
 	current_up_force = Vector2()
+	debug_chosen_item = 0
 
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
 
