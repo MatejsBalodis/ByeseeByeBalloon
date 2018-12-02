@@ -18,6 +18,7 @@ const BOTTOM_THRESHOLD = 120.0 # How low can balloon fall.
 const DEFAULT_DROP_PAUSE = 500 # Don't allow to drop items more frequently than this in any case.
 onready var camera = get_node("Camera2D") # For speed and convenience.
 var current_up_force = Vector2() # Combine all item up force in a single value.
+var velocity = Vector2() # To tell where the object is moving.
 
 func _ready():
 	reset()
@@ -49,8 +50,11 @@ func _process(delta):
 	current_up_force.y -= tmp_force_diminish_speed
 	current_up_force.y = clamp(current_up_force.y, .0, MAX_FORCE)
 
+	manage_animation(delta)
+
 func _physics_process(delta):
-	actual_mover.position += delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index])
+	velocity = delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index])
+	actual_mover.position += velocity
 	if position.y > OS.window_size.y - BOTTOM_THRESHOLD && !Global.game_over_is_active:
 		initiate_game_over()
 
@@ -63,16 +67,23 @@ func initiate_game_over():
 
 export (PackedScene) var item_template # Instance preset sacrifice item.
 var move_up_start_time = 0 # To know, for how long to fly up.
+var item_spawn_offset = Vector2(-25.0, 100.0) # Items must spawn from the basket.
 
-#func _input(event):
-#	if Input.is_action_just_pressed("ui_up"):
 func manage_up_item_event(item_index):
 	current_up_item_index = item_index
 	var tmp_up_item = item_template.instance()
 	tmp_up_item.get_node("Sprite").texture = up_items[current_up_item_index][1]
 	sacrifice_item_layer.add_child(tmp_up_item)
-	tmp_up_item.position = position
+	tmp_up_item.position = position + item_spawn_offset
 	move_up_start_time = OS.get_ticks_msec()
 	current_up_force += up_items[current_up_item_index][0] * .1
 	if current_up_force < up_items[current_up_item_index][0]:
 		current_up_force = up_items[current_up_item_index][0] + up_items[current_up_item_index][0] * .1
+
+onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
+var final_blend_amount = .0 # How much to blend towards final blend.
+
+func manage_animation(delta):
+	final_blend_amount += delta * velocity.y
+	final_blend_amount = clamp(final_blend_amount, .0, 1.0)
+	animation_blend_tree.blend3_node_set_amount("final_blend", final_blend_amount)
