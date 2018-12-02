@@ -1,6 +1,7 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Character/MainCharacter.gd" type="Script" id=1]
+
 [ext_resource path="res://Items/Anvil.png" type="Texture" id=2]
 [ext_resource path="res://Items/Basket.png" type="Texture" id=3]
 [ext_resource path="res://Items/Beer.png" type="Texture" id=4]
@@ -18,7 +19,10 @@
 [ext_resource path="res://Items/SacrificeItem.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Character/SirBalloon.png" type="Texture" id=17]
 
-[node name="MainCharacter" type="Node2D" index="0"]
+[ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=2]
+
+
+[node name="MainCharacter" type="Node2D"]
 
 position = Vector2( 78.1926, 82.2651 )
 script = ExtResource( 1 )
@@ -59,8 +63,6 @@ _sections_unfolded = [ "Smoothing" ]
 
 [node name="Body" type="Node2D" parent="." index="2"]
 
-[node name="Sprite" type="Sprite" parent="Body" index="0"]
-
-texture = ExtResource( 17 )
+[node name="MainCharacterAnimations" parent="Body" index="0" instance=ExtResource( 2 )]
 
 
