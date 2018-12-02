@@ -33,7 +33,7 @@ func reset():
 	restart_button.visible = false
 	game_over_text.visible = false
 	current_up_force = Vector2()
-	debug_chosen_item = 0
+	current_up_item_index = 0
 
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
 
@@ -62,20 +62,17 @@ func initiate_game_over():
 	Global.game_over_is_active = true
 
 export (PackedScene) var item_template # Instance preset sacrifice item.
-var debug_chosen_item = 0
 var move_up_start_time = 0 # To know, for how long to fly up.
 
-func _input(event):
-	if Input.is_action_just_pressed("ui_up"):
-		var tmp_up_item = item_template.instance()
-		#tmp_up_item.get_node("Sprite").texture = up_items[current_up_item_index][1]
-		debug_chosen_item += 1
-		if debug_chosen_item > 14:
-			debug_chosen_item = 1
-		tmp_up_item.get_node("Sprite").texture = up_items[debug_chosen_item][1]
-		sacrifice_item_layer.add_child(tmp_up_item)
-		tmp_up_item.position = position
-		move_up_start_time = OS.get_ticks_msec()
-		current_up_force += up_items[debug_chosen_item][0] * .1
-		if current_up_force < up_items[debug_chosen_item][0]:
-			current_up_force = up_items[debug_chosen_item][0] + up_items[debug_chosen_item][0] * .1
+#func _input(event):
+#	if Input.is_action_just_pressed("ui_up"):
+func manage_up_item_event(item_index):
+	current_up_item_index = item_index
+	var tmp_up_item = item_template.instance()
+	tmp_up_item.get_node("Sprite").texture = up_items[current_up_item_index][1]
+	sacrifice_item_layer.add_child(tmp_up_item)
+	tmp_up_item.position = position
+	move_up_start_time = OS.get_ticks_msec()
+	current_up_force += up_items[current_up_item_index][0] * .1
+	if current_up_force < up_items[current_up_item_index][0]:
+		current_up_force = up_items[current_up_item_index][0] + up_items[current_up_item_index][0] * .1
