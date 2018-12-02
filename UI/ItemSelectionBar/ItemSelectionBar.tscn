@@ -1,0 +1,29 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://UI/ItemSelectionBar/ItemSelectionBar.gd" type="Script" id=1]
+[ext_resource path="res://UI/ItemSelectionBar/SelectionBarItem.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Anvil.png" type="Texture" id=3]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Axe.png" type="Texture" id=4]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Basket.png" type="Texture" id=5]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Beer.png" type="Texture" id=6]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Bike.png" type="Texture" id=7]
+
+[node name="ItemSelectionBar" type="Control" index="0"]
+
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+margin_top = -40.0
+margin_right = 40.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 1 )
+selection_bar_item = ExtResource( 2 )
+level_selection_bars = [ [ [ null, ExtResource( 3 ) ], [ null, ExtResource( 4 ) ], [ null, ExtResource( 5 ) ], [ null, ExtResource( 6 ) ], [ null, ExtResource( 7 ) ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ] ] ]
+
+

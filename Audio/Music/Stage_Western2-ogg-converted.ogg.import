@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Stage_Western2-ogg-converted.ogg-f55a434057b82d1bf1726bd4d7d93c75.oggstr"
+
+[deps]
+
+source_file="res://Audio/Music/Stage_Western2-ogg-converted.ogg"
+dest_files=[ "res://.import/Stage_Western2-ogg-converted.ogg-f55a434057b82d1bf1726bd4d7d93c75.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,22 +1,36 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Character/MainCharacter.gd" type="Script" id=1]
 [ext_resource path="res://Items/Anvil.png" type="Texture" id=2]
-[ext_resource path="res://Items/Basket.png" type="Texture" id=3]
-[ext_resource path="res://Items/Beer.png" type="Texture" id=4]
-[ext_resource path="res://Items/Bike.png" type="Texture" id=5]
-[ext_resource path="res://Items/BowlingBall.png" type="Texture" id=6]
-[ext_resource path="res://Items/Cake.png" type="Texture" id=7]
-[ext_resource path="res://Items/Camera.png" type="Texture" id=8]
-[ext_resource path="res://Items/Console.png" type="Texture" id=9]
-[ext_resource path="res://Items/Fridge.png" type="Texture" id=10]
-[ext_resource path="res://Items/Guitar.png" type="Texture" id=11]
-[ext_resource path="res://Items/Lemonade.png" type="Texture" id=12]
-[ext_resource path="res://Items/Pumpkin.png" type="Texture" id=13]
-[ext_resource path="res://Items/Radio.png" type="Texture" id=14]
-[ext_resource path="res://Items/Suitcase.png" type="Texture" id=15]
-[ext_resource path="res://Items/SacrificeItem.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=17]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Anvil.png" type="Texture" id=3]
+[ext_resource path="res://Items/Basket.png" type="Texture" id=4]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Basket.png" type="Texture" id=5]
+[ext_resource path="res://Items/Beer.png" type="Texture" id=6]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Beer.png" type="Texture" id=7]
+[ext_resource path="res://Items/Bike.png" type="Texture" id=8]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Bike.png" type="Texture" id=9]
+[ext_resource path="res://Items/BowlingBall.png" type="Texture" id=10]
+[ext_resource path="res://UI/ItemSelectionBar/Items/BowlingBall.png" type="Texture" id=11]
+[ext_resource path="res://Items/Cake.png" type="Texture" id=12]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Cake.png" type="Texture" id=13]
+[ext_resource path="res://Items/Camera.png" type="Texture" id=14]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Camera.png" type="Texture" id=15]
+[ext_resource path="res://Items/Console.png" type="Texture" id=16]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Console.png" type="Texture" id=17]
+[ext_resource path="res://Items/Fridge.png" type="Texture" id=18]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Fridge.png" type="Texture" id=19]
+[ext_resource path="res://Items/Guitar.png" type="Texture" id=20]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Guitar.png" type="Texture" id=21]
+[ext_resource path="res://Items/Lemonade.png" type="Texture" id=22]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Lemonade.png" type="Texture" id=23]
+[ext_resource path="res://Items/Pumpkin.png" type="Texture" id=24]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Pumpkin.png" type="Texture" id=25]
+[ext_resource path="res://Items/Radio.png" type="Texture" id=26]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Radio.png" type="Texture" id=27]
+[ext_resource path="res://Items/Suitcase.png" type="Texture" id=28]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Suitcase.png" type="Texture" id=29]
+[ext_resource path="res://Items/SacrificeItem.tscn" type="PackedScene" id=30]
+[ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=31]
 
 [node name="MainCharacter" type="Node2D" index="0"]
 
@@ -25,9 +39,9 @@ script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 gravities = [ Vector2( 0, 0 ), Vector2( 0, 100 ) ]
 forward_velocities = [ Vector2( 0, 0 ), Vector2( 100, 0 ) ]
-up_items = [ [ Vector2( 0, 0 ) ], [ Vector2( 0, 150 ), ExtResource( 2 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 3 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 4 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 5 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 6 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 7 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 8 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 9 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 10 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 11 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 12 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 13 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 14 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 15 ), 2000 ] ]
+up_items = [ [ Vector2( 0, 0 ) ], [ Vector2( 0, 150 ), ExtResource( 2 ), 2000, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 2000, ExtResource( 5 ) ], [ Vector2( 0, 150 ), ExtResource( 6 ), 2000, ExtResource( 7 ) ], [ Vector2( 0, 150 ), ExtResource( 8 ), 2000, ExtResource( 9 ) ], [ Vector2( 0, 150 ), ExtResource( 10 ), 2000, ExtResource( 11 ) ], [ Vector2( 0, 150 ), ExtResource( 12 ), 2000, ExtResource( 13 ) ], [ Vector2( 0, 150 ), ExtResource( 14 ), 2000, ExtResource( 15 ) ], [ Vector2( 0, 150 ), ExtResource( 16 ), 2000, ExtResource( 17 ) ], [ Vector2( 0, 150 ), ExtResource( 18 ), 2000, ExtResource( 19 ) ], [ Vector2( 0, 150 ), ExtResource( 20 ), 2000, ExtResource( 21 ) ], [ Vector2( 0, 150 ), ExtResource( 22 ), 2000, ExtResource( 23 ) ], [ Vector2( 0, 150 ), ExtResource( 24 ), 2000, ExtResource( 25 ) ], [ Vector2( 0, 150 ), ExtResource( 26 ), 2000, ExtResource( 27 ) ], [ Vector2( 0, 150 ), ExtResource( 28 ), 2000, ExtResource( 29 ) ] ]
 follow_speed = 5
-item_template = ExtResource( 16 )
+item_template = ExtResource( 30 )
 
 [node name="ActualMover" type="Node2D" parent="." index="0"]
 
@@ -59,6 +73,6 @@ _sections_unfolded = [ "Smoothing" ]
 
 [node name="Body" type="Node2D" parent="." index="2"]
 
-[node name="MainCharacterAnimations" parent="Body" index="0" instance=ExtResource( 17 )]
+[node name="MainCharacterAnimations" parent="Body" index="0" instance=ExtResource( 31 )]
 
 
