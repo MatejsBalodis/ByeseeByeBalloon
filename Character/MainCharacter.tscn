@@ -32,7 +32,7 @@
 [ext_resource path="res://Items/SacrificeItem.tscn" type="PackedScene" id=30]
 [ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=31]
 
-[node name="MainCharacter" type="Node2D" index="0"]
+[node name="MainCharacter" type="Node2D"]
 
 position = Vector2( 78.1926, 82.2651 )
 script = ExtResource( 1 )
