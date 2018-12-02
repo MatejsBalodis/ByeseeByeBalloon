@@ -61,7 +61,7 @@ tracks/3/keys = {
 "values": [ Vector2( -378.363, 96.9454 ), Vector2( 361.392, 96.9454 ) ]
 }
 
-[node name="Story" type="Node2D" index="0"]
+[node name="Story" type="Node2D"]
 
 [node name="Sky" type="Sprite" parent="." index="0"]
 
