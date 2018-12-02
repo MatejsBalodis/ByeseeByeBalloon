@@ -6,9 +6,10 @@ const APPROXIMATION_FLOAT = .0001 # Global handle.
 var current_scene = null
 
 func _ready():
-	var root = get_tree().get_root()
-	current_scene = root.get_child(root.get_child_count() -1)
-	goto_scene("res://World.tscn")
+	# var root = get_tree().get_root()
+	# current_scene = root.get_child(root.get_child_count() -1)
+	# goto_scene("res://World.tscn")
+	pass
 
 func goto_scene(path):
 	call_deferred("_deferred_goto_scene", path)

@@ -1,17 +1,33 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Character/MainCharacter.gd" type="Script" id=1]
-[ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Items/Anvil.png" type="Texture" id=2]
+[ext_resource path="res://Items/Basket.png" type="Texture" id=3]
+[ext_resource path="res://Items/Beer.png" type="Texture" id=4]
+[ext_resource path="res://Items/Bike.png" type="Texture" id=5]
+[ext_resource path="res://Items/BowlingBall.png" type="Texture" id=6]
+[ext_resource path="res://Items/Cake.png" type="Texture" id=7]
+[ext_resource path="res://Items/Camera.png" type="Texture" id=8]
+[ext_resource path="res://Items/Console.png" type="Texture" id=9]
+[ext_resource path="res://Items/Fridge.png" type="Texture" id=10]
+[ext_resource path="res://Items/Guitar.png" type="Texture" id=11]
+[ext_resource path="res://Items/Lemonade.png" type="Texture" id=12]
+[ext_resource path="res://Items/Pumpkin.png" type="Texture" id=13]
+[ext_resource path="res://Items/Radio.png" type="Texture" id=14]
+[ext_resource path="res://Items/Suitcase.png" type="Texture" id=15]
+[ext_resource path="res://Items/SacrificeItem.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=17]
 
-[node name="MainCharacter" type="Node2D"]
+[node name="MainCharacter" type="Node2D" index="0"]
 
 position = Vector2( 78.1926, 82.2651 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 gravities = [ Vector2( 0, 0 ), Vector2( 0, 100 ) ]
 forward_velocities = [ Vector2( 0, 0 ), Vector2( 100, 0 ) ]
-up_items = [ Vector2( 0, 0 ), Vector2( 0, 150 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+up_items = [ [ Vector2( 0, 0 ) ], [ Vector2( 0, 150 ), ExtResource( 2 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 3 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 4 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 5 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 6 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 7 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 8 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 9 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 10 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 11 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 12 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 13 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 14 ), 2000 ], [ Vector2( 0, 150 ), ExtResource( 15 ), 2000 ] ]
 follow_speed = 5
+item_template = ExtResource( 16 )
 
 [node name="ActualMover" type="Node2D" parent="." index="0"]
 
@@ -43,6 +59,6 @@ _sections_unfolded = [ "Smoothing" ]
 
 [node name="Body" type="Node2D" parent="." index="2"]
 
-[node name="MainCharacterAnimations" parent="Body" index="0" instance=ExtResource( 2 )]
+[node name="MainCharacterAnimations" parent="Body" index="0" instance=ExtResource( 17 )]
 
 

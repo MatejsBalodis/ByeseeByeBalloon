@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Fuel_loop.wav-5cda8446fa7179ecdeb7724ea2248134.sample"
+
+[deps]
+
+source_file="res://Audio/sfx/Fuel_loop.wav"
+dest_files=[ "res://.import/Fuel_loop.wav-5cda8446fa7179ecdeb7724ea2248134.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
