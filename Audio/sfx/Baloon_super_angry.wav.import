@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Baloon_super_angry.wav-c891d41618ed871c5b64b4df3e5c4640.sample"
+
+[deps]
+
+source_file="res://Audio/sfx/Baloon_super_angry.wav"
+dest_files=[ "res://.import/Baloon_super_angry.wav-c891d41618ed871c5b64b4df3e5c4640.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
