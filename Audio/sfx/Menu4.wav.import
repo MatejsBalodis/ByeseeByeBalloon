@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Menu4.wav-6f670cc59928a45683140be1df5ffb1f.sample"
+
+[deps]
+
+source_file="res://Audio/sfx/Menu4.wav"
+dest_files=[ "res://.import/Menu4.wav-6f670cc59928a45683140be1df5ffb1f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

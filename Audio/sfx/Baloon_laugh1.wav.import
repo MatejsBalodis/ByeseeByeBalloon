@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Baloon_laugh1.wav-3d1f8bdebde0e2a7210c2b403ca8e08f.sample"
+
+[deps]
+
+source_file="res://Audio/sfx/Baloon_laugh1.wav"
+dest_files=[ "res://.import/Baloon_laugh1.wav-3d1f8bdebde0e2a7210c2b403ca8e08f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

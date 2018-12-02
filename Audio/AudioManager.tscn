@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Audio/Music/Gameover.wav" type="AudioStream" id=1]
+[ext_resource path="res://Audio/Music/Stage_Western2_idea.mp3-ogg-converted.ogg" type="AudioStream" id=1]
 
 [node name="AudioManager" type="Node2D" index="0"]
 
@@ -9,7 +9,7 @@
 stream = ExtResource( 1 )
 volume_db = 0.0
 pitch_scale = 1.0
-autoplay = false
+autoplay = true
 mix_target = 0
 bus = "Master"
 
