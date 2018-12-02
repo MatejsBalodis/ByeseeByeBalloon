@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Audio/Music/Gameover.wav" type="AudioStream" id=1]
 [ext_resource path="res://UI/RestartButton.gd" type="Script" id=2]
 [ext_resource path="res://UI/GameOverText.png" type="Texture" id=3]
+[ext_resource path="res://UI/ItemSelectionBar/ItemSelectionBar.tscn" type="PackedScene" id=4]
 
-[node name="GUILayer" type="CanvasLayer" index="0"]
+[node name="GUILayer" type="CanvasLayer"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -81,6 +82,11 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 3 )
 stretch_mode = 0
+
+[node name="ItemSelectionBar" parent="." index="1" instance=ExtResource( 4 )]
+
+anchor_right = 1.0
+margin_right = 0.0
 
 [connection signal="pressed" from="GameOverWrapper/RestartButton" to="GameOverWrapper/RestartButton" method="_on_RestartButton_pressed"]
 
