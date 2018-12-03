@@ -7,8 +7,9 @@ var must_fall = false # To know, when to fall and dissapear.
 var up_force = Vector2(1.0, -.5) # At first fly a bit up and then down.
 
 func _on_UpItem_pressed():
-	player.manage_up_item_event(item_index)
-	must_fall = true
+	if !must_fall:
+		player.manage_up_item_event(item_index)
+		must_fall = true
 
 func _process(delta):
 	if must_fall:

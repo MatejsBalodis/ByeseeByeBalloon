@@ -7,8 +7,8 @@ var current_scene = null # To get the currently loaded scene.
 const APPROXIMATION_FLOAT = .0001 # Global handle.
 
 func _ready():
-	# var root = get_tree().get_root()
-	# current_scene = root.get_child(root.get_child_count() -1)
+	var root = get_tree().get_root()
+	current_scene = root.get_child(root.get_child_count() -1)
 	# goto_scene("res://World.tscn")
 	pass
 

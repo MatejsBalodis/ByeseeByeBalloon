@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Menu/Background.png" type="Texture" id=1]
 [ext_resource path="res://Menu/MenuMountains.png" type="Texture" id=2]
@@ -27,6 +27,8 @@
 [ext_resource path="res://Environment/Cloud7.png" type="Texture" id=25]
 [ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=26]
 [ext_resource path="res://UI/ByeseeByeBalloon.png" type="Texture" id=27]
+[ext_resource path="res://Menu/StartButton.gd" type="Script" id=28]
+[ext_resource path="res://Menu/QuitButton.gd" type="Script" id=29]
 
 [sub_resource type="Animation" id=1]
 
@@ -486,7 +488,7 @@ tracks/20/keys = {
 "values": [ Vector2( 645.022, 328.176 ), Vector2( 1997.65, 378.556 ) ]
 }
 
-[node name="Menu" type="Node2D" index="0"]
+[node name="Menu" type="Node2D"]
 
 [node name="Background" type="Sprite" parent="." index="0"]
 
@@ -772,6 +774,7 @@ group = null
 text = "Start"
 flat = false
 align = 1
+script = ExtResource( 28 )
 _sections_unfolded = [ "Rect" ]
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/Control" index="1"]
@@ -798,6 +801,11 @@ group = null
 text = "Quit"
 flat = false
 align = 1
+script = ExtResource( 29 )
 _sections_unfolded = [ "Rect" ]
+
+[connection signal="pressed" from="CanvasLayer/Control/StartButton" to="CanvasLayer/Control/StartButton" method="_on_StartButton_pressed"]
+
+[connection signal="pressed" from="CanvasLayer/Control/QuitButton" to="CanvasLayer/Control/QuitButton" method="_on_QuitButton_pressed"]
 
 
