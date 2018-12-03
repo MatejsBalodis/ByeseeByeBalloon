@@ -1,9 +1,13 @@
 extends Node2D
 
+onready var audio_manager = get_parent().get_parent().get_node("AudioManager") # For speed and convenience.
 onready var gui_layer = get_parent().get_parent().get_node("GUILayer") # For speed and convenience.
 onready var sacrifice_item_layer = get_parent().get_node("SacrificeItemWrapper") # For speed and convenience.
 onready var	restart_button = gui_layer.get_node("GameOverWrapper").get_node("RestartButton") # For speed and convenience.
 onready var	game_over_text = gui_layer.get_node("GameOverWrapper").get_node("GameOverText") # For speed and convenience.
+onready var	level_complete_menu_button = gui_layer.get_node("LevelCompleteWrapper").get_node("LevelCompleteMenuButton") # For speed and convenience.
+onready var	level_complete_restart_button = gui_layer.get_node("LevelCompleteWrapper").get_node("LevelCompleteRestartButton") # For speed and convenience.
+onready var	level_complete_text = gui_layer.get_node("LevelCompleteWrapper").get_node("LevelCompleteText") # For speed and convenience.
 onready var selection_item_bar = gui_layer.get_node("ItemSelectionBar") # For speed and convenience.
 onready var background = get_parent().get_parent().get_node("Level") # For speed and convenience.
 onready var actual_mover = get_node("ActualMover") # For speed and convenience.
@@ -22,6 +26,9 @@ var current_up_force = Vector2() # Combine all item up force in a single value.
 var velocity = Vector2() # To tell where the object is moving.
 onready var finish_line = background.get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
 
+onready var level_complete_menu_button_original_positionY =	 level_complete_menu_button.rect_position.y # A hack to hide the button and allow click on game over.
+onready var level_complete_restart_button_original_positionY =	level_complete_restart_button.rect_position.y # A hack to hide the button and allow click on game over.
+
 func _ready():
 	reset()
 
@@ -35,10 +42,21 @@ func reset():
 	Global.game_over_is_active = false
 	restart_button.visible = false
 	game_over_text.visible = false
+	level_complete_text.visible = false
+	level_complete_menu_button.visible = false
+	level_complete_restart_button.visible = false
 	current_up_force = Vector2()
 	current_up_item_index = 0
+	level_complete_velocity_coefficient = 1.0
 
 	selection_item_bar.regenerate_items()
+
+	gui_layer.get_node("LevelCompleteWrapper").get_node("AudioStreamPlayer").stop()
+	gui_layer.get_node("GameOverWrapper").get_node("AudioStreamPlayer").stop()
+	audio_manager.get_node("AudioStreamPlayer").play()
+
+	level_complete_menu_button.rect_position.y = level_complete_menu_button_original_positionY # A hack to hide the button and allow click on game over.
+	level_complete_restart_button.rect_position.y = level_complete_restart_button_original_positionY # A hack to hide the button and allow click on game over.
 
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
 
@@ -56,21 +74,39 @@ func _process(delta):
 
 	manage_animation(delta)
 
-	if position.x > finish_line.position.x:
-		print("Level complete!")
+func initiate_level_complete():
+	if !Global.game_over_is_active:
+		level_complete_text.visible = true
+		level_complete_menu_button.visible = true
+		level_complete_restart_button.visible = true
+		level_complete_velocity_coefficient = .0
+		Global.game_over_is_active = true
+
+		audio_manager.get_node("AudioStreamPlayer").stop()
+		gui_layer.get_node("LevelCompleteWrapper").get_node("AudioStreamPlayer").play()
+
+var level_complete_velocity_coefficient = 1.0 # To stop the level on level complete.
 
 func _physics_process(delta):
-	velocity = delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index])
+	velocity = delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_complete_velocity_coefficient
 	actual_mover.position += velocity
-	if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD && !Global.game_over_is_active:
+	if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
 		initiate_game_over()
+	if position.x > finish_line.position.x:
+		initiate_level_complete()
 
 func initiate_game_over():
-	game_over_text.visible = true
-	restart_button.visible = true
-	current_gravity_index = 0
-	current_forward_velocity_index = 0
-	Global.game_over_is_active = true
+	if !Global.game_over_is_active:
+		game_over_text.visible = true
+		restart_button.visible = true
+		level_complete_menu_button.rect_position.y = 100000.0 # A hack to hide the button and allow click on game over.
+		level_complete_restart_button.rect_position.y = 100000.0 # A hack to hide the button and allow click on game over.
+		current_gravity_index = 0
+		current_forward_velocity_index = 0
+		Global.game_over_is_active = true
+
+		audio_manager.get_node("AudioStreamPlayer").stop()
+		gui_layer.get_node("GameOverWrapper").get_node("AudioStreamPlayer").play()
 
 export (PackedScene) var item_template # Instance preset sacrifice item.
 var move_up_start_time = 0 # To know, for how long to fly up.
