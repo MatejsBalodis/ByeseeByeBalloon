@@ -5,7 +5,7 @@
 [ext_resource path="res://UI/GameOverText.png" type="Texture" id=3]
 [ext_resource path="res://UI/ItemSelectionBar/ItemSelectionBar.tscn" type="PackedScene" id=4]
 
-[node name="GUILayer" type="CanvasLayer"]
+[node name="GUILayer" type="CanvasLayer" index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )
