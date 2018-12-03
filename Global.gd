@@ -1,6 +1,7 @@
 extends Node
 
 var game_over_is_active = false # For the whole project to know, when game over is active.
+var level_complete_is_active = false # For the whole project to know, when game over is active.
 var current_level_index = 0 # To know globally, which is the current level.
 var current_scene = null # To get the currently loaded scene.
 
