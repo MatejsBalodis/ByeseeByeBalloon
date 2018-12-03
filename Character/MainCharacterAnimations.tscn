@@ -755,7 +755,7 @@ tracks/19/keys = {
 [sub_resource type="Animation" id=4]
 
 length = 1.5
-loop = true
+loop = false
 step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head/Basket/LegRight:rotation_degrees")
@@ -1248,15 +1248,14 @@ tracks/19/keys = {
 
 [node name="Head" type="Node2D" parent="." index="0"]
 
-editor/display_folded = true
 position = Vector2( -32.5076, -27.8637 )
-rotation = 0.0158472
+rotation = -0.0335078
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="ItemHand" type="Sprite" parent="Head" index="0"]
 
 position = Vector2( -39.4612, 106.718 )
-rotation = -1.34912
+rotation = -0.366645
 texture = ExtResource( 1 )
 offset = Vector2( -34.9202, -27.0554 )
 
@@ -1270,8 +1269,8 @@ _sections_unfolded = [ "Visibility" ]
 
 self_modulate = Color( 1, 0.750122, 0.652344, 0.690588 )
 position = Vector2( -0.165035, 1.09761 )
-rotation = -0.120773
-scale = Vector2( 0.389657, 0.388188 )
+rotation = 0.00546883
+scale = Vector2( 0.183495, 0.183495 )
 texture = ExtResource( 3 )
 offset = Vector2( -0.38774, -32.7072 )
 _sections_unfolded = [ "Transform", "Visibility" ]
@@ -1283,7 +1282,7 @@ __meta__ = {
 
 self_modulate = Color( 0.996094, 0.847871, 0.789871, 0.690588 )
 position = Vector2( 0.476112, 0.788574 )
-rotation = 0.178995
+rotation = 5.8302e-10
 scale = Vector2( 0.798705, 0.798705 )
 texture = ExtResource( 3 )
 offset = Vector2( -0.38774, -32.7072 )
@@ -1293,7 +1292,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 self_modulate = Color( 1, 1, 1, 0.817647 )
 position = Vector2( 0.0563431, 0.197769 )
-rotation = 0.113751
+rotation = -1.1513e-09
 scale = Vector2( 0.606698, 0.606698 )
 texture = ExtResource( 3 )
 offset = Vector2( -0.38774, -32.7072 )
@@ -1303,7 +1302,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 show_behind_parent = true
 position = Vector2( 18.007, 61.5052 )
-rotation = 0.124391
+rotation = -2.01987
 texture = ExtResource( 4 )
 offset = Vector2( 1.3576, 20.9014 )
 _sections_unfolded = [ "Transform" ]
@@ -1312,7 +1311,7 @@ _sections_unfolded = [ "Transform" ]
 
 show_behind_parent = true
 position = Vector2( -17.385, 56.6406 )
-rotation = 0.0307519
+rotation = 2.24118
 texture = ExtResource( 4 )
 offset = Vector2( -0.735184, 23.1638 )
 flip_h = true
@@ -1320,22 +1319,21 @@ _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Head" type="Sprite" parent="Head" index="2"]
 
-self_modulate = Color( 0.993365, 0.736807, 0.736807, 1 )
-scale = Vector2( 1.06141, 1 )
+scale = Vector2( 1.03787, 1 )
 texture = ExtResource( 5 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="Hair" type="Sprite" parent="Head/Head" index="0"]
 
 position = Vector2( 13.0394, -96.4887 )
-rotation = 0.00765047
+rotation = 0.0336117
 texture = ExtResource( 6 )
 offset = Vector2( -38.6093, 5.05691 )
 
 [node name="Hair2" type="Sprite" parent="Head/Head" index="1"]
 
 position = Vector2( 17.8924, -97.7828 )
-rotation = -0.0167568
+rotation = -0.0736194
 texture = ExtResource( 7 )
 offset = Vector2( 18.9128, 5.7699 )
 
@@ -1344,21 +1342,21 @@ offset = Vector2( 18.9128, 5.7699 )
 [node name="Bowtie" type="Sprite" parent="Head/Head" index="3"]
 
 position = Vector2( -2.04393, 93.7285 )
-rotation = 0.0348162
+rotation = -0.182133
 texture = ExtResource( 9 )
 
 [node name="Hat" type="Sprite" parent="Head" index="3"]
 
 position = Vector2( 22.4659, -105.038 )
-rotation = -0.0124119
+rotation = -0.0545308
 texture = ExtResource( 10 )
 offset = Vector2( 8.72161, -11.9635 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="TeaHand" type="Sprite" parent="Head" index="4"]
 
-position = Vector2( 91.0104, 136.407 )
-rotation = -0.0820354
+position = Vector2( 139.994, 1.43716 )
+rotation = 0.178073
 texture = ExtResource( 11 )
 offset = Vector2( 4.1991, -8.65794 )
 _sections_unfolded = [ "Visibility" ]
@@ -1385,60 +1383,68 @@ base_path = NodePath("..")
 active = true
 data = {
 "active": true,
-"connections": [ "final_blend", "out", 0, "blend2", "final_blend", 0, "anim 3", "final_blend", 1, "blend2 2", "final_blend", 2, "anim", "blend2", 0, "anim 2", "blend2", 1, "anim 4", "blend2 2", 0, "anim 5", "blend2 2", 1 ],
+"connections": [ "float_dead", "out", 0, "anim 4", "decline_death", 0, "anim 5", "decline_death", 1, "float_drop", "float_dead", 0, "decline_death", "float_dead", 1, "incline_decline", "float_drop", 0, "anim 3", "float_drop", 1, "anim 2", "incline_decline", 0, "anim", "incline_decline", 1 ],
 "master": NodePath("../AnimationPlayer"),
 "nodes": [ {
 "filter": [  ],
 "from": "Decline",
 "id": "anim",
-"position": Vector2( 117, 45 ),
+"position": Vector2( 100, 174 ),
 "type": "animation"
 }, {
 "id": "out",
-"position": Vector2( 561, 176 ),
+"position": Vector2( 1105, 257 ),
 "type": "output"
 }, {
-"blend": -1.0,
-"id": "final_blend",
-"position": Vector2( 439, 137 ),
-"type": "blend3"
-}, {
+"blend": 0.0,
 "filter": [  ],
-"from": "DeclineLong",
-"id": "anim 4",
-"position": Vector2( 78, 394 ),
-"type": "animation"
+"id": "decline_death",
+"position": Vector2( 407, 433 ),
+"type": "blend2"
+}, {
+"blend": 1.0,
+"filter": [  ],
+"id": "float_dead",
+"position": Vector2( 852, 257 ),
+"type": "blend2"
+}, {
+"blend": 0.0,
+"filter": [  ],
+"id": "float_drop",
+"position": Vector2( 668, 146 ),
+"type": "blend2"
 }, {
 "filter": [  ],
 "from": "Death",
 "id": "anim 5",
-"position": Vector2( 212, 461 ),
+"position": Vector2( 112, 540 ),
 "type": "animation"
 }, {
 "filter": [  ],
 "from": "Incline",
 "id": "anim 2",
-"position": Vector2( 101, 163 ),
+"position": Vector2( 102, 58 ),
 "type": "animation"
 }, {
 "filter": [  ],
 "from": "Drop",
 "id": "anim 3",
-"position": Vector2( 94, 282 ),
+"position": Vector2( 106, 294 ),
 "type": "animation"
 }, {
-"blend": 1.0,
 "filter": [  ],
-"id": "blend2",
-"position": Vector2( 293, 50 ),
-"type": "blend2"
+"from": "DeclineLong",
+"id": "anim 4",
+"position": Vector2( 110, 421 ),
+"type": "animation"
 }, {
 "blend": 0.0,
 "filter": [  ],
-"id": "blend2 2",
-"position": Vector2( 360, 384 ),
+"id": "incline_decline",
+"position": Vector2( 408, 62 ),
 "type": "blend2"
 } ]
 }
+_sections_unfolded = [ "Playback" ]
 
 

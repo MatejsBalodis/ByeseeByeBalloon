@@ -1,10 +1,10 @@
 extends Node
 
 var game_over_is_active = false # For the whole project to know, when game over is active.
-const APPROXIMATION_FLOAT = .0001 # Global handle.
 var current_level_index = 0 # To know globally, which is the current level.
+var current_scene = null # To get the currently loaded scene.
 
-var current_scene = null
+const APPROXIMATION_FLOAT = .0001 # Global handle.
 
 func _ready():
 	# var root = get_tree().get_root()
@@ -29,3 +29,4 @@ func _deferred_goto_scene(path):
 
 	# Optional, to make it compatible with the SceneTree.change_scene() API.
 	get_tree().set_current_scene(current_scene)
+

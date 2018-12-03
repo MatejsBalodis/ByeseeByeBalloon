@@ -12,7 +12,7 @@
 [ext_resource path="res://Character/BodyParts/Glasses.png" type="Texture" id=10]
 [ext_resource path="res://Character/BodyParts/Moustache.png" type="Texture" id=11]
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=1]
 
 resource_name = "AngryFace"
 length = 2.0
@@ -139,7 +139,7 @@ tracks/9/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=2]
 
 resource_name = "CarefulFace"
 length = 2.0
@@ -793,7 +793,6 @@ texture = ExtResource( 1 )
 [node name="CryFace" type="Node2D" parent="." index="1"]
 
 editor/display_folded = true
-visible = false
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="EyeRight" type="Sprite" parent="CryFace" index="0"]
@@ -834,6 +833,7 @@ texture = ExtResource( 4 )
 [node name="CarefulFace" type="Node2D" parent="." index="3"]
 
 editor/display_folded = true
+visible = false
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="EyeRight" type="Sprite" parent="CarefulFace" index="0"]
@@ -914,12 +914,12 @@ _sections_unfolded = [ "Transform" ]
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="10"]
 
 root_node = NodePath("..")
-autoplay = "CarefulFace"
+autoplay = "CryFace"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
-anims/AngryFace = SubResource( 7 )
-anims/CarefulFace = SubResource( 8 )
+anims/AngryFace = SubResource( 1 )
+anims/CarefulFace = SubResource( 2 )
 anims/CryFace = SubResource( 3 )
 anims/DeadFace = SubResource( 4 )
 anims/DisappointedFace = SubResource( 5 )
