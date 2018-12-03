@@ -19,6 +19,7 @@ const DEFAULT_DROP_PAUSE = 500 # Don't allow to drop items more frequently than 
 onready var camera = get_node("Camera2D") # For speed and convenience.
 var current_up_force = Vector2() # Combine all item up force in a single value.
 var velocity = Vector2() # To tell where the object is moving.
+onready var finish_line = background.get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
 
 func _ready():
 	reset()
@@ -51,6 +52,9 @@ func _process(delta):
 	current_up_force.y = clamp(current_up_force.y, .0, MAX_FORCE)
 
 	manage_animation(delta)
+
+	if position.x > finish_line.position.x:
+		print("Level complete!")
 
 func _physics_process(delta):
 	velocity = delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index])
