@@ -4,6 +4,7 @@ onready var gui_layer = get_parent().get_parent().get_node("GUILayer") # For spe
 onready var sacrifice_item_layer = get_parent().get_node("SacrificeItemWrapper") # For speed and convenience.
 onready var	restart_button = gui_layer.get_node("GameOverWrapper").get_node("RestartButton") # For speed and convenience.
 onready var	game_over_text = gui_layer.get_node("GameOverWrapper").get_node("GameOverText") # For speed and convenience.
+onready var selection_item_bar = gui_layer.get_node("ItemSelectionBar") # For speed and convenience.
 onready var background = get_parent().get_parent().get_node("Level") # For speed and convenience.
 onready var actual_mover = get_node("ActualMover") # For speed and convenience.
 export var gravities = [] # At what rate objects fall.
@@ -36,6 +37,8 @@ func reset():
 	game_over_text.visible = false
 	current_up_force = Vector2()
 	current_up_item_index = 0
+
+	selection_item_bar.regenerate_items()
 
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
 
@@ -88,6 +91,7 @@ onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnima
 var final_blend_amount = .0 # How much to blend towards final blend.
 
 func manage_animation(delta):
-	final_blend_amount += delta * velocity.y
-	final_blend_amount = clamp(final_blend_amount, .0, 1.0)
-	animation_blend_tree.blend3_node_set_amount("final_blend", final_blend_amount)
+	# final_blend_amount += delta * velocity.y
+	# final_blend_amount = clamp(final_blend_amount, .0, 1.0)
+	# animation_blend_tree.blend3_node_set_amount("final_blend", final_blend_amount)
+	pass
