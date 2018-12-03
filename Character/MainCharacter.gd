@@ -14,7 +14,7 @@ var current_forward_velocity_index = 1 # Manage only one specific forward veloci
 var current_gravity_index = 1 # Manage only one specific gravity at once.
 var current_up_item_index = 0 # Manage only one specific up item at once.
 const TOP_THRESHOLD = 100.0 # How high can the balloon fly.
-const BOTTOM_THRESHOLD = 120.0 # How low can balloon fall.
+const BOTTOM_THRESHOLD = .2 # How low can balloon fall.
 const DEFAULT_DROP_PAUSE = 500 # Don't allow to drop items more frequently than this in any case.
 onready var camera = get_node("Camera2D") # For speed and convenience.
 var current_up_force = Vector2() # Combine all item up force in a single value.
@@ -24,10 +24,10 @@ func _ready():
 	reset()
 
 func reset():
-	actual_mover.position = Vector2(OS.window_size.x * .5, .0)
-	position = Vector2(OS.window_size.x * .5, .0)
-	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + OS.window_size.x * .5
-	#get_parent().transform.origin.y = -camera.get_global_transform().origin.y + OS.window_size.y * .5
+	actual_mover.position = Vector2(get_viewport().size.x * .5, .0)
+	position = Vector2(get_viewport().size.x * .5, .0)
+	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + get_viewport().size.x * .5
+	#get_parent().transform.origin.y = -camera.get_global_transform().origin.y + get_viewport().size.y * .5
 	current_gravity_index = 1
 	current_forward_velocity_index = 1
 	Global.game_over_is_active = false
@@ -42,7 +42,7 @@ func _process(delta):
 	var tmp_lerp_speed = delta * follow_speed # For speed and convenience.
 	position.x = lerp(position.x, actual_mover.position.x, tmp_lerp_speed)
 	position.y = lerp(position.y, actual_mover.position.y, tmp_lerp_speed)
-	get_parent().transform.origin.x = lerp(get_parent().transform.origin.x, -camera.get_global_transform().origin.x + OS.window_size.x * .5, tmp_lerp_speed)
+	get_parent().transform.origin.x = lerp(get_parent().transform.origin.x, -camera.get_global_transform().origin.x + get_viewport().size.x * .5, tmp_lerp_speed)
 
 	var tmp_force_diminish_speed = delta * 10.0 # For speed and convenience.
 	current_up_force.x -= tmp_force_diminish_speed
@@ -55,7 +55,7 @@ func _process(delta):
 func _physics_process(delta):
 	velocity = delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index])
 	actual_mover.position += velocity
-	if position.y > OS.window_size.y - BOTTOM_THRESHOLD && !Global.game_over_is_active:
+	if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD && !Global.game_over_is_active:
 		initiate_game_over()
 
 func initiate_game_over():
