@@ -13,7 +13,7 @@
 [ext_resource path="res://Environment/Cloud5.png" type="Texture" id=11]
 [ext_resource path="res://Environment/Cloud6.png" type="Texture" id=12]
 
-[node name="Level" type="Node2D" index="0"]
+[node name="Level" type="Node2D"]
 
 position = Vector2( 0, -541 )
 scale = Vector2( 2, 2 )
@@ -75,7 +75,6 @@ _sections_unfolded = [ "Motion" ]
 
 [node name="Forest" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer" index="0"]
 
-editor/display_folded = true
 position = Vector2( 0, -541 )
 scale = Vector2( 2, 2 )
 _sections_unfolded = [ "Transform", "Z Index" ]
@@ -167,8 +166,6 @@ texture = ExtResource( 5 )
 
 [node name="Node2D5" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer/Forest" index="2"]
 
-editor/display_folded = true
-
 [node name="Node2D4" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5" index="0"]
 
 editor/display_folded = true
@@ -230,8 +227,6 @@ position = Vector2( 630, 935.5 )
 texture = ExtResource( 5 )
 
 [node name="Node2D" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5" index="3"]
-
-editor/display_folded = true
 
 [node name="Sprite" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D" index="0"]
 
@@ -389,6 +384,7 @@ _sections_unfolded = [ "Scroll" ]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="CloudsFrontParallaxBackground" index="0"]
 
+editor/display_folded = true
 motion_scale = Vector2( 1, 1 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 0, 0 )
@@ -396,6 +392,7 @@ _sections_unfolded = [ "Motion" ]
 
 [node name="Clouds" type="Node2D" parent="CloudsFrontParallaxBackground/ParallaxLayer" index="0"]
 
+editor/display_folded = true
 position = Vector2( 290, -801 )
 _sections_unfolded = [ "Transform" ]
 

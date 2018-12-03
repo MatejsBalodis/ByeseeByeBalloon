@@ -1244,7 +1244,7 @@ tracks/19/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="MainCharacterAnimations" type="Node2D" index="0"]
+[node name="MainCharacterAnimations" type="Node2D"]
 
 [node name="Head" type="Node2D" parent="." index="0"]
 

@@ -62,7 +62,7 @@ text = "Restart"
 flat = false
 align = 1
 script = ExtResource( 2 )
-_sections_unfolded = [ "Visibility" ]
+_sections_unfolded = [ "Anchor", "Margin", "Rect", "Visibility" ]
 
 [node name="GameOverText" type="TextureRect" parent="GameOverWrapper" index="2"]
 
