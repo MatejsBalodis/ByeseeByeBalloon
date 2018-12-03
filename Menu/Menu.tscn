@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Menu/Background.png" type="Texture" id=1]
 [ext_resource path="res://Menu/SunFlare.png" type="Texture" id=2]
@@ -33,6 +33,7 @@
 [ext_resource path="res://Menu/StartButton.gd" type="Script" id=31]
 [ext_resource path="res://UI/Quit.png" type="Texture" id=32]
 [ext_resource path="res://Menu/QuitButton.gd" type="Script" id=33]
+[ext_resource path="res://Audio/Music/Menu_western1-ogg-converted.ogg" type="AudioStream" id=34]
 
 [sub_resource type="Animation" id=1]
 
@@ -677,7 +678,7 @@ expand_margin_bottom = 0.0
 modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 
-[node name="Menu" type="Node2D"]
+[node name="Menu" type="Node2D" index="0"]
 
 [node name="Background" type="Sprite" parent="." index="0"]
 
@@ -952,6 +953,7 @@ blend_times = [  ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -1033,6 +1035,17 @@ flat = false
 align = 1
 script = ExtResource( 33 )
 _sections_unfolded = [ "Margin", "Rect", "custom_styles" ]
+
+[node name="Node2D" type="Node2D" parent="." index="9"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Node2D" index="0"]
+
+stream = ExtResource( 34 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Master"
 
 [connection signal="pressed" from="CanvasLayer/Control/StartButton" to="CanvasLayer/Control/StartButton" method="_on_StartButton_pressed"]
 
