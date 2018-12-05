@@ -1,0 +1,23 @@
+* DONE Eliminate possibility to encounter both game finishing states game over and level complete together
+* DONE Implement so that score text is always centered in the middle of the background cloud.
+* DONE Combine game over behaviour for level complete and game over in a single function
+* DONE Points must not be higher when the game is lost, than when finish is reached
+:LOGBOOK:
+- Note taken on [2018-12-05 T  16:56] \\
+  Points just don't appear and their level_score_value is set to 0
+:END:
+* TODO Main Character Animations
+* TODO Add progress meter
+* TODO Forbid clicking on items, while the bar is dragged
+* TODO Sound effects
+** All the relevant sound effects provided by Nezvers
+* TODO Obstacles
+** Blinking background
+** Set offsets in an array
+* TODO Item weights and value 
+* TODO Allow switching to fullscreen
+* TODO Fix arrays, so that they can be accessed from the item zero, without weird values at the beginning.
+* TODO Add transition from gameplay music to level stop music.
+* TODO Implement story music.
+* TODO Implement transitions between scenes.
+** Fade in and fade out.
