@@ -30,7 +30,7 @@ onready var level_complete_audio_stream = load("res://Audio/Music/Victory-ogg-co
 onready var game_over_audio_stream = load("res://Audio/Music/Gameover-ogg-converted.ogg") # To load game over music.
 onready var score_background = game_over_wrapper.get_node("ScoreBackground") # For speed and convenience.
 var display_score = 0 # For speed and convenience, the score that is displayed.
-onready var current_total_score = 0 # To show the player score on game over.
+onready var current_level_score = 0 # To show the player score on game over.
 
 func _ready():
 	level_complete_audio_stream.set_loop(false)
@@ -44,8 +44,7 @@ func reset():
 	#get_parent().transform.origin.y = -camera.get_global_transform().origin.y + get_viewport().size.y * .5
 	current_gravity_index = 1
 	current_forward_velocity_index = 1
-	Global.game_over_is_active = false
-	Global.level_complete_is_active = false
+	Global.current_level_stop_state = Global.Level_stop_states.NONE
 	game_over_restart_button.visible = false
 	game_over_menu_button.visible = false
 	game_over_text.visible = false
@@ -55,9 +54,9 @@ func reset():
 	level_complete_velocity_coefficient = 1.0
 	score_background.visible = false
 	display_score = 0
-	current_total_score = 0
+	current_level_score = 0
 	for i in range(1, up_items.size()):
-		current_total_score += up_items[i][2]
+		current_level_score += up_items[i][2]
 
 	selection_item_bar.visible = true
 	selection_item_bar.regenerate_items()
@@ -83,52 +82,48 @@ func _process(delta):
 
 const SCORE_LERP_SPEED = 5.0 # How quickly to lerp to the score.
 
-func initiate_level_complete(delta):
-	display_score = lerp(display_score, current_total_score, delta * SCORE_LERP_SPEED)
-	var int_display_score = str(current_total_score if display_score > current_total_score - 2 else int(display_score))
-	score_background.get_node("Score").text = int_display_score
-	score_background.get_node("Shadow").text = int_display_score
-	if !Global.level_complete_is_active:
-		selection_item_bar.visible = false
+func initiate_level_end(level_stop_state):
+	selection_item_bar.visible = false
+	game_over_restart_button.visible = true
+	game_over_menu_button.visible = true
+	game_over_restart_button.visible = true
+	current_forward_velocity_index = 0
+	current_gravity_index = 0
+	level_complete_velocity_coefficient = .0
+
+	audio_manager.get_node("AudioStreamPlayer").stop()
+
+	if level_stop_state == Global.Level_stop_states.LEVEL_COMPLETE:
+		score_background.visible = true
 		level_complete_text.visible = true
-		level_complete_velocity_coefficient = .0
-		Global.level_complete_is_active = true
-		game_over_restart_button.visible = true
-		game_over_menu_button.visible = true
-		score_background.visible = true
-
-		audio_manager.get_node("AudioStreamPlayer").stop()
+		Global.current_level_stop_state = Global.Level_stop_states.LEVEL_COMPLETE
 		game_over_audio_stream_player.stream = level_complete_audio_stream
-		game_over_audio_stream_player.play()
+	elif level_stop_state == Global.Level_stop_states.GAME_OVER:
+		current_level_score = 0
+		game_over_text.visible = true
+		Global.current_level_stop_state = Global.Level_stop_states.GAME_OVER
+		game_over_audio_stream_player.stream = game_over_audio_stream
 
-func initiate_game_over(delta):
-	display_score = lerp(display_score, current_total_score, delta * SCORE_LERP_SPEED)
-	var int_display_score = str(current_total_score if display_score > current_total_score - 2 else int(display_score))
+	game_over_audio_stream_player.play()
+
+func manage_level_complete_state(delta):
+	display_score = lerp(display_score, current_level_score, delta * SCORE_LERP_SPEED)
+	var int_display_score = str(current_level_score if display_score > current_level_score - 2 else int(display_score))
 	score_background.get_node("Score").text = int_display_score
 	score_background.get_node("Shadow").text = int_display_score
-	if !Global.game_over_is_active:
-		selection_item_bar.visible = false
-		game_over_text.visible = true
-		game_over_restart_button.visible = true
-		game_over_menu_button.visible = true
-		current_gravity_index = 0
-		current_forward_velocity_index = 0
-		Global.game_over_is_active = true
-		score_background.visible = true
 
-		audio_manager.get_node("AudioStreamPlayer").stop()
-		game_over_audio_stream_player.stream = game_over_audio_stream
-		game_over_audio_stream_player.play()
-
-var level_complete_velocity_coefficient = 1.0 # To stop the level on level complete.
+var level_complete_velocity_coefficient = 1.0 # To stop the level movement on level stop.
 
 func _physics_process(delta):
 	velocity = delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_complete_velocity_coefficient
 	actual_mover.position += velocity
 	if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
-		initiate_game_over(delta)
-	if position.x > finish_line.position.x:
-		initiate_level_complete(delta)
+		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+			initiate_level_end(Global.Level_stop_states.GAME_OVER)
+	elif position.x > finish_line.position.x:
+		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+			initiate_level_end(Global.Level_stop_states.LEVEL_COMPLETE)
+		manage_level_complete_state(delta)
 
 export (PackedScene) var item_template # Instance preset sacrifice item.
 var move_up_start_time = 0 # To know, for how long to fly up.
@@ -142,7 +137,7 @@ func manage_up_item_event(item_index):
 	tmp_up_item.position = position + item_spawn_offset
 	move_up_start_time = OS.get_ticks_msec()
 	current_up_force += up_items[current_up_item_index][0] * .1
-	current_total_score -= up_items[current_up_item_index][2]
+	current_level_score -= up_items[current_up_item_index][2]
 	if current_up_force < up_items[current_up_item_index][0]:
 		current_up_force = up_items[current_up_item_index][0] + up_items[current_up_item_index][0] * .1
 
