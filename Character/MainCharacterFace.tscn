@@ -886,6 +886,7 @@ texture = ExtResource( 8 )
 [node name="BrowRight" type="Sprite" parent="." index="6"]
 
 position = Vector2( -19.5659, -32.234 )
+rotation = 0.0297955
 texture = ExtResource( 9 )
 offset = Vector2( -18.409, -10.5634 )
 flip_h = true
@@ -894,6 +895,7 @@ _sections_unfolded = [ "Offset", "Transform" ]
 [node name="BrowLeft" type="Sprite" parent="." index="7"]
 
 position = Vector2( 25.2326, -32.4975 )
+rotation = -0.0297955
 texture = ExtResource( 9 )
 offset = Vector2( 16.9027, -9.50931 )
 _sections_unfolded = [ "Transform" ]
@@ -901,13 +903,14 @@ _sections_unfolded = [ "Transform" ]
 [node name="Glasses" type="Sprite" parent="." index="8"]
 
 position = Vector2( 0.499046, 5.16329 )
+rotation = 0.0408315
 texture = ExtResource( 10 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Moustache" type="Sprite" parent="." index="9"]
 
 position = Vector2( -0.291512, 23.0827 )
-rotation = 0.00102704
+rotation = -0.024433
 texture = ExtResource( 11 )
 _sections_unfolded = [ "Transform" ]
 
