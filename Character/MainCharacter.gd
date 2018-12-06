@@ -15,8 +15,8 @@ export var gravities = [] # At what rate objects fall.
 export var forward_velocities = [] # At what speed in which direction to move.
 export var up_items = [] # Items must have various weights and prices.
 export var follow_speed = 5 # How tightly to follow the actual mover.
-var current_forward_velocity_index = 1 # Manage only one specific forward velocity at once.
-var current_gravity_index = 1 # Manage only one specific gravity at once.
+var current_forward_velocity_index = 0 # Manage only one specific forward velocity at once.
+var current_gravity_index = 0 # Manage only one specific gravity at once.
 var current_up_item_index = 0 # Manage only one specific up item at once.
 const TOP_THRESHOLD = 100.0 # How high can the balloon fly.
 const BOTTOM_THRESHOLD = .2 # How low can balloon fall.
@@ -42,8 +42,6 @@ func reset():
 	position = Vector2(get_viewport().size.x * .5, .0)
 	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + get_viewport().size.x * .5
 	#get_parent().transform.origin.y = -camera.get_global_transform().origin.y + get_viewport().size.y * .5
-	current_gravity_index = 1
-	current_forward_velocity_index = 1
 	Global.current_level_stop_state = Global.Level_stop_states.NONE
 	game_over_restart_button.visible = false
 	game_over_menu_button.visible = false
@@ -51,7 +49,7 @@ func reset():
 	level_complete_text.visible = false
 	current_up_force = Vector2()
 	current_up_item_index = 0
-	level_complete_velocity_coefficient = 1.0
+	level_end_velocity_coefficient = 1.0
 	score_background.visible = false
 	display_score = 0
 	current_level_score = 0
@@ -87,9 +85,7 @@ func initiate_level_end(level_stop_state):
 	game_over_restart_button.visible = true
 	game_over_menu_button.visible = true
 	game_over_restart_button.visible = true
-	current_forward_velocity_index = 0
-	current_gravity_index = 0
-	level_complete_velocity_coefficient = .0
+	level_end_velocity_coefficient = .0
 
 	audio_manager.get_node("AudioStreamPlayer").stop()
 
@@ -112,10 +108,10 @@ func manage_level_complete_state(delta):
 	score_background.get_node("Score").text = int_display_score
 	score_background.get_node("Shadow").text = int_display_score
 
-var level_complete_velocity_coefficient = 1.0 # To stop the level movement on level stop.
+var level_end_velocity_coefficient = 1.0 # To stop the level movement on level stop.
 
 func _physics_process(delta):
-	velocity = delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_complete_velocity_coefficient
+	velocity = delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
 	actual_mover.position += velocity
 	if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
 		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
