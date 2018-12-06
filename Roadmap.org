@@ -8,6 +8,7 @@
 :END:
 * DONE Allow switching to fullscreen
 * DONE Fix arrays, so that they can be accessed from the item zero, without weird values at the beginning.
+* DONE Menu screen rope z indexing.
 * TODO Main Character Animations
 * TODO Rope needs a ballast bag at the end.
 * TODO Implement Options screen. [0/4]
