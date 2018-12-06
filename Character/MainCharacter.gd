@@ -62,6 +62,8 @@ func reset():
 	game_over_audio_stream_player.stop()
 	audio_manager.get_node("AudioStreamPlayer").play()
 
+	set_facial_animation(5)
+
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
 
 func _process(delta):
@@ -137,8 +139,6 @@ func manage_up_item_event(item_index):
 	if current_up_force < up_items[current_up_item_index][0]:
 		current_up_force = up_items[current_up_item_index][0] + up_items[current_up_item_index][0] * .1
 
-onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
-
 func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_goal, incline_decline_goal, new_state_reach_lerp_speed):
 	float_dead = lerp(float_dead, float_dead_goal, new_state_reach_lerp_speed)
 	float_drop = lerp(float_drop, float_drop_goal, new_state_reach_lerp_speed)
@@ -157,12 +157,29 @@ var incline_decline = .0 # To control the full character animation tree and be a
 const DEATH_ANIMATION_SPEED = 5.0 # How quickly to transition to death animation.
 const LEGS_UP_Y_THRESHOLD = .45 # How close to the bottom of the level character starts to rise his legs.
 
+onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
+onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
+onready var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
+onready var current_facial_animation_index = -1 # To save resources, to know, when to switch to another animation.
+
+func set_facial_animation(new_animation_index):
+	if current_facial_animation_index != new_animation_index:
+		current_facial_animation_index = new_animation_index
+		face_animator.seek(0.0, true)
+		face_animator.current_animation = facial_animations[current_facial_animation_index]
+		face_animator.play()
+		face_animator.playback_speed = 1.0
+
 func manage_animation(delta):
 	if Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
 		set_character_blend_state(1.0, .0, 1.0, .0, delta * DEATH_ANIMATION_SPEED)
+		set_facial_animation(3)
 	elif position.y > get_viewport().size.y - get_viewport().size.y * LEGS_UP_Y_THRESHOLD:
 		set_character_blend_state(1.0, .0, .0, .0, delta)
+		set_facial_animation(5)
 	elif velocity.y > .0:
 		set_character_blend_state(.0, .0, .0, 1.0, delta)
+		set_facial_animation(5)
 	elif velocity.y < .0:
 		set_character_blend_state(.0, .0, .0, .0, delta)
+		set_facial_animation(5)
