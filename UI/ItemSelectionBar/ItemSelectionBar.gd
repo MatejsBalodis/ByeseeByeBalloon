@@ -19,8 +19,8 @@ func regenerate_items():
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
 		level_selection_bars[Global.current_level_index][i][0] = selection_bar_item.instance()
 		var up_item = level_selection_bars[Global.current_level_index][i][0].get_node("UpItem") # For speed and convenience.
-		up_item.icon = player.up_items[i + 1][3]
-		up_item.item_index = i + 1
+		up_item.icon = player.up_items[i][3]
+		up_item.item_index = i
 		up_item.player = player
 		add_child(level_selection_bars[Global.current_level_index][i][0])
 		level_selection_bars[Global.current_level_index][i][0].rect_position.x = current_x_offset

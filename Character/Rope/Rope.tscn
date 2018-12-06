@@ -261,11 +261,11 @@ tracks/20/keys = {
 "values": [ 23.8153, -23.2042 ]
 }
 
-[node name="Rope" type="Node2D" index="0"]
+[node name="Rope" type="Node2D"]
 
 [node name="Rope" type="Sprite" parent="." index="0"]
 
-rotation = 0.126789
+rotation = 0.409706
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -278,7 +278,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 0, 16 )
-rotation = -0.0630556
+rotation = -0.0585249
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -290,7 +290,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 9.53674e-07, 16 )
-rotation = -0.113515
+rotation = -0.0994128
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -302,7 +302,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 0, 16 )
-rotation = -0.116949
+rotation = -0.0979136
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -314,7 +314,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 4.76837e-06, 16 )
-rotation = -0.0715351
+rotation = -0.0535011
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -326,7 +326,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 0, 16 )
-rotation = -0.0559679
+rotation = -0.0432193
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -338,7 +338,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( -1.90735e-05, 16 )
-rotation = -0.0355077
+rotation = -0.0266548
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -350,7 +350,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( -1.14441e-05, 16 )
-rotation = -0.0261628
+rotation = -0.0194888
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -362,7 +362,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 0, 16 )
-rotation = -0.0196903
+rotation = -0.0141686
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -374,7 +374,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 1.14441e-05, 16.0001 )
-rotation = -0.00947267
+rotation = -0.00573862
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -386,7 +386,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 0, 16.0002 )
-rotation = 0.0334481
+rotation = -0.0199721
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -398,7 +398,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 0, 16 )
-rotation = -0.0263377
+rotation = -0.034307
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -410,7 +410,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( -7.62939e-06, 16 )
-rotation = -0.0435386
+rotation = -0.0555541
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -422,7 +422,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 0, 16 )
-rotation = -0.0440505
+rotation = -0.0576707
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -434,7 +434,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 0, 16 )
-rotation = -0.0322647
+rotation = -0.047825
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -446,7 +446,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 9.53674e-06, 16.0001 )
-rotation = -0.023831
+rotation = -0.0411133
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -458,7 +458,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 0, 16 )
-rotation = -0.0205375
+rotation = -0.0354565
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -470,7 +470,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( -3.8147e-06, 16 )
-rotation = -0.0127912
+rotation = -0.021568
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -482,7 +482,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 0, 16 )
-rotation = -0.00248974
+rotation = -0.00545562
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
@@ -494,7 +494,7 @@ __meta__ = {
 
 show_behind_parent = true
 position = Vector2( 8.39233e-05, 16.0007 )
-rotation = 0.411955
+rotation = 0.436254
 texture = ExtResource( 1 )
 offset = Vector2( 0.240097, -0.679301 )
 _sections_unfolded = [ "Transform" ]
