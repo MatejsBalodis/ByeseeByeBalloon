@@ -138,10 +138,31 @@ func manage_up_item_event(item_index):
 		current_up_force = up_items[current_up_item_index][0] + up_items[current_up_item_index][0] * .1
 
 onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
-var final_blend_amount = .0 # How much to blend towards final blend.
+
+func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_goal, incline_decline_goal, new_state_reach_lerp_speed):
+	float_dead = lerp(float_dead, float_dead_goal, new_state_reach_lerp_speed)
+	float_drop = lerp(float_drop, float_drop_goal, new_state_reach_lerp_speed)
+	decline_death = lerp(decline_death, decline_death_goal, new_state_reach_lerp_speed)
+	incline_decline = lerp(incline_decline, incline_decline_goal, new_state_reach_lerp_speed)
+	animation_blend_tree.blend2_node_set_amount("float_dead", float_dead)
+	animation_blend_tree.blend2_node_set_amount("float_drop", float_drop)
+	animation_blend_tree.blend2_node_set_amount("decline_death", decline_death)
+	animation_blend_tree.blend2_node_set_amount("incline_decline", incline_decline)
+
+var float_dead = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+var float_drop = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+var decline_death = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+var incline_decline = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+
+const DEATH_ANIMATION_SPEED = 5.0 # How quickly to transition to death animation.
+const LEGS_UP_Y_THRESHOLD = .45 # How close to the bottom of the level character starts to rise his legs.
 
 func manage_animation(delta):
-	# final_blend_amount += delta * velocity.y
-	# final_blend_amount = clamp(final_blend_amount, .0, 1.0)
-	# animation_blend_tree.blend3_node_set_amount("final_blend", final_blend_amount)
-	pass
+	if Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
+		set_character_blend_state(1.0, .0, 1.0, .0, delta * DEATH_ANIMATION_SPEED)
+	elif position.y > get_viewport().size.y - get_viewport().size.y * LEGS_UP_Y_THRESHOLD:
+		set_character_blend_state(1.0, .0, .0, .0, delta)
+	elif velocity.y > .0:
+		set_character_blend_state(.0, .0, .0, 1.0, delta)
+	elif velocity.y < .0:
+		set_character_blend_state(.0, .0, .0, .0, delta)
