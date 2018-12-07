@@ -244,7 +244,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 8 )
-region_rect = Rect2( 0, 0, 439, 298 )
+region_rect = Rect2( 0, 0, 434, 293 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
@@ -253,7 +253,7 @@ expand_margin_left = 0.0
 expand_margin_right = 0.0
 expand_margin_top = 0.0
 expand_margin_bottom = 0.0
-modulate_color = Color( 1, 0.909804, 0.909804, 1 )
+modulate_color = Color( 0.984314, 0.74902, 1, 1 )
 draw_center = true
 _sections_unfolded = [ "Modulate" ]
 
@@ -326,20 +326,23 @@ tracks/0/keys = {
 [node name="Sky" type="Sprite" parent="." index="0"]
 
 position = Vector2( 960, 540 )
+z_index = -2
 texture = ExtResource( 1 )
-_sections_unfolded = [ "Offset", "Transform" ]
+_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="DarkSky" type="Sprite" parent="Sky" index="0"]
 
 self_modulate = Color( 1, 1, 1, 0 )
+z_index = -2
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Offset", "Transform", "Visibility" ]
+_sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
 
 [node name="Sun" type="Sprite" parent="." index="1"]
 
 position = Vector2( 964.544, 290.072 )
+z_index = -2
 texture = ExtResource( 3 )
-_sections_unfolded = [ "Offset", "Transform" ]
+_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="SunFlare" type="Sprite" parent="Sun" index="0"]
 
@@ -347,21 +350,22 @@ self_modulate = Color( 1, 1, 1, 0.33149 )
 show_behind_parent = true
 position = Vector2( -0.424683, -0.424683 )
 scale = Vector2( 1.5, 1.5 )
+z_index = -2
 texture = ExtResource( 4 )
-_sections_unfolded = [ "Offset", "Transform", "Visibility" ]
+_sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
 
 [node name="Mountains" type="Sprite" parent="." index="2"]
 
 position = Vector2( 1014.53, 764.935 )
+z_index = -2
 texture = ExtResource( 5 )
-_sections_unfolded = [ "Offset", "Transform" ]
+_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="Scroll" type="Sprite" parent="." index="3"]
 
-editor/display_folded = true
 position = Vector2( 361.392, 96.9454 )
 texture = ExtResource( 6 )
-_sections_unfolded = [ "Offset", "Transform" ]
+_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="PageText" type="Sprite" parent="Scroll" index="0"]
 
@@ -369,7 +373,7 @@ show_behind_parent = true
 position = Vector2( -17.5808, 13.6225 )
 texture = ExtResource( 7 )
 offset = Vector2( -0.595764, 388.535 )
-_sections_unfolded = [ "Offset", "Transform", "Visibility" ]
+_sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 
@@ -392,6 +396,7 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="Control" type="Control" parent="CanvasLayer" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
