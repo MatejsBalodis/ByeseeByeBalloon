@@ -244,18 +244,18 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 8 )
-region_rect = Rect2( 0, 0, 434, 293 )
+region_rect = Rect2( 0, 0, 439, 298 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
 margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 modulate_color = Color( 0.984314, 0.74902, 1, 1 )
 draw_center = true
-_sections_unfolded = [ "Modulate" ]
+_sections_unfolded = [ "Expand Margin", "Modulate" ]
 
 [sub_resource type="StyleBoxTexture" id=5]
 
@@ -321,7 +321,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.98, 0.98 ) ]
 }
 
-[node name="Story" type="Node2D" index="0"]
+[node name="Story" type="Node2D"]
 
 [node name="Sky" type="Sprite" parent="." index="0"]
 

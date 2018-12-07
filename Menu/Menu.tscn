@@ -31,7 +31,7 @@
 [ext_resource path="res://UI/ByeseeByeBalloon.png" type="Texture" id=29]
 [ext_resource path="res://UI/Start.png" type="Texture" id=30]
 [ext_resource path="res://Menu/StartButton.gd" type="Script" id=31]
-[ext_resource path="res://UI/Menu.png" type="Texture" id=32]
+[ext_resource path="res://UI/Options.png" type="Texture" id=32]
 [ext_resource path="res://Menu/OptionsButton.gd" type="Script" id=33]
 [ext_resource path="res://UI/Quit.png" type="Texture" id=34]
 [ext_resource path="res://Menu/QuitButton.gd" type="Script" id=35]
@@ -561,6 +561,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 0.98, 0.98 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Control/OptionsButton:rect_scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.98, 0.98 ), Vector2( 1, 1 ) ]
+}
 
 [sub_resource type="StyleBoxTexture" id=4]
 
@@ -569,18 +581,18 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 30 )
-region_rect = Rect2( 0, 0, 295, 186 )
+region_rect = Rect2( 0, 0, 300, 191 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
 margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 modulate_color = Color( 0.986328, 0.75, 1, 1 )
 draw_center = true
-_sections_unfolded = [ "Modulate" ]
+_sections_unfolded = [ "Axis Stretch", "Content Margin", "Expand Margin", "Margin", "Modulate" ]
 
 [sub_resource type="StyleBoxTexture" id=5]
 
@@ -636,18 +648,18 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 32 )
-region_rect = Rect2( 0, 0, 434, 293 )
+region_rect = Rect2( 0, 0, 300, 191 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
 margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 modulate_color = Color( 0.984314, 0.74902, 1, 1 )
 draw_center = true
-_sections_unfolded = [ "Modulate" ]
+_sections_unfolded = [ "Axis Stretch", "Content Margin", "Expand Margin", "Margin", "Modulate" ]
 
 [sub_resource type="StyleBoxTexture" id=9]
 
@@ -656,7 +668,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 32 )
-region_rect = Rect2( 0, 0, 439, 298 )
+region_rect = Rect2( 0, 0, 300, 191 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
@@ -683,7 +695,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 32 )
-region_rect = Rect2( 0, 0, 439, 298 )
+region_rect = Rect2( 0, 0, 300, 191 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
@@ -702,7 +714,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 32 )
-region_rect = Rect2( 0, 0, 439, 298 )
+region_rect = Rect2( 0, 0, 300, 191 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
@@ -713,7 +725,7 @@ expand_margin_top = 0.0
 expand_margin_bottom = 0.0
 modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
-_sections_unfolded = [ "Modulate" ]
+_sections_unfolded = [ "Axis Stretch" ]
 
 [sub_resource type="StyleBoxTexture" id=13]
 
@@ -722,18 +734,18 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 34 )
-region_rect = Rect2( 0, 0, 279, 186 )
+region_rect = Rect2( 0, 0, 284, 192 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
 margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 modulate_color = Color( 0.984314, 0.74902, 1, 1 )
 draw_center = true
-_sections_unfolded = [ "Modulate" ]
+_sections_unfolded = [ "Expand Margin" ]
 
 [sub_resource type="StyleBoxTexture" id=14]
 
@@ -788,6 +800,7 @@ _sections_unfolded = [ "Z Index" ]
 
 [node name="Background" type="Sprite" parent="." index="0"]
 
+editor/display_folded = true
 self_modulate = Color( 0.988281, 0.89563, 0.89563, 1 )
 position = Vector2( 960, 540 )
 z_index = -2
@@ -823,6 +836,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="ItemsBack" type="Node2D" parent="Background" index="4"]
 
+editor/display_folded = true
 _sections_unfolded = [ "Z Index" ]
 
 [node name="Beer" type="Sprite" parent="Background/ItemsBack" index="0"]
@@ -866,6 +880,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="ItemsFront" type="Node2D" parent="Background" index="6"]
 
+editor/display_folded = true
 _sections_unfolded = [ "Z Index" ]
 
 [node name="Basket" type="Sprite" parent="Background/ItemsFront" index="0"]
@@ -918,6 +933,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Trees3" type="Sprite" parent="Background" index="7"]
 
+editor/display_folded = true
 position = Vector2( 20.127, 392.334 )
 scale = Vector2( 1.23388, 1.23388 )
 texture = ExtResource( 17 )
@@ -949,6 +965,7 @@ _sections_unfolded = [ "Animation", "Transform", "Z Index" ]
 
 [node name="Clouds" type="Node2D" parent="." index="2"]
 
+editor/display_folded = true
 position = Vector2( 0, 7.40248 )
 _sections_unfolded = [ "Z Index" ]
 
@@ -1070,6 +1087,7 @@ blend_times = [  ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -1121,7 +1139,7 @@ group = null
 flat = false
 align = 1
 script = ExtResource( 31 )
-_sections_unfolded = [ "Focus", "Mouse", "Rect", "custom_colors", "custom_constants", "custom_styles" ]
+_sections_unfolded = [ "Margin", "Mouse", "Rect", "custom_colors", "custom_constants", "custom_styles" ]
 
 [node name="OptionsButton" type="Button" parent="CanvasLayer/Control" index="1"]
 
@@ -1131,8 +1149,9 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 850.0
 margin_top = 722.0
-margin_right = 1034.0
+margin_right = 1062.0
 margin_bottom = 859.0
+rect_scale = Vector2( 0.98, 0.98 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -1152,7 +1171,7 @@ group = null
 flat = false
 align = 1
 script = ExtResource( 33 )
-_sections_unfolded = [ "custom_styles" ]
+_sections_unfolded = [ "Grow Direction", "Margin", "Rect", "Size Flags", "custom_styles" ]
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/Control" index="2"]
 
@@ -1164,7 +1183,7 @@ margin_left = 838.0
 margin_top = 891.0
 margin_right = 1058.0
 margin_bottom = 1024.0
-rect_scale = Vector2( 0.98, 0.98 )
+rect_scale = Vector2( 0.99, 0.99 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
