@@ -21,7 +21,6 @@ layer = 12
 
 [node name="CharacterLayer" type="CanvasLayer" parent="." index="3"]
 
-editor/display_folded = true
 layer = 5
 offset = Vector2( 0, 0 )
 rotation = 0.0

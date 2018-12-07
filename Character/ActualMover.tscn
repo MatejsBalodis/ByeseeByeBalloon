@@ -43,4 +43,6 @@ shape = SubResource( 1 )
 
 [connection signal="body_entered" from="CollisionArea" to="CollisionArea" method="_on_CollisionArea_body_entered"]
 
+[connection signal="body_exited" from="CollisionArea" to="CollisionArea" method="_on_CollisionArea_body_exited"]
+
 
