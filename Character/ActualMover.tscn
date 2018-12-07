@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Character/CollisionArea.gd" type="Script" id=1]
+
+[sub_resource type="CapsuleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 10.0
+height = 20.0
+
+[node name="ActualMover" type="KinematicBody2D" index="0"]
+
+input_pickable = false
+collision_layer = 0
+collision_mask = 0
+collision/safe_margin = 0.08
+_sections_unfolded = [ "Collision", "collision" ]
+
+[node name="CollisionArea" type="Area2D" parent="." index="0"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 0
+collision_mask = 2
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "collision" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CollisionArea" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 48.507, -106.477, 6.93909, -149.669, -52.6089, -150.182, -114.351, -111.244, -109.077, 9.46788, -50.3997, 171.574, 0.0466614, 167.204, 46.9799, 8.44119 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+position = Vector2( -30, 0 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="CollisionArea" to="CollisionArea" method="_on_CollisionArea_body_entered"]
+
+

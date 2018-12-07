@@ -1,7 +1,0 @@
-[gd_scene format=2]
-
-[node name="ObstacleItem" type="Sprite"]
-
-[node name="Shape" type="Sprite" parent="." index="0"]
-
-

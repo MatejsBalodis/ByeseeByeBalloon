@@ -10,11 +10,11 @@ onready var	game_over_text = game_over_wrapper.get_node("GameOverText") # For sp
 onready var	level_complete_text = game_over_wrapper.get_node("LevelCompleteText") # For speed and convenience.
 onready var selection_item_bar = gui_layer.get_node("ItemSelectionBar") # For speed and convenience.
 onready var background = get_parent().get_parent().get_node("Level") # For speed and convenience.
-onready var actual_mover = get_node("ActualMover") # For speed and convenience.
+onready var actual_mover = get_parent().get_node("ActualMover") # For speed and convenience.
 export var gravities = [] # At what rate objects fall.
 export var forward_velocities = [] # At what speed in which direction to move.
 export var up_items = [] # Items must have various weights and prices.
-export var follow_speed = 5 # How tightly to follow the actual mover.
+export var follow_speed = 2.0 # How tightly to follow the actual mover.
 var current_forward_velocity_index = 0 # Manage only one specific forward velocity at once.
 var current_gravity_index = 0 # Manage only one specific gravity at once.
 var current_up_item_index = 0 # Manage only one specific up item at once.
@@ -38,8 +38,8 @@ func _ready():
 	reset()
 
 func reset():
-	actual_mover.position = Vector2(get_viewport().size.x * .5, .0)
-	position = Vector2(get_viewport().size.x * .5, .0)
+	actual_mover.position = Vector2(get_viewport().size.x * .5, 80.0)
+	position = actual_mover.position
 	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + get_viewport().size.x * .5
 	#get_parent().transform.origin.y = -camera.get_global_transform().origin.y + get_viewport().size.y * .5
 	Global.current_level_stop_state = Global.Level_stop_states.NONE
@@ -53,7 +53,7 @@ func reset():
 	score_background.visible = false
 	display_score = 0
 	current_level_score = 0
-	for i in range(1, up_items.size()):
+	for i in range(0, up_items.size()):
 		current_level_score += up_items[i][2]
 
 	selection_item_bar.visible = true
@@ -111,10 +111,11 @@ func manage_level_complete_state(delta):
 	score_background.get_node("Shadow").text = int_display_score
 
 var level_end_velocity_coefficient = 1.0 # To stop the level movement on level stop.
+const PHYSICS_VELOCITY_QOEFFICIENT = 50.0 # A handle to easy set the velocity amplitude.
 
 func _physics_process(delta):
-	velocity = delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
-	actual_mover.position += velocity
+	velocity = PHYSICS_VELOCITY_QOEFFICIENT * delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
+	actual_mover.move_and_slide(velocity)
 	if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
 		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
 			initiate_level_end(Global.Level_stop_states.GAME_OVER)
