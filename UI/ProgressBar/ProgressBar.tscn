@@ -5,14 +5,13 @@
 [ext_resource path="res://UI/ProgressBar/Character.png" type="Texture" id=3]
 [ext_resource path="res://UI/ProgressBar/FinishLine.png" type="Texture" id=4]
 
-[node name="ProgressBar" type="Control"]
+[node name="ProgressBar" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.0
+anchor_right = 1.0
 anchor_bottom = 0.0
-margin_right = 40.0
-margin_bottom = 40.0
+margin_bottom = 92.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 0
@@ -24,10 +23,13 @@ size_flags_vertical = 1
 
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.0
+anchor_right = 1.0
 anchor_bottom = 0.0
-margin_right = 1098.0
-margin_bottom = 48.0
+margin_left = 30.0
+margin_top = 20.0
+margin_right = -792.0
+margin_bottom = 68.0
+rect_scale = Vector2( 1.7, 1 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -47,18 +49,18 @@ texture_progress = ExtResource( 2 )
 radial_fill_degrees = 360.0
 radial_center_offset = Vector2( 0, 0 )
 nine_patch_stretch = false
-_sections_unfolded = [ "Textures" ]
+_sections_unfolded = [ "Rect", "Textures" ]
 
-[node name="TextureRect" type="TextureRect" parent="TextureProgress" index="0"]
+[node name="Balloon" type="TextureRect" parent="." index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 852.0
-margin_top = -27.0
-margin_right = 916.0
-margin_bottom = 85.0
+margin_left = 201.0
+margin_top = -7.0
+margin_right = 265.0
+margin_bottom = 105.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -68,16 +70,16 @@ size_flags_vertical = 1
 texture = ExtResource( 3 )
 stretch_mode = 0
 
-[node name="TextureRect2" type="TextureRect" parent="TextureProgress" index="1"]
+[node name="Finish" type="TextureRect" parent="." index="2"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 1043.0
-margin_top = -9.0
-margin_right = 1061.0
-margin_bottom = 57.0
+margin_left = 1825.0
+margin_top = 11.0
+margin_right = 1843.0
+margin_bottom = 77.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1

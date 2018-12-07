@@ -21,16 +21,20 @@
 * DONE Rope needs a ballast bag at the end.
 * DONE Main Character Animations [1/1]
 ** DONE Collisions with obstacles.
+* DONE Add progress meter
+* TODO Fix collar, so that it doesn't turn red on ascend.
+* TODO Item bar should scroll to the beginning on restart.
+* TODO Crying face animation should turn to death animation.
 * TODO Implement Options screen. [3/4]
 ** TODO Options screen design
 ** DONE Button with Options text
 ** DONE Button with Fullscreen text
 ** DONE Button with Windowed text
 * TODO Forbid clicking on items, while the bar is dragged
-* TODO Add progress meter
+* TODO We need an indication, so that player knows the item bar is draggable.
 * TODO Sound effects
 ** All the relevant sound effects provided by Nezvers
-* TODO Item weights and value 
+* TODO Item weights and value
 * TODO Add transition from gameplay music to level stop music.
 * TODO Implement story music.
 * TODO Implement transitions between scenes.
