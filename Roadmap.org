@@ -1,3 +1,5 @@
+#+SEQ_TODO: TODO WAITING IN-PROGRESS | DONE CANCELLED
+
 * DONE Eliminate possibility to encounter both game finishing states game over and level complete together
 * DONE Implement so that score text is always centered in the middle of the background cloud.
 * DONE Combine game over behaviour for level complete and game over in a single function
@@ -9,8 +11,12 @@
 * DONE Allow switching to fullscreen
 * DONE Fix arrays, so that they can be accessed from the item zero, without weird values at the beginning.
 * DONE Menu screen rope z indexing.
-* TODO Main Character Animations
-* TODO Rope needs a ballast bag at the end.
+* IN-PROGRESS Main Character Animations
+* IN-PROGRESS Rope needs a ballast bag at the end.
+:LOGBOOK:
+- Note taken on [2018-12-07 Pk 00:35] \\
+  Actually it is going to be a knot
+:END:
 * TODO Implement Options screen. [0/4]
 ** TODO Options screen design
 ** TODO Button with Options text

@@ -10,11 +10,11 @@ onready var	game_over_text = game_over_wrapper.get_node("GameOverText") # For sp
 onready var	level_complete_text = game_over_wrapper.get_node("LevelCompleteText") # For speed and convenience.
 onready var selection_item_bar = gui_layer.get_node("ItemSelectionBar") # For speed and convenience.
 onready var background = get_parent().get_parent().get_node("Level") # For speed and convenience.
-onready var actual_mover = get_node("ActualMover") # For speed and convenience.
+onready var actual_mover = get_parent().get_node("ActualMover") # For speed and convenience.
 export var gravities = [] # At what rate objects fall.
 export var forward_velocities = [] # At what speed in which direction to move.
 export var up_items = [] # Items must have various weights and prices.
-export var follow_speed = 5 # How tightly to follow the actual mover.
+export var follow_speed = 2.0 # How tightly to follow the actual mover.
 var current_forward_velocity_index = 0 # Manage only one specific forward velocity at once.
 var current_gravity_index = 0 # Manage only one specific gravity at once.
 var current_up_item_index = 0 # Manage only one specific up item at once.
@@ -38,8 +38,8 @@ func _ready():
 	reset()
 
 func reset():
-	actual_mover.position = Vector2(get_viewport().size.x * .5, .0)
-	position = Vector2(get_viewport().size.x * .5, .0)
+	actual_mover.position = Vector2(get_viewport().size.x * .5, 80.0)
+	position = actual_mover.position
 	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + get_viewport().size.x * .5
 	#get_parent().transform.origin.y = -camera.get_global_transform().origin.y + get_viewport().size.y * .5
 	Global.current_level_stop_state = Global.Level_stop_states.NONE
@@ -53,7 +53,7 @@ func reset():
 	score_background.visible = false
 	display_score = 0
 	current_level_score = 0
-	for i in range(1, up_items.size()):
+	for i in range(0, up_items.size()):
 		current_level_score += up_items[i][2]
 
 	selection_item_bar.visible = true
@@ -61,6 +61,8 @@ func reset():
 
 	game_over_audio_stream_player.stop()
 	audio_manager.get_node("AudioStreamPlayer").play()
+
+	set_facial_animation(5)
 
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
 
@@ -109,10 +111,11 @@ func manage_level_complete_state(delta):
 	score_background.get_node("Shadow").text = int_display_score
 
 var level_end_velocity_coefficient = 1.0 # To stop the level movement on level stop.
+const PHYSICS_VELOCITY_QOEFFICIENT = 50.0 # A handle to easy set the velocity amplitude.
 
 func _physics_process(delta):
-	velocity = delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
-	actual_mover.position += velocity
+	velocity = PHYSICS_VELOCITY_QOEFFICIENT * delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
+	actual_mover.move_and_slide(velocity)
 	if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
 		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
 			initiate_level_end(Global.Level_stop_states.GAME_OVER)
@@ -137,8 +140,6 @@ func manage_up_item_event(item_index):
 	if current_up_force < up_items[current_up_item_index][0]:
 		current_up_force = up_items[current_up_item_index][0] + up_items[current_up_item_index][0] * .1
 
-onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
-
 func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_goal, incline_decline_goal, new_state_reach_lerp_speed):
 	float_dead = lerp(float_dead, float_dead_goal, new_state_reach_lerp_speed)
 	float_drop = lerp(float_drop, float_drop_goal, new_state_reach_lerp_speed)
@@ -157,12 +158,29 @@ var incline_decline = .0 # To control the full character animation tree and be a
 const DEATH_ANIMATION_SPEED = 5.0 # How quickly to transition to death animation.
 const LEGS_UP_Y_THRESHOLD = .45 # How close to the bottom of the level character starts to rise his legs.
 
+onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
+onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
+onready var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
+onready var current_facial_animation_index = -1 # To save resources, to know, when to switch to another animation.
+
+func set_facial_animation(new_animation_index):
+	if current_facial_animation_index != new_animation_index:
+		current_facial_animation_index = new_animation_index
+		face_animator.seek(0.0, true)
+		face_animator.current_animation = facial_animations[current_facial_animation_index]
+		face_animator.play()
+		face_animator.playback_speed = 1.0
+
 func manage_animation(delta):
 	if Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
 		set_character_blend_state(1.0, .0, 1.0, .0, delta * DEATH_ANIMATION_SPEED)
+		set_facial_animation(3)
 	elif position.y > get_viewport().size.y - get_viewport().size.y * LEGS_UP_Y_THRESHOLD:
 		set_character_blend_state(1.0, .0, .0, .0, delta)
+		set_facial_animation(5)
 	elif velocity.y > .0:
 		set_character_blend_state(.0, .0, .0, 1.0, delta)
+		set_facial_animation(5)
 	elif velocity.y < .0:
 		set_character_blend_state(.0, .0, .0, .0, delta)
+		set_facial_animation(5)
