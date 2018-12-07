@@ -1,3 +1,5 @@
+#+SEQ_TODO: TODO WAITING | DONE CANCELLED
+
 * DONE Eliminate possibility to encounter both game finishing states game over and level complete together
 * DONE Implement so that score text is always centered in the middle of the background cloud.
 * DONE Combine game over behaviour for level complete and game over in a single function
@@ -9,8 +11,16 @@
 * DONE Allow switching to fullscreen
 * DONE Fix arrays, so that they can be accessed from the item zero, without weird values at the beginning.
 * DONE Menu screen rope z indexing.
-* TODO Main Character Animations
+* DONE Obstacles
+** DONE Blinking background
+** CANCELLED Set offsets in an array
+:LOGBOOK:
+- Note taken on [2018-12-07 Pk 18:37] \\
+  Better approach is to use Godot's scene approach.
+:END:
 * DONE Rope needs a ballast bag at the end.
+* DONE Main Character Animations [1/1]
+** DONE Collisions with obstacles.
 * TODO Implement Options screen. [3/4]
 ** TODO Options screen design
 ** DONE Button with Options text
@@ -20,11 +30,9 @@
 * TODO Add progress meter
 * TODO Sound effects
 ** All the relevant sound effects provided by Nezvers
-* TODO Obstacles
-** Blinking background
-** Set offsets in an array
 * TODO Item weights and value 
 * TODO Add transition from gameplay music to level stop music.
 * TODO Implement story music.
 * TODO Implement transitions between scenes.
 ** Fade in and fade out.
+* TODO Selection bar items should become larger when mouse is hovering over them.

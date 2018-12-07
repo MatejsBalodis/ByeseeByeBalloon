@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Character/MainCharacter.gd" type="Script" id=1]
 [ext_resource path="res://Items/Tablet.png" type="Texture" id=2]
@@ -34,9 +34,8 @@
 [ext_resource path="res://Items/SacrificeItem.tscn" type="PackedScene" id=32]
 [ext_resource path="res://Character/Camera2D.gd" type="Script" id=33]
 [ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=34]
-[ext_resource path="res://Character/ActualMover.tscn" type="PackedScene" id=35]
 
-[node name="MainCharacter" type="Node2D" index="0"]
+[node name="MainCharacter" type="Node2D"]
 
 position = Vector2( 78.1926, 82.2651 )
 script = ExtResource( 1 )
@@ -77,7 +76,5 @@ _sections_unfolded = [ "Smoothing" ]
 [node name="Body" type="Node2D" parent="." index="1"]
 
 [node name="MainCharacterAnimations" parent="Body" index="0" instance=ExtResource( 34 )]
-
-[node name="ActualMover" parent="." index="2" instance=ExtResource( 35 )]
 
 
