@@ -62,6 +62,8 @@ func reset():
 	game_over_audio_stream_player.stop()
 	audio_manager.get_node("AudioStreamPlayer").play()
 
+	current_facial_animation_index = -1
+	forbid_changing_facial_animation = false
 	set_facial_animation(5)
 
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
@@ -162,9 +164,14 @@ onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnima
 onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
 onready var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
 onready var current_facial_animation_index = -1 # To save resources, to know, when to switch to another animation.
+onready var forbid_changing_facial_animation = false # Animation switching sometime must be forbidden, until some descrete events happen.
+
+func set_descrete_facial_animation(index, state):
+	set_facial_animation(index)
+	forbid_changing_facial_animation = state
 
 func set_facial_animation(new_animation_index):
-	if current_facial_animation_index != new_animation_index:
+	if current_facial_animation_index != new_animation_index && !forbid_changing_facial_animation:
 		current_facial_animation_index = new_animation_index
 		face_animator.seek(0.0, true)
 		face_animator.current_animation = facial_animations[current_facial_animation_index]

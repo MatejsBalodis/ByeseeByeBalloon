@@ -15,13 +15,13 @@ margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
 margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 modulate_color = Color( 0.998871, 0.855469, 1, 1 )
 draw_center = true
-_sections_unfolded = [ "Modulate" ]
+_sections_unfolded = [ "Expand Margin", "Modulate" ]
 
 [sub_resource type="StyleBoxTexture" id=2]
 
