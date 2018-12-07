@@ -22,13 +22,13 @@ margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
 margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 modulate_color = Color( 1, 0.909804, 0.909804, 1 )
 draw_center = true
-_sections_unfolded = [ "Modulate" ]
+_sections_unfolded = [ "Expand Margin", "Modulate" ]
 
 [sub_resource type="StyleBoxTexture" id=2]
 
@@ -98,13 +98,16 @@ length = 2.0
 loop = true
 step = 0.1
 
-[node name="GUILayer" type="CanvasLayer"]
+[node name="GUILayer" type="CanvasLayer" index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 968.747 ]
+}
 
 [node name="GameOverWrapper" type="Control" parent="." index="0"]
 
@@ -136,10 +139,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 371.0
-margin_top = 717.0
-margin_right = 888.0
-margin_bottom = 1057.0
+margin_left = 446.0
+margin_top = 762.0
+margin_right = 746.0
+margin_bottom = 953.0
 rect_scale = Vector2( 0.98, 0.98 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -162,6 +165,12 @@ script = ExtResource( 3 )
 _sections_unfolded = [ "Anchor", "Margin", "Rect", "Visibility", "custom_styles" ]
 
 [node name="GameOverMenuButton" parent="GameOverWrapper" index="2" instance=ExtResource( 4 )]
+
+margin_left = 1041.0
+margin_top = 758.0
+margin_right = 1341.0
+margin_bottom = 949.0
+_sections_unfolded = [ "Rect", "custom_styles" ]
 
 [node name="LevelCompleteText" type="TextureRect" parent="GameOverWrapper" index="3"]
 

@@ -581,15 +581,15 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 30 )
-region_rect = Rect2( 0, 0, 295, 186 )
+region_rect = Rect2( 0, 0, 300, 191 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
 margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 modulate_color = Color( 0.986328, 0.75, 1, 1 )
 draw_center = true
 _sections_unfolded = [ "Axis Stretch", "Content Margin", "Expand Margin", "Margin", "Modulate" ]
@@ -648,15 +648,15 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 32 )
-region_rect = Rect2( 0, 0, 323, 191 )
+region_rect = Rect2( 0, 0, 300, 191 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
 margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 modulate_color = Color( 0.984314, 0.74902, 1, 1 )
 draw_center = true
 _sections_unfolded = [ "Axis Stretch", "Content Margin", "Expand Margin", "Margin", "Modulate" ]
@@ -668,7 +668,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 32 )
-region_rect = Rect2( 0, 0, 323, 191 )
+region_rect = Rect2( 0, 0, 300, 191 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
@@ -695,7 +695,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 32 )
-region_rect = Rect2( 0, 0, 323, 191 )
+region_rect = Rect2( 0, 0, 300, 191 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
@@ -714,7 +714,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 32 )
-region_rect = Rect2( 0, 0, 323, 191 )
+region_rect = Rect2( 0, 0, 300, 191 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
@@ -734,17 +734,18 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 texture = ExtResource( 34 )
-region_rect = Rect2( 0, 0, 279, 186 )
+region_rect = Rect2( 0, 0, 284, 192 )
 margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
 margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 modulate_color = Color( 0.984314, 0.74902, 1, 1 )
 draw_center = true
+_sections_unfolded = [ "Expand Margin" ]
 
 [sub_resource type="StyleBoxTexture" id=14]
 
@@ -793,12 +794,13 @@ modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 _sections_unfolded = [ "Modulate" ]
 
-[node name="Menu" type="Node2D" index="0"]
+[node name="Menu" type="Node2D"]
 
 _sections_unfolded = [ "Z Index" ]
 
 [node name="Background" type="Sprite" parent="." index="0"]
 
+editor/display_folded = true
 self_modulate = Color( 0.988281, 0.89563, 0.89563, 1 )
 position = Vector2( 960, 540 )
 z_index = -2
@@ -1085,6 +1087,7 @@ blend_times = [  ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -1136,7 +1139,7 @@ group = null
 flat = false
 align = 1
 script = ExtResource( 31 )
-_sections_unfolded = [ "Focus", "Margin", "Mouse", "Rect", "custom_colors", "custom_constants", "custom_styles" ]
+_sections_unfolded = [ "Margin", "Mouse", "Rect", "custom_colors", "custom_constants", "custom_styles" ]
 
 [node name="OptionsButton" type="Button" parent="CanvasLayer/Control" index="1"]
 
@@ -1168,7 +1171,7 @@ group = null
 flat = false
 align = 1
 script = ExtResource( 33 )
-_sections_unfolded = [ "Margin", "Rect", "Size Flags", "custom_styles" ]
+_sections_unfolded = [ "Grow Direction", "Margin", "Rect", "Size Flags", "custom_styles" ]
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/Control" index="2"]
 
