@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Options/BackgroundOptions.png" type="Texture" id=1]
 [ext_resource path="res://Menu/MenuMountains.png" type="Texture" id=2]
@@ -7,7 +7,8 @@
 [ext_resource path="res://Environment/FrontTrees.png" type="Texture" id=5]
 [ext_resource path="res://UI/Fullscreen.png" type="Texture" id=6]
 [ext_resource path="res://Options/FullscreenButton.gd" type="Script" id=7]
-[ext_resource path="res://UI/GotoMenuButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://UI/Windowed.png" type="Texture" id=8]
+[ext_resource path="res://UI/GotoMenuButton.tscn" type="PackedScene" id=9]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -21,13 +22,13 @@ margin_left = 0.0
 margin_right = 0.0
 margin_top = 0.0
 margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 modulate_color = Color( 0.984314, 0.74902, 1, 1 )
 draw_center = true
-_sections_unfolded = [ "Modulate" ]
+_sections_unfolded = [ "Expand Margin", "Modulate" ]
 
 [sub_resource type="StyleBoxTexture" id=2]
 
@@ -49,12 +50,31 @@ modulate_color = Color( 0.729412, 0.584314, 0.803922, 1 )
 draw_center = true
 _sections_unfolded = [ "Content Margin", "Modulate" ]
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id=3]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
+
+[sub_resource type="StyleBoxTexture" id=4]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 323, 195 )
+margin_left = 0.0
+margin_right = 0.0
+margin_top = 0.0
+margin_bottom = 0.0
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+modulate_color = Color( 1, 1, 1, 1 )
+draw_center = true
 
 [sub_resource type="StyleBoxTexture" id=5]
 
@@ -75,26 +95,7 @@ expand_margin_bottom = 0.0
 modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=3]
-
-content_margin_left = -1.0
-content_margin_right = -1.0
-content_margin_top = -1.0
-content_margin_bottom = -1.0
-texture = ExtResource( 6 )
-region_rect = Rect2( 0, 0, 323, 195 )
-margin_left = 0.0
-margin_right = 0.0
-margin_top = 0.0
-margin_bottom = 0.0
-expand_margin_left = 0.0
-expand_margin_right = 0.0
-expand_margin_top = 0.0
-expand_margin_bottom = 0.0
-modulate_color = Color( 1, 1, 1, 1 )
-draw_center = true
-
-[node name="Options" type="Control"]
+[node name="Options" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -164,9 +165,9 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/disabled = SubResource( 5 )
-custom_styles/normal = SubResource( 3 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -175,8 +176,9 @@ flat = false
 align = 1
 script = ExtResource( 7 )
 _sections_unfolded = [ "custom_styles" ]
+windowed_texture = ExtResource( 8 )
 
-[node name="GameOverMenuButton" parent="." index="2" instance=ExtResource( 8 )]
+[node name="GameOverMenuButton" parent="." index="2" instance=ExtResource( 9 )]
 
 margin_left = -116.0
 margin_top = 48.0
