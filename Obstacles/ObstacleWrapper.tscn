@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Obstacles/ObstacleWrapper.gd" type="Script" id=1]
 [ext_resource path="res://Obstacles/ItemScenes/AngryCloud.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Obstacles/ItemScenes/Mountain.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Obstacles/ItemScenes/FlagPole.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Obstacles/ItemScenes/PineTree.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Obstacles/ItemScenes/CommunicationTower.tscn" type="PackedScene" id=6]
 
-[node name="ObstacleWrapper" type="Node2D"]
+[node name="ObstacleWrapper" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
@@ -12,24 +15,30 @@ script = ExtResource( 1 )
 
 position = Vector2( 2462.77, 812.599 )
 z_index = -4
-_sections_unfolded = [ "Z Index" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 
-[node name="AngryCloud2" parent="." index="1" instance=ExtResource( 2 )]
-
-position = Vector2( 4400.97, 419.556 )
-z_index = -4
-_sections_unfolded = [ "Z Index" ]
-
-[node name="AngryCloud3" parent="." index="2" instance=ExtResource( 2 )]
+[node name="AngryCloud3" parent="." index="1" instance=ExtResource( 2 )]
 
 position = Vector2( 7536.61, 773.15 )
 z_index = -4
-_sections_unfolded = [ "Z Index" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 
-[node name="Mountain" parent="." index="3" instance=ExtResource( 3 )]
+[node name="Mountain" parent="." index="2" instance=ExtResource( 3 )]
 
-position = Vector2( 5504.05, 1148.49 )
+position = Vector2( 5504.05, 1209.49 )
 z_index = -4
-_sections_unfolded = [ "Z Index" ]
+_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
+
+[node name="FlagPole" parent="." index="3" instance=ExtResource( 4 )]
+
+position = Vector2( 1147.17, 1140.83 )
+
+[node name="PineTree" parent="." index="4" instance=ExtResource( 5 )]
+
+position = Vector2( 3472.91, 1284.57 )
+
+[node name="CommunicationTower" parent="." index="5" instance=ExtResource( 6 )]
+
+position = Vector2( 8725.39, 1290.32 )
 
 

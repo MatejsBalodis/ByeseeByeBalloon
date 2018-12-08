@@ -30,9 +30,12 @@
 * DONE Forbid clicking on items, while the bar is dragged
 * DONE Selection bar items should become larger when mouse is hovering over them.
 * DONE Item bar should scroll to the beginning on restart.
-* TODO We need an indication, so that player knows the item bar is draggable.
-** Probably the best option is to just have blinking arrow.
-* TODO Fix collar, so that it doesn't turn red on ascend.
+* TODO Obstacles need indication that they are being touched by the player.
+* DONE Make the rest of the obstacle item scenes
+* TODO We need an indication, so that player knows the item bar is draggable. [1/2]
+** DONE Probably the best option is to just have blinking arrow.
+** TODO Implement ScrollIndicator placed in UI folder
+* DONE Fix collar, so that it doesn't turn red on ascend.
 * TODO Crying face animation should turn to death animation.
 * TODO Sound effects
 ** All the relevant sound effects provided by Nezvers
