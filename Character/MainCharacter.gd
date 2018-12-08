@@ -30,16 +30,23 @@ onready var level_complete_audio_stream = load("res://Audio/Music/Victory-ogg-co
 onready var game_over_audio_stream = load("res://Audio/Music/Gameover-ogg-converted.ogg") # To load game over music.
 onready var score_background = game_over_wrapper.get_node("ScoreBackground") # For speed and convenience.
 var display_score = 0 # For speed and convenience, the score that is displayed.
-onready var current_level_score = 0 # To show the player score on game over.
+var current_level_score = 0 # To show the player score on game over.
+var start_position_x = .0 # To know, where to compare start from.
+var the_whole_level_distance = 0 # For speed and convenience.
+onready var balloon_indicator = gui_layer.get_node("ProgressBar").get_node("Balloon") # For speed and convenience.
+onready var texture_progress_bar = gui_layer.get_node("ProgressBar").get_node("TextureProgress") # For speed and convenience.
 
 func _ready():
 	level_complete_audio_stream.set_loop(false)
 	game_over_audio_stream.set_loop(false)
 	reset()
+	balloon_indicator.rect_position.x = INITIAL_BALLOON_PROGRESS_OFFSET
 
 func reset():
 	actual_mover.position = Vector2(get_viewport().size.x * .5, 80.0)
 	position = actual_mover.position
+	start_position_x = actual_mover.position.x
+	the_whole_level_distance = finish_line.position.x - start_position_x
 	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + get_viewport().size.x * .5
 	#get_parent().transform.origin.y = -camera.get_global_transform().origin.y + get_viewport().size.y * .5
 	Global.current_level_stop_state = Global.Level_stop_states.NONE
@@ -67,6 +74,7 @@ func reset():
 	set_facial_animation(5)
 
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
+const INITIAL_BALLOON_PROGRESS_OFFSET = 60.0 # To have the progress balloon nicely placed at the beginning.
 
 func _process(delta):
 	var tmp_lerp_speed = delta * follow_speed # For speed and convenience.
@@ -81,6 +89,9 @@ func _process(delta):
 	current_up_force.y = clamp(current_up_force.y, .0, MAX_FORCE)
 
 	manage_animation(delta)
+
+	var new_progress_position_x = INITIAL_BALLOON_PROGRESS_OFFSET + ((texture_progress_bar.rect_size.x - INITIAL_BALLOON_PROGRESS_OFFSET) * texture_progress_bar.rect_scale.x * (1.0 - (finish_line.position.x - position.x) / the_whole_level_distance)) # For speed and convenience.
+	balloon_indicator.rect_position.x = lerp(balloon_indicator.rect_position.x, new_progress_position_x, delta * (1.0 if balloon_indicator.rect_position.x < new_progress_position_x else 5.0))
 
 const SCORE_LERP_SPEED = 5.0 # How quickly to lerp to the score.
 

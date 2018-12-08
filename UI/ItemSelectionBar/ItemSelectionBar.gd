@@ -10,8 +10,10 @@ var selection_bar_drag_height = .2 # To know, where to allow the drag.
 var old_mouse_position = Vector2() # To determine the direction of mouse movement.
 var current_x_offset = MARGIN_BETWEEN_BUTTONS # To place buttons one by another.
 var button_height = .0 # To detect when to drag activate drag and correctly position buttons at the bottom of the screen.
+var return_on_reset = false # To forbid dragging bar with mouse and return to the initial position.
 
 func regenerate_items():
+	return_on_reset = true
 	current_x_offset = MARGIN_BETWEEN_BUTTONS
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
 		if level_selection_bars[Global.current_level_index][i][0] != null:
@@ -19,7 +21,10 @@ func regenerate_items():
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
 		level_selection_bars[Global.current_level_index][i][0] = selection_bar_item.instance()
 		var up_item = level_selection_bars[Global.current_level_index][i][0].get_node("UpItem") # For speed and convenience.
-		up_item.icon = player.up_items[i][3]
+		up_item.texture_hover = player.up_items[i][3]
+		up_item.texture_pressed = player.up_items[i][3]
+		up_item.texture_disabled = player.up_items[i][3]
+		up_item.texture_normal = player.up_items[i][3]
 		up_item.item_index = i
 		up_item.player = player
 		add_child(level_selection_bars[Global.current_level_index][i][0])
@@ -30,18 +35,25 @@ func regenerate_items():
 
 var return_speed = 5.0 # How quickly to return the bar to default offset.
 onready var drag_is_active = false # To disable drag only, when mouse is released.
+const BAR_RETURN_CLOSE_ENOUGH_DISTANCE = 20.0 # To avoid getting lerp being stuck at the end.
+const BAR_RETURN_SPEED = 5.0 # How quickly to scroll the bar back on reset.
 
 func _process(delta):
-	var relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
-	if relative_mouse_position.y > rect_position.y - button_height:
-		if Input.is_action_pressed("left_mouse_button"):
-			drag_is_active = true
-	if !Input.is_action_pressed("left_mouse_button"):
-		drag_is_active = false
-		if rect_position.x > .0:
-			rect_position.x = lerp(rect_position.x, .0, delta * return_speed)
-		elif rect_position.x < -(current_x_offset - get_viewport().size.x):
-			rect_position.x = lerp(rect_position.x, -(current_x_offset - get_viewport().size.x), delta * return_speed)
-	if drag_is_active:
-		rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (get_viewport().size.x / clamp(rect_position.x, 1.0, get_viewport().size.x))))
-	old_mouse_position = relative_mouse_position
+	if return_on_reset:
+		rect_position.x = lerp(rect_position.x, .0, delta * BAR_RETURN_SPEED)
+		if abs(rect_position.x) < BAR_RETURN_CLOSE_ENOUGH_DISTANCE:
+			return_on_reset = false
+	else:
+		var relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
+		if relative_mouse_position.y > rect_position.y - button_height:
+			if Input.is_action_pressed("left_mouse_button"):
+				drag_is_active = true
+		if !Input.is_action_pressed("left_mouse_button"):
+			drag_is_active = false
+			if rect_position.x > .0:
+				rect_position.x = lerp(rect_position.x, .0, delta * return_speed)
+			elif rect_position.x < -(current_x_offset - get_viewport().size.x):
+				rect_position.x = lerp(rect_position.x, -(current_x_offset - get_viewport().size.x), delta * return_speed)
+		if drag_is_active:
+			rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (get_viewport().size.x / clamp(rect_position.x, 1.0, get_viewport().size.x))))
+		old_mouse_position = relative_mouse_position
