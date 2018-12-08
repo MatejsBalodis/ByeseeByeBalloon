@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Obstacles/AngryCloud.png" type="Texture" id=1]
+[ext_resource path="res://Obstacles/Antenna.png" type="Texture" id=1]
 [ext_resource path="res://Obstacles/ItemScenes/AngryCloud.gd" type="Script" id=2]
-[ext_resource path="res://Obstacles/AngryCloudOutline.png" type="Texture" id=3]
+[ext_resource path="res://Obstacles/AntennaOutline.png" type="Texture" id=3]
 [ext_resource path="res://Obstacles/Shape.gd" type="Script" id=4]
 
-[node name="AngryCloud" type="Sprite"]
+[node name="CommunicationTower" type="Sprite"]
 
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
@@ -29,6 +29,6 @@ _sections_unfolded = [ "Collision", "collision" ]
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -10, 90, 40, 90, 10, 170, 100, 160, 60, 220, 160, 130, 70, 130, 110, 70, 160, 70, 220, 20, 310, -40, 310, -130, 240, -190, 220, -240, 160, -280, 90, -280, 40, -230, 0, -240, -50, -220, -80, -250, -150, -240, -210, -170, -270, -160, -320, -50, -280, 20, -40, 50 )
+polygon = PoolVector2Array( -116.088, -134.497, -117.382, -16.084, -19.0279, -9.61333, -17.5516, 290.219, 18.5363, 291.195, 17.561, -12.6269, 117.18, -13.1722, 116.533, -135.791, 107.793, -163.809, 105.733, -287.473, 88.1672, -287.831, 87.8087, -238.001, 53.3941, -237.643, 47.2998, -274.567, 28.6586, -288.906, -20.0846, -287.614, -19.6749, -238.352, -87.9405, -238.675, -88.9111, -287.205, -104.441, -287.205, -104.441, -164.909 )
 
 

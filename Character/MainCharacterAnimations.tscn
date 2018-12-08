@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Character/BodyParts/ItemHand.png" type="Texture" id=1]
 [ext_resource path="res://Character/BodyParts/Basket.png" type="Texture" id=2]
@@ -9,9 +9,10 @@
 [ext_resource path="res://Character/BodyParts/Hair2.png" type="Texture" id=7]
 [ext_resource path="res://Character/BodyParts/Hair1.png" type="Texture" id=8]
 [ext_resource path="res://Character/MainCharacterFace.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Character/BodyParts/Bowtie.png" type="Texture" id=10]
-[ext_resource path="res://Character/BodyParts/Hat.png" type="Texture" id=11]
-[ext_resource path="res://Character/BodyParts/TeaHand.png" type="Texture" id=12]
+[ext_resource path="res://Character/BodyParts/Collar.png" type="Texture" id=10]
+[ext_resource path="res://Character/BodyParts/Bowtie.png" type="Texture" id=11]
+[ext_resource path="res://Character/BodyParts/Hat.png" type="Texture" id=12]
+[ext_resource path="res://Character/BodyParts/TeaHand.png" type="Texture" id=13]
 
 [sub_resource type="Animation" id=1]
 
@@ -1146,7 +1147,7 @@ tracks/11/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 0.804688, 0.804688, 1 ), Color( 0.992188, 0.724762, 0.724762, 1 ) ]
+"values": [ Color( 1, 0.726562, 0.726562, 1 ), Color( 1, 0.601562, 0.601562, 1 ) ]
 }
 tracks/12/type = "value"
 tracks/12/path = NodePath("Head/Hat:position")
@@ -1245,20 +1246,20 @@ tracks/19/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="MainCharacterAnimations" type="Node2D" index="0"]
+[node name="MainCharacterAnimations" type="Node2D"]
 
 _sections_unfolded = [ "Z Index" ]
 
 [node name="Head" type="Node2D" parent="." index="0"]
 
 position = Vector2( -32.5076, -27.8637 )
-rotation = 0.0148517
+rotation = 0.0124352
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="ItemHand" type="Sprite" parent="Head" index="0"]
 
 position = Vector2( -39.4612, 106.718 )
-rotation = -0.0511946
+rotation = -0.616011
 texture = ExtResource( 1 )
 offset = Vector2( -34.9202, -27.0554 )
 
@@ -1282,7 +1283,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 editor/display_folded = true
 self_modulate = Color( 1, 0.750122, 0.652344, 0.690588 )
 position = Vector2( -0.165035, 1.09761 )
-rotation = -0.0344396
+rotation = -0.0307074
 scale = Vector2( 0.191851, 0.191851 )
 texture = ExtResource( 4 )
 offset = Vector2( -0.38774, -32.7072 )
@@ -1295,7 +1296,7 @@ __meta__ = {
 
 self_modulate = Color( 0.996094, 0.847871, 0.789871, 0.690588 )
 position = Vector2( 0.476112, 0.788574 )
-rotation = 0.0604219
+rotation = 0.0550846
 scale = Vector2( 0.798705, 0.798705 )
 texture = ExtResource( 4 )
 offset = Vector2( -0.38774, -32.7072 )
@@ -1305,7 +1306,7 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 self_modulate = Color( 1, 1, 1, 0.817647 )
 position = Vector2( 0.0563431, 0.197769 )
-rotation = -0.0272969
+rotation = -0.0303391
 scale = Vector2( 0.606698, 0.606698 )
 texture = ExtResource( 4 )
 offset = Vector2( -0.38774, -32.7072 )
@@ -1315,7 +1316,7 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 show_behind_parent = true
 position = Vector2( 18.007, 61.5052 )
-rotation = -0.31282
+rotation = 0.326032
 texture = ExtResource( 5 )
 offset = Vector2( 1.3576, 20.9014 )
 _sections_unfolded = [ "Transform", "Z Index" ]
@@ -1324,7 +1325,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 show_behind_parent = true
 position = Vector2( -17.385, 56.6406 )
-rotation = 0.0857589
+rotation = 0.160063
 z_index = -2
 texture = ExtResource( 5 )
 offset = Vector2( -0.735184, 23.1638 )
@@ -1333,14 +1334,14 @@ _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="Head" type="Sprite" parent="Head" index="2"]
 
-scale = Vector2( 1.00529, 1 )
+scale = Vector2( 1.06363, 1 )
 texture = ExtResource( 6 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
 [node name="Hair" type="Sprite" parent="Head/Head" index="0"]
 
 position = Vector2( 13.0394, -96.4887 )
-rotation = 0.00723655
+rotation = 0.00451738
 texture = ExtResource( 7 )
 offset = Vector2( -38.6093, 5.05691 )
 _sections_unfolded = [ "Z Index" ]
@@ -1348,7 +1349,7 @@ _sections_unfolded = [ "Z Index" ]
 [node name="Hair2" type="Sprite" parent="Head/Head" index="1"]
 
 position = Vector2( 17.8924, -97.7828 )
-rotation = -0.0158502
+rotation = -0.0098944
 texture = ExtResource( 8 )
 offset = Vector2( 18.9128, 5.7699 )
 _sections_unfolded = [ "Z Index" ]
@@ -1357,26 +1358,33 @@ _sections_unfolded = [ "Z Index" ]
 
 _sections_unfolded = [ "Z Index" ]
 
-[node name="Bowtie" type="Sprite" parent="Head/Head" index="3"]
+[node name="Collar" type="Sprite" parent="Head/Head" index="3"]
+
+show_behind_parent = true
+position = Vector2( -0.588638, 96.7237 )
+texture = ExtResource( 10 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="Bowtie" type="Sprite" parent="Head/Head" index="4"]
 
 position = Vector2( -2.04393, 93.7285 )
-rotation = 0.0294481
-texture = ExtResource( 10 )
+rotation = 0.020289
+texture = ExtResource( 11 )
 _sections_unfolded = [ "Z Index" ]
 
 [node name="Hat" type="Sprite" parent="Head" index="3"]
 
 position = Vector2( 22.4659, -105.038 )
-rotation = -0.0117404
-texture = ExtResource( 11 )
+rotation = -0.00732889
+texture = ExtResource( 12 )
 offset = Vector2( 8.72161, -11.9635 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="TeaHand" type="Sprite" parent="Head" index="4"]
 
-position = Vector2( 126.93, -3.23775 )
-rotation = 0.023174
-texture = ExtResource( 12 )
+position = Vector2( 129.657, 3.06193 )
+rotation = -0.099641
+texture = ExtResource( 13 )
 offset = Vector2( 4.1991, -8.65794 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 

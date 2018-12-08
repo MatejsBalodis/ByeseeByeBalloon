@@ -21,18 +21,26 @@
 * DONE Rope needs a ballast bag at the end.
 * DONE Main Character Animations [1/1]
 ** DONE Collisions with obstacles.
-* TODO Implement Options screen. [3/4]
-** TODO Options screen design
+* DONE Add progress meter
+* DONE Implement Options screen. [4/4]
+** DONE Options screen design
 ** DONE Button with Options text
 ** DONE Button with Fullscreen text
 ** DONE Button with Windowed text
-* TODO Forbid clicking on items, while the bar is dragged
-* TODO Add progress meter
+* DONE Forbid clicking on items, while the bar is dragged
+* DONE Selection bar items should become larger when mouse is hovering over them.
+* DONE Item bar should scroll to the beginning on restart.
+* TODO Obstacles need indication that they are being touched by the player.
+* DONE Make the rest of the obstacle item scenes
+* TODO We need an indication, so that player knows the item bar is draggable. [1/2]
+** DONE Probably the best option is to just have blinking arrow.
+** TODO Implement ScrollIndicator placed in UI folder
+* DONE Fix collar, so that it doesn't turn red on ascend.
+* TODO Crying face animation should turn to death animation.
 * TODO Sound effects
 ** All the relevant sound effects provided by Nezvers
-* TODO Item weights and value 
+* TODO Item weights and values
 * TODO Add transition from gameplay music to level stop music.
 * TODO Implement story music.
 * TODO Implement transitions between scenes.
 ** Fade in and fade out.
-* TODO Selection bar items should become larger when mouse is hovering over them.

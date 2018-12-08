@@ -4,16 +4,18 @@
 [ext_resource path="res://Obstacles/MountainOutline.png" type="Texture" id=2]
 [ext_resource path="res://Obstacles/Shape.gd" type="Script" id=3]
 
-[node name="Mountain" type="Sprite" index="0"]
+[node name="Mountain" type="Sprite"]
 
 texture = ExtResource( 1 )
+_sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Shape" type="Sprite" parent="." index="0"]
 
+position = Vector2( -6, 5 )
 z_index = -1
 texture = ExtResource( 2 )
 script = ExtResource( 3 )
-_sections_unfolded = [ "Z Index" ]
+_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="StaticBody2D" type="KinematicBody2D" parent="." index="1"]
 
