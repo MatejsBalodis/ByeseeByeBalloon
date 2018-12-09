@@ -12,7 +12,7 @@ onready var original_size = self.rect_size # To perform relative changes.
 onready var original_position = self.rect_position # To perform relative changes.
 
 const GRAVITY = Vector2(-20.0, 1000.0) # How quickly are the buttons falling.
-const MAX_ACCEPT_DISTANCE = 2.0 # If the item selection bar has moved more than this, don't accept item.
+const MAX_ACCEPT_DISTANCE = 25.0 # If the item selection bar has moved more than this, don't accept item.
 const BUTTON_HOVER_CHANGE = 10.0 # How much the size and position must change.
 
 func _on_UpItem_button_down():
