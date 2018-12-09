@@ -5,7 +5,7 @@
 [ext_resource path="res://UI/ProgressBar/Character.png" type="Texture" id=3]
 [ext_resource path="res://UI/ProgressBar/FinishLine.png" type="Texture" id=4]
 
-[node name="ProgressBar" type="Control"]
+[node name="ProgressBar" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -37,10 +37,10 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 min_value = 0.0
-max_value = 100.0
-step = 1.0
+max_value = 1.0
+step = 0.001
 page = 0.0
-value = 10.0
+value = 0.0
 exp_edit = false
 rounded = false
 texture_under = ExtResource( 1 )

@@ -1087,6 +1087,7 @@ blend_times = [  ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -1146,10 +1147,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 850.0
-margin_top = 722.0
-margin_right = 1062.0
-margin_bottom = 859.0
+margin_left = 840.0
+margin_top = 732.0
+margin_right = 1052.0
+margin_bottom = 869.0
 rect_scale = Vector2( 0.98, 0.98 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -1178,9 +1179,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 838.0
+margin_left = 828.0
 margin_top = 891.0
-margin_right = 1058.0
+margin_right = 1048.0
 margin_bottom = 1024.0
 rect_scale = Vector2( 0.99, 0.99 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -1205,6 +1206,7 @@ _sections_unfolded = [ "Margin", "Rect", "custom_styles" ]
 
 [node name="Node2D" type="Node2D" parent="." index="9"]
 
+editor/display_folded = true
 _sections_unfolded = [ "Z Index" ]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Node2D" index="0"]

@@ -30,17 +30,30 @@
 * DONE Forbid clicking on items, while the bar is dragged
 * DONE Selection bar items should become larger when mouse is hovering over them.
 * DONE Item bar should scroll to the beginning on restart.
-* TODO Obstacles need indication that they are being touched by the player.
 * DONE Make the rest of the obstacle item scenes
-* TODO We need an indication, so that player knows the item bar is draggable. [1/2]
+* DONE We need an indication, so that player knows the item bar is draggable. [2/2]
 ** DONE Probably the best option is to just have blinking arrow.
-** TODO Implement ScrollIndicator placed in UI folder
+** DONE Implement ScrollIndicator placed in UI folder
 * DONE Fix collar, so that it doesn't turn red on ascend.
-* TODO Crying face animation should turn to death animation.
+* DONE Implement progress bar progress texture.
+* DONE Crying face animation should turn to death animation.
+* DONE Balloon's up force must be decreased constantly while the collision is active.
+** It must be decreased not reset.
+* DONE Implement bottom indication, where player cannot fall further down.
+* DONE Obstacles need indication that they are being touched by the player.
+* TODO Item weights and values
+* TODO Implement multiple levels. [0/3]
+** TODO Implement switching between levels. [0/2]
+*** TODO Next level button.
+*** TODO Implement specific set of items for each level.
+** TODO Implement so that score is persistent between levels.
+** TODO Implement so that if score is 0 at level complete the game is over and it is not possible to go to next level. [0/1]
+*** TODO Implement so that it is possible to reset level at which the 0 score was reached with the score that was at the level start.
+* TODO Game complete screen.
 * TODO Sound effects
 ** All the relevant sound effects provided by Nezvers
-* TODO Item weights and values
 * TODO Add transition from gameplay music to level stop music.
 * TODO Implement story music.
 * TODO Implement transitions between scenes.
 ** Fade in and fade out.
+*** Both graphics and music.
