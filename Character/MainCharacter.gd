@@ -73,6 +73,8 @@ func reset():
 	forbid_changing_facial_animation = false
 	set_facial_animation(5)
 
+	obstacle_collision_is_active = false
+
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
 const INITIAL_BALLOON_PROGRESS_OFFSET = 60.0 # To have the progress balloon nicely placed at the beginning.
 
@@ -91,8 +93,12 @@ func _process(delta):
 	manage_animation(delta)
 
 	var new_progress_position_x = INITIAL_BALLOON_PROGRESS_OFFSET + ((texture_progress_bar.rect_size.x - INITIAL_BALLOON_PROGRESS_OFFSET) * texture_progress_bar.rect_scale.x * (1.0 - (finish_line.position.x - position.x) / the_whole_level_distance)) # For speed and convenience.
-	balloon_indicator.rect_position.x = lerp(balloon_indicator.rect_position.x, new_progress_position_x, delta * (1.0 if balloon_indicator.rect_position.x < new_progress_position_x else 5.0))
+	balloon_indicator.rect_position.x = lerp(balloon_indicator.rect_position.x, new_progress_position_x, delta * (BALLOON_PROGRESS_LERP_SPEED if balloon_indicator.rect_position.x < new_progress_position_x else BALLOON_PROGRESS_LERP_RETURN_SPEED))
+	texture_progress_bar.max_value = texture_progress_bar.rect_size.x * texture_progress_bar.rect_scale.x
+	texture_progress_bar.value = balloon_indicator.rect_position.x
 
+const BALLOON_PROGRESS_LERP_SPEED = 1.0 # To avoid using magic numbers.
+const BALLOON_PROGRESS_LERP_RETURN_SPEED = 5.0 # To avoid using magic numbers.
 const SCORE_LERP_SPEED = 5.0 # How quickly to lerp to the score.
 
 func initiate_level_end(level_stop_state):
@@ -173,9 +179,10 @@ const LEGS_UP_Y_THRESHOLD = .45 # How close to the bottom of the level character
 
 onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
 onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
-onready var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
-onready var current_facial_animation_index = -1 # To save resources, to know, when to switch to another animation.
-onready var forbid_changing_facial_animation = false # Animation switching sometime must be forbidden, until some descrete events happen.
+var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
+var current_facial_animation_index = -1 # To save resources, to know, when to switch to another animation.
+var forbid_changing_facial_animation = false # Animation switching sometime must be forbidden, until some descrete events happen.
+var obstacle_collision_is_active = false # To act appropriately while collision is active.
 
 func set_descrete_facial_animation(index, state):
 	set_facial_animation(index)
@@ -191,6 +198,7 @@ func set_facial_animation(new_animation_index):
 
 func manage_animation(delta):
 	if Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
+		forbid_changing_facial_animation = false
 		set_character_blend_state(1.0, .0, 1.0, .0, delta * DEATH_ANIMATION_SPEED)
 		set_facial_animation(3)
 	elif position.y > get_viewport().size.y - get_viewport().size.y * LEGS_UP_Y_THRESHOLD:

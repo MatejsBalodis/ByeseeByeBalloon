@@ -33,27 +33,55 @@ func regenerate_items():
 		current_x_offset += level_selection_bars[Global.current_level_index][i][0].texture.get_size().x + MARGIN_BETWEEN_BUTTONS
 	button_height = level_selection_bars[Global.current_level_index][0][0].texture.get_size().y
 
+	drag_indicator_right.current_indicator_lerp_progress = .0
+	drag_indicator_left.current_indicator_lerp_progress = .0
+	return_lerp_progress = .0
+
 var return_speed = 5.0 # How quickly to return the bar to default offset.
 onready var drag_is_active = false # To disable drag only, when mouse is released.
 const BAR_RETURN_CLOSE_ENOUGH_DISTANCE = 20.0 # To avoid getting lerp being stuck at the end.
-const BAR_RETURN_SPEED = 5.0 # How quickly to scroll the bar back on reset.
+const BAR_RETURN_SPEED = 3.0 # How quickly to scroll the bar back on reset.
+var return_lerp_progress = .0 # To have a tight control over lerping.
 
 func _process(delta):
-	if return_on_reset:
-		rect_position.x = lerp(rect_position.x, .0, delta * BAR_RETURN_SPEED)
-		if abs(rect_position.x) < BAR_RETURN_CLOSE_ENOUGH_DISTANCE:
-			return_on_reset = false
+	if Global.current_level_stop_state != Global.Level_stop_states.NONE:
+		drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
+		drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
 	else:
-		var relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
-		if relative_mouse_position.y > rect_position.y - button_height:
-			if Input.is_action_pressed("left_mouse_button"):
-				drag_is_active = true
-		if !Input.is_action_pressed("left_mouse_button"):
-			drag_is_active = false
-			if rect_position.x > .0:
-				rect_position.x = lerp(rect_position.x, .0, delta * return_speed)
-			elif rect_position.x < -(current_x_offset - get_viewport().size.x):
-				rect_position.x = lerp(rect_position.x, -(current_x_offset - get_viewport().size.x), delta * return_speed)
-		if drag_is_active:
-			rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (get_viewport().size.x / clamp(rect_position.x, 1.0, get_viewport().size.x))))
-		old_mouse_position = relative_mouse_position
+		if return_on_reset:
+			if return_lerp_progress > 1.0 - Global.APPROXIMATION_FLOAT:
+				rect_position.x = .0
+				return_on_reset = false
+			else:
+				return_lerp_progress += delta * BAR_RETURN_SPEED
+				return_lerp_progress = clamp(return_lerp_progress, .0, 1.0)
+				rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
+		else:
+			var relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
+			if relative_mouse_position.y > rect_position.y - button_height:
+				if rect_position.x < .0:
+					drag_indicator_left.lerp_indicator_opacity(false, .0, delta)
+				else:
+					drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
+				if rect_position.x > -(current_x_offset - get_viewport().size.x):
+					drag_indicator_right.lerp_indicator_opacity(false, .0, delta)
+				else:
+					drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
+				if Input.is_action_pressed("left_mouse_button"):
+					drag_is_active = true
+			else:
+				drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
+				drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
+			if !Input.is_action_pressed("left_mouse_button"):
+				drag_is_active = false
+				if rect_position.x > .0:
+					rect_position.x = lerp(rect_position.x, .0, delta * return_speed)
+				elif rect_position.x < -(current_x_offset - get_viewport().size.x):
+					rect_position.x = lerp(rect_position.x, -(current_x_offset - get_viewport().size.x), delta * return_speed)
+			if drag_is_active:
+				rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (get_viewport().size.x / clamp(rect_position.x, 1.0, get_viewport().size.x))))
+			old_mouse_position = relative_mouse_position
+
+onready var drag_indicator_right = get_parent().get_node("DragIndicatorRight") # For speed and convenience.
+onready var drag_indicator_left = get_parent().get_node("DragIndicatorLeft") # For speed and convenience.
+

@@ -5,11 +5,11 @@
 [ext_resource path="res://Obstacles/AngryCloudOutline.png" type="Texture" id=3]
 [ext_resource path="res://Obstacles/Shape.gd" type="Script" id=4]
 
-[node name="AngryCloud" type="Sprite"]
+[node name="AngryCloud" type="Sprite" index="0"]
 
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Shape" type="Sprite" parent="." index="0"]
 
