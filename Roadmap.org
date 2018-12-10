@@ -43,13 +43,14 @@
 * DONE Obstacles need indication that they are being touched by the player.
 * TODO Item weights and values
 * TODO Implement multiple levels. [0/3]
-** TODO Implement switching between levels. [0/2]
-*** TODO Next level button.
+** TODO Implement switching between levels. [1/2]
+*** DONE Next level button.
 *** TODO Implement specific set of items for each level.
 ** TODO Implement so that score is persistent between levels.
 ** TODO Implement so that if score is 0 at level complete the game is over and it is not possible to go to next level. [0/1]
 *** TODO Implement so that it is possible to reset level at which the 0 score was reached with the score that was at the level start.
 * TODO Game complete screen.
+** TODO Design the look - Kristaps
 * TODO Sound effects
 ** All the relevant sound effects provided by Nezvers
 * TODO Add transition from gameplay music to level stop music.

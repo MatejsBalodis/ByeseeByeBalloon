@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Character/BodyParts/ItemHand.png" type="Texture" id=1]
 [ext_resource path="res://Character/BodyParts/Basket.png" type="Texture" id=2]
@@ -1246,20 +1246,267 @@ tracks/19/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="MainCharacterAnimations" type="Node2D"]
+[sub_resource type="Animation" id=6]
+
+resource_name = "Victory"
+length = 4.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Head/Basket/LegRight:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.8, 1.5, 2.5, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -13.5754, 10.847, 10.847, -16.4017, 10.847, -16.4017 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Head/Basket/LegLeft:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 0.8, 2.5, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 11.5677, 0.0, 0.0, 32.5945, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Head/ItemHand:rotation_degrees")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 1.5, 2.5, 3.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -93.1625, -93.1625, -112.89, -93.1625, -112.89 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Head/TeaHand:rotation_degrees")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 5.75457, -6.84375, 5.75457 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Head/TeaHand:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3, 1, 1.3, 1.7, 2, 2.3, 2.6, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 26.2415, 119.793 ), Vector2( 14.9778, 71.6716 ), Vector2( 14.9778, 71.6716 ), Vector2( 14.9762, 69.6716 ), Vector2( 14.9778, 71.6716 ), Vector2( 14.9762, 69.6716 ), Vector2( 14.9778, 71.6716 ), Vector2( 14.9762, 69.6716 ), Vector2( 14.9778, 71.6716 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Head/Head/Hair:rotation_degrees")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 2.01283, 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Head/Head/Hair2:rotation_degrees")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -4.40869, 0.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Head/Hat:rotation_degrees")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -3.26557, 0.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Head/Head/Bowtie:rotation_degrees")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 7.10242 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Head:rotation_degrees")
+tracks/9/interp = 2
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 2.2455, 0.0 ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Head/Head:scale")
+tracks/10/interp = 2
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.06869, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Head/Head:self_modulate")
+tracks/11/interp = 2
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Head/Hat:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 22.4659, -105.038 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Head/Head:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Head/Head:rotation_degrees")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Head/Basket/Flame3/Flame:rotation_degrees")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -6.59647e-08, 25.3261, -15.1299 ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("Head/Basket/Flame3/Flame2:rotation_degrees")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 3.34046e-08, 29.975, -18.2346 ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("Head/Basket/Flame3:rotation_degrees")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.313341, -16.1052, 13.6814 ]
+}
+tracks/18/type = "value"
+tracks/18/path = NodePath("Head/Basket/Flame3:scale")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.181133, 0.181133 ) ]
+}
+tracks/19/type = "value"
+tracks/19/path = NodePath("Head/Basket/Flame3:modulate")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="MainCharacterAnimations" type="Node2D" index="0"]
 
 _sections_unfolded = [ "Z Index" ]
 
 [node name="Head" type="Node2D" parent="." index="0"]
 
 position = Vector2( -32.5076, -27.8637 )
-rotation = 0.0124352
+rotation = 0.03289
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="ItemHand" type="Sprite" parent="Head" index="0"]
 
 position = Vector2( -39.4612, 106.718 )
-rotation = -0.616011
+rotation = -0.436102
 texture = ExtResource( 1 )
 offset = Vector2( -34.9202, -27.0554 )
 
@@ -1283,7 +1530,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 editor/display_folded = true
 self_modulate = Color( 1, 0.750122, 0.652344, 0.690588 )
 position = Vector2( -0.165035, 1.09761 )
-rotation = -0.0307074
+rotation = -0.263395
 scale = Vector2( 0.191851, 0.191851 )
 texture = ExtResource( 4 )
 offset = Vector2( -0.38774, -32.7072 )
@@ -1296,7 +1543,7 @@ __meta__ = {
 
 self_modulate = Color( 0.996094, 0.847871, 0.789871, 0.690588 )
 position = Vector2( 0.476112, 0.788574 )
-rotation = 0.0550846
+rotation = 0.38785
 scale = Vector2( 0.798705, 0.798705 )
 texture = ExtResource( 4 )
 offset = Vector2( -0.38774, -32.7072 )
@@ -1306,7 +1553,7 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 self_modulate = Color( 1, 1, 1, 0.817647 )
 position = Vector2( 0.0563431, 0.197769 )
-rotation = -0.0303391
+rotation = 0.159332
 scale = Vector2( 0.606698, 0.606698 )
 texture = ExtResource( 4 )
 offset = Vector2( -0.38774, -32.7072 )
@@ -1316,7 +1563,7 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 show_behind_parent = true
 position = Vector2( 18.007, 61.5052 )
-rotation = 0.326032
+rotation = 0.122541
 texture = ExtResource( 5 )
 offset = Vector2( 1.3576, 20.9014 )
 _sections_unfolded = [ "Transform", "Z Index" ]
@@ -1325,7 +1572,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 show_behind_parent = true
 position = Vector2( -17.385, 56.6406 )
-rotation = 0.160063
+rotation = 0.343638
 z_index = -2
 texture = ExtResource( 5 )
 offset = Vector2( -0.735184, 23.1638 )
@@ -1334,14 +1581,14 @@ _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="Head" type="Sprite" parent="Head" index="2"]
 
-scale = Vector2( 1.06363, 1 )
+scale = Vector2( 1.04505, 1 )
 texture = ExtResource( 6 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
 [node name="Hair" type="Sprite" parent="Head/Head" index="0"]
 
 position = Vector2( 13.0394, -96.4887 )
-rotation = 0.00451738
+rotation = 0.0295403
 texture = ExtResource( 7 )
 offset = Vector2( -38.6093, 5.05691 )
 _sections_unfolded = [ "Z Index" ]
@@ -1349,7 +1596,7 @@ _sections_unfolded = [ "Z Index" ]
 [node name="Hair2" type="Sprite" parent="Head/Head" index="1"]
 
 position = Vector2( 17.8924, -97.7828 )
-rotation = -0.0098944
+rotation = -0.064702
 texture = ExtResource( 8 )
 offset = Vector2( 18.9128, 5.7699 )
 _sections_unfolded = [ "Z Index" ]
@@ -1368,22 +1615,22 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 [node name="Bowtie" type="Sprite" parent="Head/Head" index="4"]
 
 position = Vector2( -2.04393, 93.7285 )
-rotation = 0.020289
+rotation = 0.103398
 texture = ExtResource( 11 )
 _sections_unfolded = [ "Z Index" ]
 
 [node name="Hat" type="Sprite" parent="Head" index="3"]
 
 position = Vector2( 22.4659, -105.038 )
-rotation = -0.00732889
+rotation = -0.0479256
 texture = ExtResource( 12 )
 offset = Vector2( 8.72161, -11.9635 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="TeaHand" type="Sprite" parent="Head" index="4"]
 
-position = Vector2( 129.657, 3.06193 )
-rotation = -0.099641
+position = Vector2( 123.54, 4.57258 )
+rotation = 0.0548545
 texture = ExtResource( 13 )
 offset = Vector2( 4.1991, -8.65794 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
@@ -1391,7 +1638,7 @@ _sections_unfolded = [ "Visibility", "Z Index" ]
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 
 root_node = NodePath("..")
-autoplay = "Incline"
+autoplay = ""
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
@@ -1400,6 +1647,7 @@ anims/Decline = SubResource( 2 )
 anims/DeclineLong = SubResource( 3 )
 anims/Drop = SubResource( 4 )
 anims/Incline = SubResource( 5 )
+anims/Victory = SubResource( 6 )
 blend_times = [  ]
 
 [node name="AnimationTreePlayer" type="AnimationTreePlayer" parent="." index="2"]
