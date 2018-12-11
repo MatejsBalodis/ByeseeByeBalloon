@@ -50,6 +50,26 @@
 * DONE Add victory animation.
 * DONE Add next level button.
 * IN-PROGRESS Implement multiple levels. [3/5]
+** Instruction for implementing new levels.
+*** Right now there are 10 levels pre-made.
+**** I think 10 for now is enough, but more can be added at hearts desire.
+***** Adding completely new levels requires a bit more work.
+****** New Level scene must be created under Environment
+****** New ObstacleWrapper must be created under Obstacles
+****** New elements must be added to the arrays of various nodes (REMEMBER THAT ELEMENTS MUST BE ADDED TO ARRAYS AT THE DEEPEST LEVEL (TO THE ORIGINAL SCENE, NOT INSTANCE) SCENE/NODE.)
+******* They must be assigned to the "Level Scenes" array, which is exported for the NextLevelButton node.
+******** World->GUILayer->GameOverWrapper->NextLevelButton
+******* Also World->CharacterLayer->MainCharacter array "Up Items" requires new item added for each level with the level basket items, which are intended to be sacrificed.
+******* Also World->GUILayer->ItemSelectionBar array "Level Selection Bars" requires new item add for each level.
+******** For these elements don't assign anything, just make the same structure as for existing elements.
+********* Elements of this array will be filled automatically during run-time.
+**** To modify 10 existing level assets.
+***** Just go to 
+****** Obstacles folder to modify ObstacleWrappers
+****** Environment folder to modify Levels
+****** Both Obstacle and Level scenes are named appropriately.
+***** For level items modify World->CharacterLayer->MainCharacter (REMEMBER TO MODIFY THE ORIGINAL SCENE ARRAY, NOT INSTANCE) "Up Items" array elements of each level.
+****** Remember that if array elements are references to Objects held in heap then to add a new unique item it is required to at first Choose new appropriate type object and only then drag in or load the asset.
 ** DONE Implement level switching with next button.
 ** TODO Next level button changing text to victory.
 ** DONE Implement switching between levels. [2/2]
