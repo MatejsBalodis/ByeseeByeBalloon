@@ -41,7 +41,11 @@
 ** It must be decreased not reset.
 * DONE Implement bottom indication, where player cannot fall further down.
 * DONE Obstacles need indication that they are being touched by the player.
-* TODO Item weights and values
+* DONE Item weights and values
+:LOGBOOK:
+- Note taken on [2018-12-10 P  21:53] \\
+  Just value
+:END:
 * TODO Implement multiple levels. [0/3]
 ** TODO Implement switching between levels. [1/2]
 *** DONE Next level button.
