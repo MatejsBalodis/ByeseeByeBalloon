@@ -8,7 +8,7 @@
 [ext_resource path="res://UI/ItemSelectionBar/Items/Beer.png" type="Texture" id=6]
 [ext_resource path="res://UI/ItemSelectionBar/Items/Bike.png" type="Texture" id=7]
 
-[node name="ItemSelectionBar" type="Control"]
+[node name="ItemSelectionBar" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 1.0
@@ -24,6 +24,6 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 script = ExtResource( 1 )
 selection_bar_item = ExtResource( 2 )
-level_selection_bars = [ [ [ null, ExtResource( 3 ) ], [ null, ExtResource( 4 ) ], [ null, ExtResource( 5 ) ], [ null, ExtResource( 6 ) ], [ null, ExtResource( 7 ) ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ] ] ]
+level_selection_bars = [ [ [ null, ExtResource( 3 ) ], [ null, ExtResource( 4 ) ], [ null, ExtResource( 5 ) ], [ null, ExtResource( 6 ) ], [ null, ExtResource( 7 ) ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ] ], [ [ null, ExtResource( 3 ) ], [ null, ExtResource( 4 ) ], [ null, ExtResource( 5 ) ], [ null, ExtResource( 6 ) ], [ null, ExtResource( 7 ) ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ], [ null, null ] ] ]
 
 
