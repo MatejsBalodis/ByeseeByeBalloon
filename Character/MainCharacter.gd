@@ -159,6 +159,8 @@ func initiate_level_end(level_stop_state):
 
 	game_over_audio_stream_player.play()
 
+	Global.total_score += current_level_score
+
 func manage_level_complete_state(delta):
 	display_score = lerp(display_score, current_level_score, delta * SCORE_LERP_SPEED)
 	var int_display_score = str(current_level_score if display_score > current_level_score - 2 else int(display_score))
