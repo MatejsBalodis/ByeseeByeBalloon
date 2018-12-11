@@ -12,12 +12,15 @@ var current_x_offset = MARGIN_BETWEEN_BUTTONS # To place buttons one by another.
 var button_height = .0 # To detect when to drag activate drag and correctly position buttons at the bottom of the screen.
 var return_on_reset = false # To forbid dragging bar with mouse and return to the initial position.
 
-func regenerate_items():
-	return_on_reset = true
-	current_x_offset = MARGIN_BETWEEN_BUTTONS
+func free_memory_from_the_previous_item_set():
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
 		if level_selection_bars[Global.current_level_index][i][0] != null:
 			level_selection_bars[Global.current_level_index][i][0].queue_free()
+
+func regenerate_items():
+	return_on_reset = true
+	current_x_offset = MARGIN_BETWEEN_BUTTONS
+	free_memory_from_the_previous_item_set()
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
 		level_selection_bars[Global.current_level_index][i][0] = selection_bar_item.instance()
 		var up_item = level_selection_bars[Global.current_level_index][i][0].get_node("UpItem") # For speed and convenience.
