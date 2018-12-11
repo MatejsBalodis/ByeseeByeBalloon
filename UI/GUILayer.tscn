@@ -1,17 +1,19 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Audio/Music/Gameover-ogg-converted.ogg" type="AudioStream" id=1]
 [ext_resource path="res://UI/Restart.png" type="Texture" id=2]
 [ext_resource path="res://UI/RestartButton.gd" type="Script" id=3]
 [ext_resource path="res://UI/GotoMenuButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://UI/LevelComplete.png" type="Texture" id=5]
-[ext_resource path="res://UI/GameOverText.png" type="Texture" id=6]
-[ext_resource path="res://UI/ScoreCloud.png" type="Texture" id=7]
-[ext_resource path="res://Font/KismetNF.otf" type="DynamicFontData" id=8]
-[ext_resource path="res://UI/ItemSelectionBar/ItemSelectionBar.tscn" type="PackedScene" id=9]
-[ext_resource path="res://UI/ProgressBar/ProgressBar.tscn" type="PackedScene" id=10]
-[ext_resource path="res://UI/ScrollIndicator.png" type="Texture" id=11]
-[ext_resource path="res://UI/ItemSelectionBar/DragIndicator.gd" type="Script" id=12]
+[ext_resource path="res://UI/NextLevel.png" type="Texture" id=5]
+[ext_resource path="res://UI/NextLevelButton.gd" type="Script" id=6]
+[ext_resource path="res://UI/LevelComplete.png" type="Texture" id=7]
+[ext_resource path="res://UI/GameOverText.png" type="Texture" id=8]
+[ext_resource path="res://UI/ScoreCloud.png" type="Texture" id=9]
+[ext_resource path="res://Font/KismetNF.otf" type="DynamicFontData" id=10]
+[ext_resource path="res://UI/ItemSelectionBar/ItemSelectionBar.tscn" type="PackedScene" id=11]
+[ext_resource path="res://UI/ProgressBar/ProgressBar.tscn" type="PackedScene" id=12]
+[ext_resource path="res://UI/ScrollIndicator.png" type="Texture" id=13]
+[ext_resource path="res://UI/ItemSelectionBar/DragIndicator.gd" type="Script" id=14]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -79,12 +81,97 @@ expand_margin_bottom = 0.0
 modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 
+[sub_resource type="StyleBoxTexture" id=7]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 300, 181 )
+margin_left = 0.0
+margin_right = 0.0
+margin_top = 0.0
+margin_bottom = 0.0
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+modulate_color = Color( 0.996078, 0.854902, 1, 1 )
+draw_center = true
+_sections_unfolded = [ "Expand Margin", "Modulate" ]
+
+[sub_resource type="StyleBoxTexture" id=8]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 300, 181 )
+margin_left = 0.0
+margin_right = 0.0
+margin_top = 0.0
+margin_bottom = 0.0
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+modulate_color = Color( 0.729412, 0.584314, 0.803922, 1 )
+draw_center = true
+_sections_unfolded = [ "Modulate" ]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+
+[sub_resource type="StyleBoxTexture" id=10]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 300, 181 )
+margin_left = 0.0
+margin_right = 0.0
+margin_top = 0.0
+margin_bottom = 0.0
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+modulate_color = Color( 1, 1, 1, 1 )
+draw_center = true
+
+[sub_resource type="StyleBoxTexture" id=11]
+
+content_margin_left = -1.0
+content_margin_right = -1.0
+content_margin_top = -1.0
+content_margin_bottom = -1.0
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 300, 181 )
+margin_left = 0.0
+margin_right = 0.0
+margin_top = 0.0
+margin_bottom = 0.0
+expand_margin_left = 0.0
+expand_margin_right = 0.0
+expand_margin_top = 0.0
+expand_margin_bottom = 0.0
+modulate_color = Color( 1, 1, 1, 1 )
+draw_center = true
+
 [sub_resource type="DynamicFont" id=5]
 
 size = 205
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 8 )
+font_data = ExtResource( 10 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=6]
@@ -92,10 +179,10 @@ _sections_unfolded = [ "Font", "Settings" ]
 size = 200
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 8 )
+font_data = ExtResource( 10 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="GUILayer" type="CanvasLayer"]
+[node name="GUILayer" type="CanvasLayer" index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -108,7 +195,6 @@ __meta__ = {
 
 [node name="GameOverWrapper" type="Control" parent="." index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -171,7 +257,38 @@ margin_bottom = 953.0
 rect_scale = Vector2( 0.98, 0.98 )
 _sections_unfolded = [ "Rect", "custom_styles" ]
 
-[node name="LevelCompleteText" type="TextureRect" parent="GameOverWrapper" index="3"]
+[node name="NextLevelButton" type="Button" parent="GameOverWrapper" index="3"]
+
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 1484.0
+margin_top = 762.0
+margin_right = 1784.0
+margin_bottom = 953.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/disabled = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+flat = false
+align = 1
+script = ExtResource( 6 )
+_sections_unfolded = [ "Rect", "custom_styles" ]
+
+[node name="LevelCompleteText" type="TextureRect" parent="GameOverWrapper" index="4"]
 
 anchor_left = 0.5
 anchor_top = 0.5
@@ -187,10 +304,10 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 stretch_mode = 0
 
-[node name="GameOverText" type="TextureRect" parent="GameOverWrapper" index="4"]
+[node name="GameOverText" type="TextureRect" parent="GameOverWrapper" index="5"]
 
 anchor_left = 0.5
 anchor_top = 0.5
@@ -206,10 +323,10 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 6 )
+texture = ExtResource( 8 )
 stretch_mode = 0
 
-[node name="ScoreBackground" type="TextureRect" parent="GameOverWrapper" index="5"]
+[node name="ScoreBackground" type="TextureRect" parent="GameOverWrapper" index="6"]
 
 editor/display_folded = true
 anchor_left = 0.0
@@ -226,7 +343,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 stretch_mode = 0
 
 [node name="Shadow" type="Label" parent="GameOverWrapper/ScoreBackground" index="0"]
@@ -278,12 +395,12 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_fonts" ]
 
-[node name="ItemSelectionBar" parent="." index="1" instance=ExtResource( 9 )]
+[node name="ItemSelectionBar" parent="." index="1" instance=ExtResource( 11 )]
 
 anchor_right = 1.0
 margin_right = 0.0
 
-[node name="ProgressBar" parent="." index="2" instance=ExtResource( 10 )]
+[node name="ProgressBar" parent="." index="2" instance=ExtResource( 12 )]
 
 margin_top = 17.0
 margin_bottom = 109.0
@@ -306,9 +423,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 11 )
+texture = ExtResource( 13 )
 stretch_mode = 0
-script = ExtResource( 12 )
+script = ExtResource( 14 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="DragIndicatorLeft" type="TextureRect" parent="." index="4"]
@@ -329,9 +446,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 11 )
+texture = ExtResource( 13 )
 stretch_mode = 0
-script = ExtResource( 12 )
+script = ExtResource( 14 )
 _sections_unfolded = [ "Rect", "Visibility" ]
 
 [connection signal="pressed" from="GameOverWrapper/GameOverRestartButton" to="GameOverWrapper/GameOverRestartButton" method="_on_RestartButton_pressed"]

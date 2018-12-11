@@ -1,4 +1,4 @@
-#+SEQ_TODO: TODO WAITING | DONE CANCELLED
+#+SEQ_TODO: TODO WAITING IN-PROGRESS | DONE CANCELLED
 
 * DONE Eliminate possibility to encounter both game finishing states game over and level complete together
 * DONE Implement so that score text is always centered in the middle of the background cloud.
@@ -46,7 +46,11 @@
 - Note taken on [2018-12-10 P  21:53] \\
   Just value
 :END:
-* TODO Implement multiple levels. [0/3]
+* DONE Implement main character drop behaviour.
+* DONE Add victory animation.
+* DONE Add next level button.
+* IN-PROGRESS Implement multiple levels. [0/4]
+** TODO Implement level switching with next button.
 ** TODO Implement switching between levels. [1/2]
 *** DONE Next level button.
 *** TODO Implement specific set of items for each level.
