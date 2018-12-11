@@ -4,6 +4,7 @@ enum Level_stop_states {NONE, LEVEL_COMPLETE, GAME_OVER}
 var current_level_stop_state = Level_stop_states.NONE # To inform the whole project about the current level stop state.
 var current_level_index = 0 # To know globally, which is the current level.
 var current_scene = null # To get the currently loaded scene.
+var total_score = 0 # Total amount of points collected between levels.
 
 const APPROXIMATION_FLOAT = .0001 # Global handle.
 

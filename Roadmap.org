@@ -49,15 +49,17 @@
 * DONE Implement main character drop behaviour.
 * DONE Add victory animation.
 * DONE Add next level button.
-* IN-PROGRESS Implement multiple levels. [0/4]
-** TODO Implement level switching with next button.
-** TODO Implement switching between levels. [1/2]
+* IN-PROGRESS Implement multiple levels. [3/5]
+** DONE Implement level switching with next button.
+** TODO Next level button changing text to victory.
+** DONE Implement switching between levels. [2/2]
 *** DONE Next level button.
-*** TODO Implement specific set of items for each level.
-** TODO Implement so that score is persistent between levels.
+*** DONE Implement specific set of items for each level.
+** DONE Implement so that score is persistent between levels.
 ** TODO Implement so that if score is 0 at level complete the game is over and it is not possible to go to next level. [0/1]
 *** TODO Implement so that it is possible to reset level at which the 0 score was reached with the score that was at the level start.
-* TODO Game complete screen.
+* IN-PROGRESS Game complete screen. [1/2]
+** DONE Implementation from next level button.
 ** TODO Design the look - Kristaps
 * TODO Sound effects
 ** All the relevant sound effects provided by Nezvers
