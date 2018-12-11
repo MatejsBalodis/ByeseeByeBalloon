@@ -17,7 +17,7 @@
 [ext_resource path="res://Environment/WhiteSprite.png" type="Texture" id=15]
 [ext_resource path="res://Environment/BottomLine.gd" type="Script" id=16]
 
-[node name="Level" type="Node2D" index="0"]
+[node name="Level" type="Node2D"]
 
 position = Vector2( 0, -541 )
 scale = Vector2( 2, 2 )

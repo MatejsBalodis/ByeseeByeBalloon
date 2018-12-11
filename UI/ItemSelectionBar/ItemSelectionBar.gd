@@ -25,6 +25,7 @@ func regenerate_items():
 		up_item.texture_pressed = player.up_items[i][3]
 		up_item.texture_disabled = player.up_items[i][3]
 		up_item.texture_normal = player.up_items[i][3]
+		up_item.get_child(0).get_child(0).text = str(player.up_items[i][2])
 		up_item.item_index = i
 		up_item.player = player
 		add_child(level_selection_bars[Global.current_level_index][i][0])

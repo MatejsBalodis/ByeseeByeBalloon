@@ -75,6 +75,10 @@ func reset():
 
 	obstacle_collision_is_active = false
 
+	item_drop_start_time = 0
+	item_drop_pending = false
+	current_drop_animation_length = 0
+
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
 const INITIAL_BALLOON_PROGRESS_OFFSET = 60.0 # To have the progress balloon nicely placed at the beginning.
 
@@ -144,20 +148,31 @@ func _physics_process(delta):
 		manage_level_complete_state(delta)
 
 export (PackedScene) var item_template # Instance preset sacrifice item.
-var move_up_start_time = 0 # To know, for how long to fly up.
 var item_spawn_offset = Vector2(-25.0, 100.0) # Items must spawn from the basket.
 
-func manage_up_item_event(item_index):
+func start_up_item_event(item_index):
 	current_up_item_index = item_index
+	item_drop_start_time = OS.get_ticks_msec()
+	current_drop_animation_length = animation_blend_tree.animation_node_get_animation("drop2").length * ACTUAL_ANIMATION_RESET
+	animation_blend_tree.oneshot_node_start("drop_shot")
+	set_character_blend_state(.0, 1.0, .0, .0, .1)
+	item_drop_pending = true
+
+const ACTUAL_ANIMATION_RESET = 800 # Drop the item quicker than the animation end.
+var current_drop_animation_length = 0 # To avoid having magic numbers.
+var item_drop_pending = false # To allow only one drop at a time and drop item nicely after the drop animation.
+
+func manage_up_item_event():
 	var tmp_up_item = item_template.instance()
 	tmp_up_item.get_node("Sprite").texture = up_items[current_up_item_index][1]
 	sacrifice_item_layer.add_child(tmp_up_item)
 	tmp_up_item.position = position + item_spawn_offset
-	move_up_start_time = OS.get_ticks_msec()
 	current_up_force += up_items[current_up_item_index][0] * .1
 	current_level_score -= up_items[current_up_item_index][2]
 	if current_up_force < up_items[current_up_item_index][0]:
 		current_up_force = up_items[current_up_item_index][0] + up_items[current_up_item_index][0] * .1
+
+var item_drop_start_time = 0 # To play drop animation for a certain amount of time.
 
 func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_goal, incline_decline_goal, new_state_reach_lerp_speed):
 	float_dead = lerp(float_dead, float_dead_goal, new_state_reach_lerp_speed)
@@ -179,6 +194,7 @@ const LEGS_UP_Y_THRESHOLD = .45 # How close to the bottom of the level character
 
 onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
 onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
+onready var body_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationPlayer") # To save resources.
 var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
 var current_facial_animation_index = -1 # To save resources, to know, when to switch to another animation.
 var forbid_changing_facial_animation = false # Animation switching sometime must be forbidden, until some descrete events happen.
@@ -196,11 +212,18 @@ func set_facial_animation(new_animation_index):
 		face_animator.play()
 		face_animator.playback_speed = 1.0
 
+const DROP_ANIMATION_TRANSITION_SPEED = 5.0 # How quickly to enter the drop animation.
+
 func manage_animation(delta):
 	if Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
 		forbid_changing_facial_animation = false
 		set_character_blend_state(1.0, .0, 1.0, .0, delta * DEATH_ANIMATION_SPEED)
 		set_facial_animation(3)
+	elif OS.get_ticks_msec() - item_drop_start_time < current_drop_animation_length:
+		set_character_blend_state(.0, 1.0, .0, .0, delta * DROP_ANIMATION_TRANSITION_SPEED)
+	elif item_drop_pending:
+		item_drop_pending = false
+		manage_up_item_event()
 	elif position.y > get_viewport().size.y - get_viewport().size.y * LEGS_UP_Y_THRESHOLD:
 		set_character_blend_state(1.0, .0, .0, .0, delta)
 		set_facial_animation(5)
