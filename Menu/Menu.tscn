@@ -794,7 +794,7 @@ modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 _sections_unfolded = [ "Modulate" ]
 
-[node name="Menu" type="Node2D"]
+[node name="Menu" type="Node2D" index="0"]
 
 _sections_unfolded = [ "Z Index" ]
 
@@ -1206,7 +1206,6 @@ _sections_unfolded = [ "Margin", "Rect", "custom_styles" ]
 
 [node name="Node2D" type="Node2D" parent="." index="9"]
 
-editor/display_folded = true
 _sections_unfolded = [ "Z Index" ]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Node2D" index="0"]

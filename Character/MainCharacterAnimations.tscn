@@ -790,10 +790,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 0.7, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 0.7, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ -42.786, -157.15, -161.063, -42.786 ]
+"values": [ -42.786, -157.15, -161.063, -42.786, -42.786 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Head/TeaHand:rotation_degrees")
@@ -874,7 +874,7 @@ tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0.5, 1 ),
+"times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 2.2455, 0.0 ]
@@ -1500,18 +1500,20 @@ _sections_unfolded = [ "Z Index" ]
 [node name="Head" type="Node2D" parent="." index="0"]
 
 position = Vector2( -32.5076, -27.8637 )
-rotation = 0.03289
+rotation = 0.0362846
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="ItemHand" type="Sprite" parent="Head" index="0"]
 
 position = Vector2( -39.4612, 106.718 )
-rotation = -0.436102
+rotation = -1.67171
 texture = ExtResource( 1 )
 offset = Vector2( -34.9202, -27.0554 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Basket" type="Sprite" parent="Head" index="1"]
 
+editor/display_folded = true
 position = Vector2( -0.817589, 127.154 )
 scale = Vector2( -1, 1 )
 texture = ExtResource( 2 )
@@ -1530,8 +1532,8 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 editor/display_folded = true
 self_modulate = Color( 1, 0.750122, 0.652344, 0.690588 )
 position = Vector2( -0.165035, 1.09761 )
-rotation = -0.263395
-scale = Vector2( 0.191851, 0.191851 )
+rotation = 0.0119808
+scale = Vector2( 0.181133, 0.181133 )
 texture = ExtResource( 4 )
 offset = Vector2( -0.38774, -32.7072 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
@@ -1543,7 +1545,7 @@ __meta__ = {
 
 self_modulate = Color( 0.996094, 0.847871, 0.789871, 0.690588 )
 position = Vector2( 0.476112, 0.788574 )
-rotation = 0.38785
+rotation = -0.00888263
 scale = Vector2( 0.798705, 0.798705 )
 texture = ExtResource( 4 )
 offset = Vector2( -0.38774, -32.7072 )
@@ -1553,7 +1555,7 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 self_modulate = Color( 1, 1, 1, 0.817647 )
 position = Vector2( 0.0563431, 0.197769 )
-rotation = 0.159332
+rotation = -0.00737024
 scale = Vector2( 0.606698, 0.606698 )
 texture = ExtResource( 4 )
 offset = Vector2( -0.38774, -32.7072 )
@@ -1563,7 +1565,7 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 show_behind_parent = true
 position = Vector2( 18.007, 61.5052 )
-rotation = 0.122541
+rotation = -0.273199
 texture = ExtResource( 5 )
 offset = Vector2( 1.3576, 20.9014 )
 _sections_unfolded = [ "Transform", "Z Index" ]
@@ -1572,7 +1574,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 show_behind_parent = true
 position = Vector2( -17.385, 56.6406 )
-rotation = 0.343638
+rotation = 0.182521
 z_index = -2
 texture = ExtResource( 5 )
 offset = Vector2( -0.735184, 23.1638 )
@@ -1581,14 +1583,14 @@ _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="Head" type="Sprite" parent="Head" index="2"]
 
-scale = Vector2( 1.04505, 1 )
+scale = Vector2( 1.00016, 1 )
 texture = ExtResource( 6 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
 [node name="Hair" type="Sprite" parent="Head/Head" index="0"]
 
 position = Vector2( 13.0394, -96.4887 )
-rotation = 0.0295403
+rotation = -0.000476573
 texture = ExtResource( 7 )
 offset = Vector2( -38.6093, 5.05691 )
 _sections_unfolded = [ "Z Index" ]
@@ -1596,7 +1598,7 @@ _sections_unfolded = [ "Z Index" ]
 [node name="Hair2" type="Sprite" parent="Head/Head" index="1"]
 
 position = Vector2( 17.8924, -97.7828 )
-rotation = -0.064702
+rotation = 0.00104383
 texture = ExtResource( 8 )
 offset = Vector2( 18.9128, 5.7699 )
 _sections_unfolded = [ "Z Index" ]
@@ -1615,22 +1617,22 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 [node name="Bowtie" type="Sprite" parent="Head/Head" index="4"]
 
 position = Vector2( -2.04393, 93.7285 )
-rotation = 0.103398
+rotation = 0.000209408
 texture = ExtResource( 11 )
 _sections_unfolded = [ "Z Index" ]
 
 [node name="Hat" type="Sprite" parent="Head" index="3"]
 
 position = Vector2( 22.4659, -105.038 )
-rotation = -0.0479256
+rotation = 0.00077318
 texture = ExtResource( 12 )
 offset = Vector2( 8.72161, -11.9635 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="TeaHand" type="Sprite" parent="Head" index="4"]
 
-position = Vector2( 123.54, 4.57258 )
-rotation = 0.0548545
+position = Vector2( 26.054, 118.998 )
+rotation = 0.0023782
 texture = ExtResource( 13 )
 offset = Vector2( 4.1991, -8.65794 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
@@ -1638,7 +1640,7 @@ _sections_unfolded = [ "Visibility", "Z Index" ]
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 
 root_node = NodePath("..")
-autoplay = ""
+autoplay = "Decline"
 playback_process_mode = 1
 playback_default_blend_time = 0.0
 playback_speed = 1.0
@@ -1649,6 +1651,7 @@ anims/Drop = SubResource( 4 )
 anims/Incline = SubResource( 5 )
 anims/Victory = SubResource( 6 )
 blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
 
 [node name="AnimationTreePlayer" type="AnimationTreePlayer" parent="." index="2"]
 
@@ -1658,66 +1661,95 @@ base_path = NodePath("..")
 active = true
 data = {
 "active": true,
-"connections": [ "float_dead", "out", 0, "float_drop", "float_dead", 0, "decline_death", "float_dead", 1, "incline_decline", "float_drop", 0, "anim 3", "float_drop", 1, "anim 4", "decline_death", 0, "anim 5", "decline_death", 1, "anim 2", "incline_decline", 0, "anim", "incline_decline", 1 ],
+"connections": [ "float_dead", "out", 0, "float_drop", "float_dead", 0, "decline_death", "float_dead", 1, "incline_decline", "float_drop", 0, "drop_shot", "float_drop", 1, "declineLong", "decline_death", 0, "death_levelcomplete", "decline_death", 1, "incline", "incline_decline", 0, "decline", "incline_decline", 1, "drop1", "drop_shot", 0, "drop2", "drop_shot", 1, "death", "death_levelcomplete", 0, "level_complete", "death_levelcomplete", 1 ],
 "master": NodePath("../AnimationPlayer"),
 "nodes": [ {
-"filter": [  ],
-"from": "Decline",
-"id": "anim",
-"position": Vector2( 100, 174 ),
-"type": "animation"
-}, {
 "id": "out",
 "position": Vector2( 1105, 257 ),
 "type": "output"
 }, {
-"blend": 0.0,
+"blend": 1.0,
 "filter": [  ],
 "id": "float_dead",
 "position": Vector2( 852, 257 ),
 "type": "blend2"
 }, {
-"blend": 0.0,
+"blend": 1.0,
 "filter": [  ],
 "id": "float_drop",
-"position": Vector2( 668, 146 ),
+"position": Vector2( 645, 69 ),
 "type": "blend2"
 }, {
-"blend": 0.0,
+"blend": 1.0,
 "filter": [  ],
 "id": "decline_death",
-"position": Vector2( 407, 433 ),
+"position": Vector2( 524, 405 ),
 "type": "blend2"
 }, {
 "blend": 1.0,
 "filter": [  ],
 "id": "incline_decline",
-"position": Vector2( 408, 62 ),
+"position": Vector2( 277, 53 ),
 "type": "blend2"
 }, {
 "filter": [  ],
-"from": "Incline",
-"id": "anim 2",
-"position": Vector2( 102, 58 ),
+"from": "Victory",
+"id": "level_complete",
+"position": Vector2( 101, 667 ),
 "type": "animation"
 }, {
 "filter": [  ],
 "from": "Drop",
-"id": "anim 3",
-"position": Vector2( 106, 294 ),
+"id": "drop2",
+"position": Vector2( 242, 337 ),
 "type": "animation"
 }, {
 "filter": [  ],
+"from": "Decline",
+"id": "decline",
+"position": Vector2( 100, 174 ),
+"type": "animation"
+}, {
+"autorestart": false,
+"autorestart_delay": 1.0,
+"autorestart_random_delay": 0.807843,
+"fade_in": 0.4,
+"fade_out": 0.4,
+"filter": [  ],
+"id": "drop_shot",
+"mix": false,
+"position": Vector2( 451, 226 ),
+"type": "oneshot"
+}, {
+"filter": [  ],
 "from": "Death",
-"id": "anim 5",
+"id": "death",
 "position": Vector2( 112, 540 ),
 "type": "animation"
 }, {
 "filter": [  ],
+"from": "Incline",
+"id": "incline",
+"position": Vector2( 102, 57 ),
+"type": "animation"
+}, {
+"filter": [  ],
+"from": "Drop",
+"id": "drop1",
+"position": Vector2( 237, 214 ),
+"type": "animation"
+}, {
+"filter": [  ],
 "from": "DeclineLong",
-"id": "anim 4",
+"id": "declineLong",
 "position": Vector2( 110, 421 ),
 "type": "animation"
+}, {
+"blend": 1.0,
+"filter": [  ],
+"id": "death_levelcomplete",
+"position": Vector2( 310, 571 ),
+"type": "blend2"
 } ]
 }
 _sections_unfolded = [ "Playback" ]

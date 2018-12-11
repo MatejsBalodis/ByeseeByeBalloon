@@ -6,6 +6,7 @@ onready var sacrifice_item_layer = get_parent().get_node("SacrificeItemWrapper")
 onready var game_over_wrapper = gui_layer.get_node("GameOverWrapper") # For speed and convenience.
 onready var	game_over_restart_button = game_over_wrapper.get_node("GameOverRestartButton") # For speed and convenience.
 onready var	game_over_menu_button = game_over_wrapper.get_node("GameOverMenuButton") # For speed and convenience.
+onready var	next_level_button = game_over_wrapper.get_node("NextLevelButton") # For speed and convenience.
 onready var	game_over_text = game_over_wrapper.get_node("GameOverText") # For speed and convenience.
 onready var	level_complete_text = game_over_wrapper.get_node("LevelCompleteText") # For speed and convenience.
 onready var selection_item_bar = gui_layer.get_node("ItemSelectionBar") # For speed and convenience.
@@ -52,6 +53,7 @@ func reset():
 	Global.current_level_stop_state = Global.Level_stop_states.NONE
 	game_over_restart_button.visible = false
 	game_over_menu_button.visible = false
+	next_level_button.visible = false
 	game_over_text.visible = false
 	level_complete_text.visible = false
 	current_up_force = Vector2()
@@ -60,8 +62,8 @@ func reset():
 	score_background.visible = false
 	display_score = 0
 	current_level_score = 0
-	for i in range(0, up_items.size()):
-		current_level_score += up_items[i][2]
+	for i in range(0, up_items[Global.current_level_index].size()):
+		current_level_score += up_items[Global.current_level_index][i][2]
 
 	selection_item_bar.visible = true
 	selection_item_bar.regenerate_items()
@@ -74,6 +76,10 @@ func reset():
 	set_facial_animation(5)
 
 	obstacle_collision_is_active = false
+
+	item_drop_start_time = 0
+	item_drop_pending = false
+	current_drop_animation_length = 0
 
 const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
 const INITIAL_BALLOON_PROGRESS_OFFSET = 60.0 # To have the progress balloon nicely placed at the beginning.
@@ -105,6 +111,7 @@ func initiate_level_end(level_stop_state):
 	selection_item_bar.visible = false
 	game_over_restart_button.visible = true
 	game_over_menu_button.visible = true
+	next_level_button.visible = true
 	game_over_restart_button.visible = true
 	level_end_velocity_coefficient = .0
 
@@ -144,41 +151,56 @@ func _physics_process(delta):
 		manage_level_complete_state(delta)
 
 export (PackedScene) var item_template # Instance preset sacrifice item.
-var move_up_start_time = 0 # To know, for how long to fly up.
 var item_spawn_offset = Vector2(-25.0, 100.0) # Items must spawn from the basket.
 
-func manage_up_item_event(item_index):
+func start_up_item_event(item_index):
 	current_up_item_index = item_index
+	item_drop_start_time = OS.get_ticks_msec()
+	current_drop_animation_length = animation_blend_tree.animation_node_get_animation("drop2").length * ACTUAL_ANIMATION_RESET
+	animation_blend_tree.oneshot_node_start("drop_shot")
+	set_character_blend_state(.0, 1.0, .0, .0, .0, .1)
+	item_drop_pending = true
+
+const ACTUAL_ANIMATION_RESET = 600 # Drop the item quicker than the animation end.
+var current_drop_animation_length = 0 # To avoid having magic numbers.
+var item_drop_pending = false # To allow only one drop at a time and drop item nicely after the drop animation.
+
+func manage_up_item_event():
 	var tmp_up_item = item_template.instance()
-	tmp_up_item.get_node("Sprite").texture = up_items[current_up_item_index][1]
+	tmp_up_item.get_node("Sprite").texture = up_items[Global.current_level_index][current_up_item_index][1]
 	sacrifice_item_layer.add_child(tmp_up_item)
 	tmp_up_item.position = position + item_spawn_offset
-	move_up_start_time = OS.get_ticks_msec()
-	current_up_force += up_items[current_up_item_index][0] * .1
-	current_level_score -= up_items[current_up_item_index][2]
-	if current_up_force < up_items[current_up_item_index][0]:
-		current_up_force = up_items[current_up_item_index][0] + up_items[current_up_item_index][0] * .1
+	current_up_force += up_items[Global.current_level_index][current_up_item_index][0] * .1
+	current_level_score -= up_items[Global.current_level_index][current_up_item_index][2]
+	if current_up_force < up_items[Global.current_level_index][current_up_item_index][0]:
+		current_up_force = up_items[Global.current_level_index][current_up_item_index][0] + up_items[Global.current_level_index][current_up_item_index][0] * .1
 
-func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_goal, incline_decline_goal, new_state_reach_lerp_speed):
+var item_drop_start_time = 0 # To play drop animation for a certain amount of time.
+
+func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_goal, incline_decline_goal, death_levelcomplete_goal, new_state_reach_lerp_speed):
 	float_dead = lerp(float_dead, float_dead_goal, new_state_reach_lerp_speed)
 	float_drop = lerp(float_drop, float_drop_goal, new_state_reach_lerp_speed)
 	decline_death = lerp(decline_death, decline_death_goal, new_state_reach_lerp_speed)
 	incline_decline = lerp(incline_decline, incline_decline_goal, new_state_reach_lerp_speed)
+	death_levelcomplete = lerp(death_levelcomplete, death_levelcomplete_goal, new_state_reach_lerp_speed)
 	animation_blend_tree.blend2_node_set_amount("float_dead", float_dead)
 	animation_blend_tree.blend2_node_set_amount("float_drop", float_drop)
 	animation_blend_tree.blend2_node_set_amount("decline_death", decline_death)
 	animation_blend_tree.blend2_node_set_amount("incline_decline", incline_decline)
+	animation_blend_tree.blend2_node_set_amount("death_levelcomplete", death_levelcomplete)
 
 var float_dead = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
 var float_drop = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
 var decline_death = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
 var incline_decline = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+var death_levelcomplete = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
 
 const DEATH_ANIMATION_SPEED = 5.0 # How quickly to transition to death animation.
 const LEGS_UP_Y_THRESHOLD = .45 # How close to the bottom of the level character starts to rise his legs.
 
 onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
 onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
+onready var body_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationPlayer") # To save resources.
 var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
 var current_facial_animation_index = -1 # To save resources, to know, when to switch to another animation.
 var forbid_changing_facial_animation = false # Animation switching sometime must be forbidden, until some descrete events happen.
@@ -196,17 +218,28 @@ func set_facial_animation(new_animation_index):
 		face_animator.play()
 		face_animator.playback_speed = 1.0
 
+const DROP_ANIMATION_TRANSITION_SPEED = 5.0 # How quickly to enter the drop animation.
+
 func manage_animation(delta):
 	if Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
 		forbid_changing_facial_animation = false
-		set_character_blend_state(1.0, .0, 1.0, .0, delta * DEATH_ANIMATION_SPEED)
+		set_character_blend_state(1.0, .0, 1.0, .0, .0, delta * DEATH_ANIMATION_SPEED)
 		set_facial_animation(3)
+	elif Global.current_level_stop_state == Global.Level_stop_states.LEVEL_COMPLETE:
+		forbid_changing_facial_animation = false
+		set_character_blend_state(1.0, .0, 1.0, .0, 1.0, delta * DEATH_ANIMATION_SPEED)
+		set_facial_animation(5)
+	elif OS.get_ticks_msec() - item_drop_start_time < current_drop_animation_length:
+		set_character_blend_state(.0, 1.0, .0, .0, .0, delta * DROP_ANIMATION_TRANSITION_SPEED)
+	elif item_drop_pending:
+		item_drop_pending = false
+		manage_up_item_event()
 	elif position.y > get_viewport().size.y - get_viewport().size.y * LEGS_UP_Y_THRESHOLD:
-		set_character_blend_state(1.0, .0, .0, .0, delta)
+		set_character_blend_state(1.0, .0, .0, .0, .0, delta)
 		set_facial_animation(5)
 	elif velocity.y > .0:
-		set_character_blend_state(.0, .0, .0, 1.0, delta)
+		set_character_blend_state(.0, .0, .0, 1.0, .0, delta)
 		set_facial_animation(5)
 	elif velocity.y < .0:
-		set_character_blend_state(.0, .0, .0, .0, delta)
+		set_character_blend_state(.0, .0, .0, .0, .0, delta)
 		set_facial_animation(5)
