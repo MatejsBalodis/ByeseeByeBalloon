@@ -11,8 +11,6 @@
 
 [node name="Level" parent="." index="0" instance=ExtResource( 1 )]
 
-_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
-
 [node name="AudioManager" parent="." index="1" instance=ExtResource( 2 )]
 
 [node name="GUILayer" parent="." index="2" instance=ExtResource( 3 )]
@@ -36,7 +34,5 @@ position = Vector2( 640.193, 360.265 )
 [node name="SacrificeItemWrapper" type="Node2D" parent="CharacterLayer" index="2"]
 
 [node name="ObstacleWrapper" parent="CharacterLayer" index="3" instance=ExtResource( 6 )]
-
-_sections_unfolded = [ "Z Index" ]
 
 

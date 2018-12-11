@@ -10,32 +10,65 @@ onready var	next_level_button = game_over_wrapper.get_node("NextLevelButton") # 
 onready var	game_over_text = game_over_wrapper.get_node("GameOverText") # For speed and convenience.
 onready var	level_complete_text = game_over_wrapper.get_node("LevelCompleteText") # For speed and convenience.
 onready var selection_item_bar = gui_layer.get_node("ItemSelectionBar") # For speed and convenience.
-onready var background = get_parent().get_parent().get_node("Level") # For speed and convenience.
 onready var actual_mover = get_parent().get_node("ActualMover") # For speed and convenience.
-export var gravities = [] # At what rate objects fall.
-export var forward_velocities = [] # At what speed in which direction to move.
-export var up_items = [] # Items must have various weights and prices.
-export var follow_speed = 2.0 # How tightly to follow the actual mover.
-var current_forward_velocity_index = 0 # Manage only one specific forward velocity at once.
-var current_gravity_index = 0 # Manage only one specific gravity at once.
-var current_up_item_index = 0 # Manage only one specific up item at once.
-const TOP_THRESHOLD = 100.0 # How high can the balloon fly.
-const BOTTOM_THRESHOLD = .2 # How low can balloon fall.
-const DEFAULT_DROP_PAUSE = 500 # Don't allow to drop items more frequently than this in any case.
-onready var camera = get_node("Camera2D") # For speed and convenience.
-var current_up_force = Vector2() # Combine all item up force in a single value.
-var velocity = Vector2() # To tell where the object is moving.
-onready var finish_line = background.get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
 onready var game_over_audio_stream_player = game_over_wrapper.get_node("GameOverAudioStreamPlayer") # For speed and convenience.
 onready var level_complete_audio_stream = load("res://Audio/Music/Victory-ogg-converted.ogg") # To load level complete music.
 onready var game_over_audio_stream = load("res://Audio/Music/Gameover-ogg-converted.ogg") # To load game over music.
 onready var score_background = game_over_wrapper.get_node("ScoreBackground") # For speed and convenience.
+onready var camera = get_node("Camera2D") # For speed and convenience.
+onready var balloon_indicator = gui_layer.get_node("ProgressBar").get_node("Balloon") # For speed and convenience.
+onready var texture_progress_bar = gui_layer.get_node("ProgressBar").get_node("TextureProgress") # For speed and convenience.
+onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
+onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
+onready var body_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationPlayer") # To save resources.
+# These have to be reset on level change.
+onready var background = get_parent().get_parent().get_node("Level") # For speed and convenience.
+onready var finish_line = background.get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
+# End These have to be reset on level change.
+
+var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
+var current_facial_animation_index = -1 # To save resources, to know, when to switch to another animation.
+var forbid_changing_facial_animation = false # Animation switching sometime must be forbidden, until some descrete events happen.
+var obstacle_collision_is_active = false # To act appropriately while collision is active.
+var current_forward_velocity_index = 0 # Manage only one specific forward velocity at once.
+var current_gravity_index = 0 # Manage only one specific gravity at once.
+var current_up_item_index = 0 # Manage only one specific up item at once.
+var current_up_force = Vector2() # Combine all item up force in a single value.
+var velocity = Vector2() # To tell where the object is moving.
 var display_score = 0 # For speed and convenience, the score that is displayed.
 var current_level_score = 0 # To show the player score on game over.
 var start_position_x = .0 # To know, where to compare start from.
 var the_whole_level_distance = 0 # For speed and convenience.
-onready var balloon_indicator = gui_layer.get_node("ProgressBar").get_node("Balloon") # For speed and convenience.
-onready var texture_progress_bar = gui_layer.get_node("ProgressBar").get_node("TextureProgress") # For speed and convenience.
+var level_end_velocity_coefficient = 1.0 # To stop the level movement on level stop.
+var item_spawn_offset = Vector2(-25.0, 100.0) # Items must spawn from the basket.
+var current_drop_animation_length = 0 # To avoid having magic numbers.
+var item_drop_pending = false # To allow only one drop at a time and drop item nicely after the drop animation.
+var item_drop_start_time = 0 # To play drop animation for a certain amount of time.
+var float_dead = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+var float_drop = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+var decline_death = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+var incline_decline = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+var death_levelcomplete = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+
+export var gravities = [] # At what rate objects fall.
+export var forward_velocities = [] # At what speed in which direction to move.
+export var up_items = [] # Items must have various weights and prices.
+export var follow_speed = 2.0 # How tightly to follow the actual mover.
+export (PackedScene) var item_template # Instance preset sacrifice item.
+
+const DEATH_ANIMATION_SPEED = 5.0 # How quickly to transition to death animation.
+const LEGS_UP_Y_THRESHOLD = .45 # How close to the bottom of the level character starts to rise his legs.
+const ACTUAL_ANIMATION_RESET = 600 # Drop the item quicker than the animation end.
+const PHYSICS_VELOCITY_QOEFFICIENT = 50.0 # A handle to easy set the velocity amplitude.
+const BALLOON_PROGRESS_LERP_SPEED = 1.0 # To avoid using magic numbers.
+const BALLOON_PROGRESS_LERP_RETURN_SPEED = 5.0 # To avoid using magic numbers.
+const SCORE_LERP_SPEED = 5.0 # How quickly to lerp to the score.
+const DROP_ANIMATION_TRANSITION_SPEED = 5.0 # How quickly to enter the drop animation.
+const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
+const INITIAL_BALLOON_PROGRESS_OFFSET = 60.0 # To have the progress balloon nicely placed at the beginning.
+const TOP_THRESHOLD = 100.0 # How high can the balloon fly.
+const BOTTOM_THRESHOLD = .2 # How low can balloon fall.
+const DEFAULT_DROP_PAUSE = 500 # Don't allow to drop items more frequently than this in any case.
 
 func _ready():
 	level_complete_audio_stream.set_loop(false)
@@ -44,6 +77,8 @@ func _ready():
 	balloon_indicator.rect_position.x = INITIAL_BALLOON_PROGRESS_OFFSET
 
 func reset():
+	background = get_parent().get_parent().get_node("Level")
+	finish_line = background.get_node("FinishLine/ParallaxLayer/FinishLine")
 	actual_mover.position = Vector2(get_viewport().size.x * .5, 80.0)
 	position = actual_mover.position
 	start_position_x = actual_mover.position.x
@@ -53,7 +88,7 @@ func reset():
 	Global.current_level_stop_state = Global.Level_stop_states.NONE
 	game_over_restart_button.visible = false
 	game_over_menu_button.visible = false
-	next_level_button.visible = false
+	#next_level_button.visible = false
 	game_over_text.visible = false
 	level_complete_text.visible = false
 	current_up_force = Vector2()
@@ -81,31 +116,25 @@ func reset():
 	item_drop_pending = false
 	current_drop_animation_length = 0
 
-const MAX_FORCE = 1000.0 # Force cannot become stronger than this.
-const INITIAL_BALLOON_PROGRESS_OFFSET = 60.0 # To have the progress balloon nicely placed at the beginning.
-
 func _process(delta):
-	var tmp_lerp_speed = delta * follow_speed # For speed and convenience.
-	position.x = lerp(position.x, actual_mover.position.x, tmp_lerp_speed)
-	position.y = lerp(position.y, actual_mover.position.y, tmp_lerp_speed)
-	get_parent().transform.origin.x = lerp(get_parent().transform.origin.x, -camera.get_global_transform().origin.x + get_viewport().size.x * .5, tmp_lerp_speed)
+	if (weakref(finish_line)).get_ref():
+		var tmp_lerp_speed = delta * follow_speed # For speed and convenience.
+		position.x = lerp(position.x, actual_mover.position.x, tmp_lerp_speed)
+		position.y = lerp(position.y, actual_mover.position.y, tmp_lerp_speed)
+		get_parent().transform.origin.x = lerp(get_parent().transform.origin.x, -camera.get_global_transform().origin.x + get_viewport().size.x * .5, tmp_lerp_speed)
 
-	var tmp_force_diminish_speed = delta * 10.0 # For speed and convenience.
-	current_up_force.x -= tmp_force_diminish_speed
-	current_up_force.x = clamp(current_up_force.x, .0, MAX_FORCE)
-	current_up_force.y -= tmp_force_diminish_speed
-	current_up_force.y = clamp(current_up_force.y, .0, MAX_FORCE)
+		var tmp_force_diminish_speed = delta * 10.0 # For speed and convenience.
+		current_up_force.x -= tmp_force_diminish_speed
+		current_up_force.x = clamp(current_up_force.x, .0, MAX_FORCE)
+		current_up_force.y -= tmp_force_diminish_speed
+		current_up_force.y = clamp(current_up_force.y, .0, MAX_FORCE)
 
-	manage_animation(delta)
+		manage_animation(delta)
 
-	var new_progress_position_x = INITIAL_BALLOON_PROGRESS_OFFSET + ((texture_progress_bar.rect_size.x - INITIAL_BALLOON_PROGRESS_OFFSET) * texture_progress_bar.rect_scale.x * (1.0 - (finish_line.position.x - position.x) / the_whole_level_distance)) # For speed and convenience.
-	balloon_indicator.rect_position.x = lerp(balloon_indicator.rect_position.x, new_progress_position_x, delta * (BALLOON_PROGRESS_LERP_SPEED if balloon_indicator.rect_position.x < new_progress_position_x else BALLOON_PROGRESS_LERP_RETURN_SPEED))
-	texture_progress_bar.max_value = texture_progress_bar.rect_size.x * texture_progress_bar.rect_scale.x
-	texture_progress_bar.value = balloon_indicator.rect_position.x
-
-const BALLOON_PROGRESS_LERP_SPEED = 1.0 # To avoid using magic numbers.
-const BALLOON_PROGRESS_LERP_RETURN_SPEED = 5.0 # To avoid using magic numbers.
-const SCORE_LERP_SPEED = 5.0 # How quickly to lerp to the score.
+		var new_progress_position_x = INITIAL_BALLOON_PROGRESS_OFFSET + ((texture_progress_bar.rect_size.x - INITIAL_BALLOON_PROGRESS_OFFSET) * texture_progress_bar.rect_scale.x * (1.0 - (finish_line.position.x - position.x) / the_whole_level_distance)) # For speed and convenience.
+		balloon_indicator.rect_position.x = lerp(balloon_indicator.rect_position.x, new_progress_position_x, delta * (BALLOON_PROGRESS_LERP_SPEED if balloon_indicator.rect_position.x < new_progress_position_x else BALLOON_PROGRESS_LERP_RETURN_SPEED))
+		texture_progress_bar.max_value = texture_progress_bar.rect_size.x * texture_progress_bar.rect_scale.x
+		texture_progress_bar.value = balloon_indicator.rect_position.x
 
 func initiate_level_end(level_stop_state):
 	selection_item_bar.visible = false
@@ -136,22 +165,17 @@ func manage_level_complete_state(delta):
 	score_background.get_node("Score").text = int_display_score
 	score_background.get_node("Shadow").text = int_display_score
 
-var level_end_velocity_coefficient = 1.0 # To stop the level movement on level stop.
-const PHYSICS_VELOCITY_QOEFFICIENT = 50.0 # A handle to easy set the velocity amplitude.
-
 func _physics_process(delta):
-	velocity = PHYSICS_VELOCITY_QOEFFICIENT * delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
-	actual_mover.move_and_slide(velocity)
-	if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
-		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
-			initiate_level_end(Global.Level_stop_states.GAME_OVER)
-	elif position.x > finish_line.position.x:
-		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
-			initiate_level_end(Global.Level_stop_states.LEVEL_COMPLETE)
-		manage_level_complete_state(delta)
-
-export (PackedScene) var item_template # Instance preset sacrifice item.
-var item_spawn_offset = Vector2(-25.0, 100.0) # Items must spawn from the basket.
+	if (weakref(finish_line)).get_ref():
+		velocity = PHYSICS_VELOCITY_QOEFFICIENT * delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
+		actual_mover.move_and_slide(velocity)
+		if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
+			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+				initiate_level_end(Global.Level_stop_states.GAME_OVER)
+		elif position.x > finish_line.position.x:
+			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+				initiate_level_end(Global.Level_stop_states.LEVEL_COMPLETE)
+			manage_level_complete_state(delta)
 
 func start_up_item_event(item_index):
 	current_up_item_index = item_index
@@ -160,10 +184,6 @@ func start_up_item_event(item_index):
 	animation_blend_tree.oneshot_node_start("drop_shot")
 	set_character_blend_state(.0, 1.0, .0, .0, .0, .1)
 	item_drop_pending = true
-
-const ACTUAL_ANIMATION_RESET = 600 # Drop the item quicker than the animation end.
-var current_drop_animation_length = 0 # To avoid having magic numbers.
-var item_drop_pending = false # To allow only one drop at a time and drop item nicely after the drop animation.
 
 func manage_up_item_event():
 	var tmp_up_item = item_template.instance()
@@ -174,8 +194,6 @@ func manage_up_item_event():
 	current_level_score -= up_items[Global.current_level_index][current_up_item_index][2]
 	if current_up_force < up_items[Global.current_level_index][current_up_item_index][0]:
 		current_up_force = up_items[Global.current_level_index][current_up_item_index][0] + up_items[Global.current_level_index][current_up_item_index][0] * .1
-
-var item_drop_start_time = 0 # To play drop animation for a certain amount of time.
 
 func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_goal, incline_decline_goal, death_levelcomplete_goal, new_state_reach_lerp_speed):
 	float_dead = lerp(float_dead, float_dead_goal, new_state_reach_lerp_speed)
@@ -189,23 +207,6 @@ func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_g
 	animation_blend_tree.blend2_node_set_amount("incline_decline", incline_decline)
 	animation_blend_tree.blend2_node_set_amount("death_levelcomplete", death_levelcomplete)
 
-var float_dead = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
-var float_drop = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
-var decline_death = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
-var incline_decline = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
-var death_levelcomplete = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
-
-const DEATH_ANIMATION_SPEED = 5.0 # How quickly to transition to death animation.
-const LEGS_UP_Y_THRESHOLD = .45 # How close to the bottom of the level character starts to rise his legs.
-
-onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
-onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
-onready var body_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationPlayer") # To save resources.
-var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
-var current_facial_animation_index = -1 # To save resources, to know, when to switch to another animation.
-var forbid_changing_facial_animation = false # Animation switching sometime must be forbidden, until some descrete events happen.
-var obstacle_collision_is_active = false # To act appropriately while collision is active.
-
 func set_descrete_facial_animation(index, state):
 	set_facial_animation(index)
 	forbid_changing_facial_animation = state
@@ -217,8 +218,6 @@ func set_facial_animation(new_animation_index):
 		face_animator.current_animation = facial_animations[current_facial_animation_index]
 		face_animator.play()
 		face_animator.playback_speed = 1.0
-
-const DROP_ANIMATION_TRANSITION_SPEED = 5.0 # How quickly to enter the drop animation.
 
 func manage_animation(delta):
 	if Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
