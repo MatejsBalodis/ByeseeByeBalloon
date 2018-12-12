@@ -17,7 +17,7 @@
 [ext_resource path="res://Environment/WhiteSprite.png" type="Texture" id=15]
 [ext_resource path="res://Environment/BottomLine.gd" type="Script" id=16]
 
-[node name="Level" type="Node2D" index="0"]
+[node name="Level" type="Node2D"]
 
 position = Vector2( 0, -541 )
 scale = Vector2( 2, 2 )
@@ -25,11 +25,9 @@ _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Background" type="Sprite" parent="." index="0"]
 
-self_modulate = Color( 0.128983, 0.220191, 0.308594, 1 )
 position = Vector2( 5782.5, 508 )
 scale = Vector2( 2.00781, 1.01389 )
 texture = ExtResource( 1 )
-_sections_unfolded = [ "Visibility" ]
 
 [node name="MountainsParallaxBackground" type="ParallaxBackground" parent="." index="1"]
 
@@ -269,6 +267,7 @@ _sections_unfolded = [ "Scroll" ]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="CloudsParallaxBackground" index="0"]
 
+editor/display_folded = true
 motion_scale = Vector2( 1, 1 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 0, 0 )
@@ -607,7 +606,6 @@ texture = ExtResource( 14 )
 
 [node name="BottomIndicationCanvasLayer" type="CanvasLayer" parent="." index="7"]
 
-editor/display_folded = true
 layer = 10
 offset = Vector2( 0, 0 )
 rotation = 0.0

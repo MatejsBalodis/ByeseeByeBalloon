@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Environment/Sky.png" type="Texture" id=1]
-[ext_resource path="res://Environment/Mountains.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Environment/Mountains1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Environment/BackTrees.png" type="Texture" id=3]
 [ext_resource path="res://Environment/MiddleTrees.png" type="Texture" id=4]
 [ext_resource path="res://Environment/FrontTrees.png" type="Texture" id=5]
@@ -17,7 +17,7 @@
 [ext_resource path="res://Environment/WhiteSprite.png" type="Texture" id=15]
 [ext_resource path="res://Environment/BottomLine.gd" type="Script" id=16]
 
-[node name="Level" type="Node2D" index="0"]
+[node name="Level" type="Node2D"]
 
 position = Vector2( 0, -541 )
 scale = Vector2( 2, 2 )
@@ -25,7 +25,7 @@ _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Background" type="Sprite" parent="." index="0"]
 
-self_modulate = Color( 0.128983, 0.220191, 0.308594, 1 )
+self_modulate = Color( 0.560179, 0.352524, 0.589844, 1 )
 position = Vector2( 5782.5, 508 )
 scale = Vector2( 2.00781, 1.01389 )
 texture = ExtResource( 1 )
@@ -33,7 +33,6 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="MountainsParallaxBackground" type="ParallaxBackground" parent="." index="1"]
 
-editor/display_folded = true
 layer = 0
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -51,13 +50,14 @@ scroll_ignore_camera_zoom = true
 motion_scale = Vector2( 0.1, 1 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 0, 0 )
-_sections_unfolded = [ "Motion" ]
+_sections_unfolded = [ "Motion", "Transform" ]
 
-[node name="Mountains" parent="MountainsParallaxBackground/ParallaxLayer" index="0" instance=ExtResource( 2 )]
+[node name="Mountains2" parent="MountainsParallaxBackground/ParallaxLayer" index="0" instance=ExtResource( 2 )]
 
-position = Vector2( 18, 22.756 )
+modulate = Color( 0.980469, 0.746841, 0.976818, 1 )
+position = Vector2( 18, 22 )
 scale = Vector2( 1, 1 )
-_sections_unfolded = [ "Transform", "Z Index" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="ForestParallaxBackground" type="ParallaxBackground" parent="." index="2"]
 

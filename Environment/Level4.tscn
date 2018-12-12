@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Environment/Sky.png" type="Texture" id=1]
-[ext_resource path="res://Environment/Mountains.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Environment/Mountains1.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Environment/BackTrees.png" type="Texture" id=3]
 [ext_resource path="res://Environment/MiddleTrees.png" type="Texture" id=4]
 [ext_resource path="res://Environment/FrontTrees.png" type="Texture" id=5]
@@ -17,7 +17,7 @@
 [ext_resource path="res://Environment/WhiteSprite.png" type="Texture" id=15]
 [ext_resource path="res://Environment/BottomLine.gd" type="Script" id=16]
 
-[node name="Level" type="Node2D" index="0"]
+[node name="Level" type="Node2D"]
 
 position = Vector2( 0, -541 )
 scale = Vector2( 2, 2 )
@@ -25,7 +25,7 @@ _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Background" type="Sprite" parent="." index="0"]
 
-self_modulate = Color( 0.128983, 0.220191, 0.308594, 1 )
+self_modulate = Color( 0.833649, 0.730469, 1, 1 )
 position = Vector2( 5782.5, 508 )
 scale = Vector2( 2.00781, 1.01389 )
 texture = ExtResource( 1 )
@@ -33,7 +33,6 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="MountainsParallaxBackground" type="ParallaxBackground" parent="." index="1"]
 
-editor/display_folded = true
 layer = 0
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -53,11 +52,10 @@ motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 0, 0 )
 _sections_unfolded = [ "Motion" ]
 
-[node name="Mountains" parent="MountainsParallaxBackground/ParallaxLayer" index="0" instance=ExtResource( 2 )]
+[node name="Mountains1" parent="MountainsParallaxBackground/ParallaxLayer" index="0" instance=ExtResource( 2 )]
 
 position = Vector2( 18, 22.756 )
 scale = Vector2( 1, 1 )
-_sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="ForestParallaxBackground" type="ParallaxBackground" parent="." index="2"]
 
@@ -269,6 +267,7 @@ _sections_unfolded = [ "Scroll" ]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="CloudsParallaxBackground" index="0"]
 
+editor/display_folded = true
 motion_scale = Vector2( 1, 1 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 0, 0 )
@@ -276,6 +275,7 @@ _sections_unfolded = [ "Motion" ]
 
 [node name="Clouds" type="Node2D" parent="CloudsParallaxBackground/ParallaxLayer" index="0"]
 
+editor/display_folded = true
 position = Vector2( 0, -491 )
 _sections_unfolded = [ "Transform" ]
 
@@ -285,91 +285,115 @@ position = Vector2( 243.2, 649.723 )
 texture = ExtResource( 6 )
 script = ExtResource( 7 )
 
-[node name="Sprite8" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="1"]
+[node name="Sprite19" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="1"]
+
+position = Vector2( 11486.9, 642.104 )
+texture = ExtResource( 6 )
+script = ExtResource( 7 )
+
+[node name="Sprite8" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="2"]
 
 position = Vector2( 4403.2, 882.853 )
 texture = ExtResource( 6 )
 script = ExtResource( 7 )
 
-[node name="Sprite11" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="2"]
+[node name="Sprite11" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="3"]
 
 position = Vector2( 6310.4, 416.593 )
 texture = ExtResource( 6 )
 script = ExtResource( 7 )
 
-[node name="Sprite2" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="3"]
+[node name="Sprite2" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="4"]
 
 position = Vector2( 780.8, 822.037 )
 texture = ExtResource( 8 )
 script = ExtResource( 7 )
 
-[node name="Sprite16" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="4"]
+[node name="Sprite20" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="5"]
+
+position = Vector2( 12506, 912.44 )
+texture = ExtResource( 8 )
+script = ExtResource( 7 )
+
+[node name="Sprite16" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="6"]
 
 position = Vector2( 9804.8, 568.634 )
 texture = ExtResource( 8 )
 script = ExtResource( 7 )
 
-[node name="Sprite7" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="5"]
+[node name="Sprite7" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="7"]
 
 position = Vector2( 3571.2, 639.587 )
 texture = ExtResource( 8 )
 script = ExtResource( 7 )
 
-[node name="Sprite12" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="6"]
+[node name="Sprite12" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="8"]
 
 position = Vector2( 7001.6, 832.173 )
 texture = ExtResource( 8 )
 script = ExtResource( 7 )
 
-[node name="Sprite3" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="7"]
+[node name="Sprite3" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="9"]
 
 position = Vector2( 2816, 852.445 )
 texture = ExtResource( 9 )
 script = ExtResource( 7 )
 
-[node name="Sprite14" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="8"]
+[node name="Sprite14" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="10"]
 
 position = Vector2( 7974.4, 538.226 )
 texture = ExtResource( 9 )
 script = ExtResource( 7 )
 
-[node name="Sprite4" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="9"]
+[node name="Sprite4" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="11"]
 
 position = Vector2( 1177.6, 517.954 )
 texture = ExtResource( 10 )
 script = ExtResource( 7 )
 
-[node name="Sprite10" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="10"]
+[node name="Sprite10" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="12"]
 
 position = Vector2( 5785.6, 761.22 )
 texture = ExtResource( 10 )
 script = ExtResource( 7 )
 
-[node name="Sprite15" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="11"]
+[node name="Sprite17" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="13"]
+
+position = Vector2( 10804, 1011.38 )
+texture = ExtResource( 10 )
+script = ExtResource( 7 )
+
+[node name="Sprite15" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="14"]
 
 position = Vector2( 8934.4, 801.764 )
 texture = ExtResource( 10 )
 script = ExtResource( 7 )
 
-[node name="Sprite5" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="12"]
+[node name="Sprite5" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="15"]
 
 position = Vector2( 1817.6, 690.267 )
 texture = ExtResource( 11 )
 script = ExtResource( 7 )
 
-[node name="Sprite9" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="13"]
+[node name="Sprite9" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="16"]
 
 position = Vector2( 5056, 659.859 )
 texture = ExtResource( 11 )
 script = ExtResource( 7 )
 
-[node name="Sprite6" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="14"]
+[node name="Sprite6" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="17"]
 
 position = Vector2( 2240, 457.137 )
 texture = ExtResource( 12 )
 script = ExtResource( 7 )
 
-[node name="Sprite13" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="15"]
+[node name="Sprite18" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="18"]
+
+position = Vector2( 11991.5, 280.742 )
+texture = ExtResource( 12 )
+script = ExtResource( 7 )
+
+[node name="Sprite13" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="19"]
 
 position = Vector2( 7475.2, 588.907 )
 texture = ExtResource( 12 )
@@ -493,67 +517,67 @@ motion_mirroring = Vector2( 0, 0 )
 
 [node name="FinishLine" type="Sprite" parent="FinishLine/ParallaxLayer" index="0"]
 
-position = Vector2( 9290.97, 1355 )
+position = Vector2( 11039.6, 1355 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine11" type="Sprite" parent="FinishLine/ParallaxLayer" index="1"]
 
-position = Vector2( 9290.97, 1565 )
+position = Vector2( 11039.6, 1565 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine2" type="Sprite" parent="FinishLine/ParallaxLayer" index="2"]
 
-position = Vector2( 9290.97, 1145 )
+position = Vector2( 11039.6, 1145 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine3" type="Sprite" parent="FinishLine/ParallaxLayer" index="3"]
 
-position = Vector2( 9290.97, 935 )
+position = Vector2( 11039.6, 935 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine4" type="Sprite" parent="FinishLine/ParallaxLayer" index="4"]
 
-position = Vector2( 9290.97, 725 )
+position = Vector2( 11039.6, 725 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine5" type="Sprite" parent="FinishLine/ParallaxLayer" index="5"]
 
-position = Vector2( 9290.97, 515 )
+position = Vector2( 11039.6, 515 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine6" type="Sprite" parent="FinishLine/ParallaxLayer" index="6"]
 
-position = Vector2( 9290.97, 305 )
+position = Vector2( 11039.6, 305 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine7" type="Sprite" parent="FinishLine/ParallaxLayer" index="7"]
 
-position = Vector2( 9290.97, 95 )
+position = Vector2( 11039.6, 95 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine8" type="Sprite" parent="FinishLine/ParallaxLayer" index="8"]
 
-position = Vector2( 9290.97, -115 )
+position = Vector2( 11039.6, -115 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine9" type="Sprite" parent="FinishLine/ParallaxLayer" index="9"]
 
-position = Vector2( 9290.97, -325 )
+position = Vector2( 11039.6, -325 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine10" type="Sprite" parent="FinishLine/ParallaxLayer" index="10"]
 
-position = Vector2( 9290.97, -535 )
+position = Vector2( 11039.6, -535 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
@@ -574,6 +598,7 @@ scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="TreesFrontParallaxForeground" index="0"]
 
+editor/display_folded = true
 motion_scale = Vector2( 1, 1 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 0, 0 )
