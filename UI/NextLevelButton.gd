@@ -8,7 +8,6 @@ onready var world_wrapper = get_parent().get_parent().get_parent() # For speed a
 onready var character_layer = world_wrapper.get_node("CharacterLayer") # For speed and convenience.
 onready var current_level_scene = world_wrapper.get_node("Level")  # Use this level currently.
 onready var current_obstacle_wrapper =character_layer.get_node("ObstacleWrapper") # Use this obstacle wrapper currently.
-onready var main_character = character_layer.get_node("MainCharacter") # For speed and convenience.
 onready var item_selection_bar = get_parent().get_parent().get_node("ItemSelectionBar") # For speed and convenience.
 
 func _on_NextLevelButton_pressed():

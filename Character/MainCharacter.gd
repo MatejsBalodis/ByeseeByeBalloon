@@ -23,8 +23,7 @@ onready var face_animator = get_node("Body").get_node("MainCharacterAnimations")
 onready var body_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationPlayer") # To save resources.
 onready var main_character_audio_stream_player = get_node("MainCharacterAudioStreamPlayer") # For speed and convenience.
 # These have to be reset on level change.
-onready var background = get_parent().get_parent().get_node("Level") # For speed and convenience.
-onready var finish_line = background.get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
+onready var finish_line = get_parent().get_parent().get_node("Level").get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
 # End These have to be reset on level change.
 
 var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
@@ -77,9 +76,11 @@ func _ready():
 	reset()
 	balloon_indicator.rect_position.x = INITIAL_BALLOON_PROGRESS_OFFSET
 
+	gui_layer = null
+	game_over_wrapper = null
+
 func reset():
-	background = get_parent().get_parent().get_node("Level")
-	finish_line = background.get_node("FinishLine/ParallaxLayer/FinishLine")
+	finish_line = get_parent().get_parent().get_node("Level").get_node("FinishLine/ParallaxLayer/FinishLine")
 	actual_mover.position = Vector2(get_viewport().size.x * .5, 80.0)
 	position = actual_mover.position
 	start_position_x = actual_mover.position.x

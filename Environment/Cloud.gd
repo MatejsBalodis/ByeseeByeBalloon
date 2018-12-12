@@ -1,11 +1,12 @@
 extends Sprite
 
 var threshold_bound = 100.0 # How high can balloon rise and fall.
-onready var original_reference_position = self.position.y # Reference for relative movement.
 var each_float_step_start_time = .0 # Each float step start time.
 var float_direction = 1.0 # Where to fly up or down.
 var current_float_goal_position = .0 # Where to float in this float step.
 var lerp_speed = 20.0 # How quickly to move up and down.
+
+onready var original_reference_position = self.position.y # Reference for relative movement.
 
 func reset():
 	pass

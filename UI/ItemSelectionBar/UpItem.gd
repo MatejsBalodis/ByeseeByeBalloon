@@ -16,6 +16,8 @@ onready var VALUE_LABEL = get_child(0) # For speed and convenience.
 const GRAVITY = Vector2(-20.0, 1000.0) # How quickly are the buttons falling.
 const MAX_ACCEPT_DISTANCE = 25.0 # If the item selection bar has moved more than this, don't accept item.
 const BUTTON_HOVER_CHANGE = 10.0 # How much the size and position must change.
+const GRAVITY_INCREASE_SPEED_STEP = .05 # How quickly to increase fall speed.
+const VALUE_LABEL_ROTATION_SPEED = 20.0 # To avoid having magic numbers.
 
 func _on_UpItem_button_down():
 	if !item_is_pressed:
@@ -38,8 +40,6 @@ func _physics_process(delta):
 		VALUE_LABEL.rect_rotation += delta * VALUE_LABEL_ROTATION_SPEED
 		gravity_increase_speed += GRAVITY_INCREASE_SPEED_STEP
 
-const GRAVITY_INCREASE_SPEED_STEP = .05 # How quickly to increase fall speed.
-const VALUE_LABEL_ROTATION_SPEED = 20.0 # To avoid having magic numbers.
 
 func _on_UpItem_mouse_entered():
 	if !must_fall:

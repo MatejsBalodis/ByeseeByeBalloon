@@ -2,15 +2,25 @@ extends Control
 
 onready var player = get_parent().get_parent().get_node("CharacterLayer").get_node("MainCharacter") # For speed and convenience.
 onready var player_camera = player.get_node("Camera2D") # For speed and convenience.
+onready var drag_is_active = false # To disable drag only, when mouse is released.
+onready var drag_indicator_right = get_parent().get_node("DragIndicatorRight") # For speed and convenience.
+onready var drag_indicator_left = get_parent().get_node("DragIndicatorLeft") # For speed and convenience.
+
 export (PackedScene) var selection_bar_item # To instance the selection bar item.
 export var level_selection_bars = [] # Assign items for each level.
-const MARGIN_BETWEEN_BUTTONS = 20 # Have a bit of margin between the selection bar items.
-const PUSH_DOWN_DISTANCE = 30 # Buttons should be closer to the bottom of the screen.
+
 var selection_bar_drag_height = .2 # To know, where to allow the drag.
 var old_mouse_position = Vector2() # To determine the direction of mouse movement.
 var current_x_offset = MARGIN_BETWEEN_BUTTONS # To place buttons one by another.
 var button_height = .0 # To detect when to drag activate drag and correctly position buttons at the bottom of the screen.
 var return_on_reset = false # To forbid dragging bar with mouse and return to the initial position.
+var return_speed = 5.0 # How quickly to return the bar to default offset.
+var return_lerp_progress = .0 # To have a tight control over lerping.
+
+const MARGIN_BETWEEN_BUTTONS = 20 # Have a bit of margin between the selection bar items.
+const PUSH_DOWN_DISTANCE = 30 # Buttons should be closer to the bottom of the screen.
+const BAR_RETURN_CLOSE_ENOUGH_DISTANCE = 20.0 # To avoid getting lerp being stuck at the end.
+const BAR_RETURN_SPEED = 3.0 # How quickly to scroll the bar back on reset.
 
 func free_memory_from_the_previous_item_set():
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
@@ -41,11 +51,6 @@ func regenerate_items():
 	drag_indicator_left.current_indicator_lerp_progress = .0
 	return_lerp_progress = .0
 
-var return_speed = 5.0 # How quickly to return the bar to default offset.
-onready var drag_is_active = false # To disable drag only, when mouse is released.
-const BAR_RETURN_CLOSE_ENOUGH_DISTANCE = 20.0 # To avoid getting lerp being stuck at the end.
-const BAR_RETURN_SPEED = 3.0 # How quickly to scroll the bar back on reset.
-var return_lerp_progress = .0 # To have a tight control over lerping.
 
 func _process(delta):
 	if Global.current_level_stop_state != Global.Level_stop_states.NONE:
@@ -85,7 +90,3 @@ func _process(delta):
 			if drag_is_active:
 				rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (get_viewport().size.x / clamp(rect_position.x, 1.0, get_viewport().size.x))))
 			old_mouse_position = relative_mouse_position
-
-onready var drag_indicator_right = get_parent().get_node("DragIndicatorRight") # For speed and convenience.
-onready var drag_indicator_left = get_parent().get_node("DragIndicatorLeft") # For speed and convenience.
-

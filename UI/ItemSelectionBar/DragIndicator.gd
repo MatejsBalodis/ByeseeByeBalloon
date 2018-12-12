@@ -1,9 +1,10 @@
 extends TextureRect
 
 var drag_indicator_lerp_direction = 1.0 # To increase or decrease the opacity.
+var current_indicator_lerp_progress = .0 # To have a tight control over lerping.
+
 const DRAG_INDICATOR_ALPHA_BOUNDS = Vector2(.0, 1.0) # Blink between these alphas.
 const DRAG_INDICATOR_BLINK_SPEED = 2.0 # How quickly to blink.
-var current_indicator_lerp_progress = .0 # To have a tight control over lerping.
 
 func lerp_indicator_opacity(one_shot, lerp_direction, delta):
 	if one_shot:
