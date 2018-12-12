@@ -25,7 +25,7 @@ _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Background" type="Sprite" parent="." index="0"]
 
-self_modulate = Color( 0.128983, 0.220191, 0.308594, 1 )
+self_modulate = Color( 0.956863, 0.6, 1, 1 )
 position = Vector2( 5782.5, 508 )
 scale = Vector2( 2.00781, 1.01389 )
 texture = ExtResource( 1 )
@@ -33,7 +33,6 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="MountainsParallaxBackground" type="ParallaxBackground" parent="." index="1"]
 
-editor/display_folded = true
 layer = 0
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -53,11 +52,12 @@ motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 0, 0 )
 _sections_unfolded = [ "Motion" ]
 
-[node name="Mountains" parent="MountainsParallaxBackground/ParallaxLayer" index="0" instance=ExtResource( 2 )]
+[node name="Mountains2" parent="MountainsParallaxBackground/ParallaxLayer" index="0" instance=ExtResource( 2 )]
 
-position = Vector2( 18, 22.756 )
+modulate = Color( 0.971832, 0.722656, 1, 1 )
+position = Vector2( 18, 22 )
 scale = Vector2( 1, 1 )
-_sections_unfolded = [ "Transform", "Z Index" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="ForestParallaxBackground" type="ParallaxBackground" parent="." index="2"]
 

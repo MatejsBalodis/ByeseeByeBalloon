@@ -1,47 +1,51 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Obstacles/ObstacleWrapper.gd" type="Script" id=1]
 [ext_resource path="res://Obstacles/ItemScenes/AngryCloud.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Obstacles/ItemScenes/Mountain.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Obstacles/ItemScenes/FlagPole.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Obstacles/ItemScenes/PineTree.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Obstacles/ItemScenes/CommunicationTower.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Obstacles/ItemScenes/PineTree.tscn" type="PackedScene" id=4]
 
 [node name="ObstacleWrapper" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
-[node name="AngryCloud" parent="." index="0" instance=ExtResource( 2 )]
+[node name="AngryCloud3" parent="." index="0" instance=ExtResource( 2 )]
 
-position = Vector2( 2462.77, 812.599 )
+position = Vector2( 3934.95, 295.476 )
 z_index = -4
 
-[node name="AngryCloud3" parent="." index="1" instance=ExtResource( 2 )]
+[node name="AngryCloud4" parent="." index="1" instance=ExtResource( 2 )]
 
-position = Vector2( 7536.61, 773.15 )
+position = Vector2( 10592.5, 295.476 )
 z_index = -4
 
 [node name="Mountain" parent="." index="2" instance=ExtResource( 3 )]
 
-position = Vector2( 5504.05, 1209.49 )
+position = Vector2( 5504.05, 1257.26 )
 z_index = -4
 _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
-[node name="FlagPole" parent="." index="3" instance=ExtResource( 4 )]
+[node name="Mountain2" parent="." index="3" instance=ExtResource( 3 )]
 
-position = Vector2( 1147.17, 770.83 )
+position = Vector2( 2112.56, 1257.26 )
 z_index = -4
-_sections_unfolded = [ "Transform", "Z Index" ]
+_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
-[node name="PineTree" parent="." index="4" instance=ExtResource( 5 )]
+[node name="PineTree" parent="." index="4" instance=ExtResource( 4 )]
 
-position = Vector2( 1912.91, 1004.57 )
+position = Vector2( 7969.82, 1233.85 )
 z_index = -4
 
-[node name="CommunicationTower" parent="." index="5" instance=ExtResource( 6 )]
+[node name="PineTree2" parent="." index="5" instance=ExtResource( 4 )]
 
-position = Vector2( 8725.39, 1290.32 )
+position = Vector2( 8890.39, 1156.19 )
+scale = Vector2( 1.22909, 1.22909 )
 z_index = -4
-_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="PineTree3" parent="." index="6" instance=ExtResource( 4 )]
+
+position = Vector2( 9838.83, 1275.58 )
+scale = Vector2( 0.876919, 0.876919 )
+z_index = -4
 
 
