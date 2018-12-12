@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Baloon_Scared-ogg-converted.ogg-4ccb28145876242e9a8c083c8c157ca2.oggstr"
+
+[deps]
+
+source_file="res://Audio/sfx/Baloon_Scared-ogg-converted.ogg"
+dest_files=[ "res://.import/Baloon_Scared-ogg-converted.ogg-4ccb28145876242e9a8c083c8c157ca2.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

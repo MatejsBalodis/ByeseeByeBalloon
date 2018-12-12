@@ -3,7 +3,7 @@
 [ext_resource path="res://Items/SacrificeItem.gd" type="Script" id=1]
 [ext_resource path="res://Audio/sfx/Item_fall.wav" type="AudioStream" id=2]
 
-[node name="SacrificeItem" type="Node2D"]
+[node name="SacrificeItem" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
@@ -16,6 +16,6 @@ volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true
 mix_target = 0
-bus = "Master"
+bus = "Falling Item SFX"
 
 
