@@ -1,6 +1,7 @@
 extends Sprite
 
 onready var main_character_camera = get_parent().get_parent().get_parent().get_node("CharacterLayer").get_node("MainCharacter").get_node("Camera2D") # For speed and convenience.
+
 const BOTTOM_LINE_OFFSET = 1380.0 # To avoid having magic numbers.
 const BLINK_PHASE = .01 # How quickly to blink the bottom line.
 

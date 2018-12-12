@@ -52,12 +52,14 @@
 * DONE Implement finding item face animation.
 * DONE Sound effects
 ** All the relevant sound effects provided by Nezvers
-* TODO Clean all the global scope caches by nulling them at ready()
+* DONE Clean all the global scope caches by nulling them at ready()
+* TODO Implement so that next level button is loading in also the first level.
 * TODO Add transition from gameplay music to level stop music.
 * TODO Fix so that progress balloon is over finish line.
 * TODO Implement transitions between scenes.
 ** Fade in and fade out.
 *** Both graphics and music.
+* TODO Get rid of the bottom warning line and introduce that item selection bars starts to red blink if balloon is too low.
 * IN-PROGRESS Implement pause button. [3/5]
 ** DONE Quiet music
 ** DONE Restart button
@@ -85,6 +87,8 @@
 ****** Both Obstacle and Level scenes are named appropriately.
 ***** For level items modify World->CharacterLayer->MainCharacter (REMEMBER TO MODIFY THE ORIGINAL SCENE ARRAY, NOT INSTANCE) "Up Items" array elements of each level.
 ****** Remember that if array elements are references to Objects held in heap then to add a new unique item it is required to at first Choose new appropriate type object and only then drag in or load the asset.
+***** To make level longer or shorter, just go to World->Level->FinishLine->ParallaxLayer mark all the FinishLine sprites and Shift arrow key move them back or forth.
+****** Of course if level is longer then more content should be added to other parallax layers too.
 ** DONE Implement level switching with next button.
 ** DONE Implement switching between levels. [2/2]
 *** DONE Next level button.
@@ -92,7 +96,7 @@
 ** DONE Implement so that score is persistent between levels.
 ** TODO Next level button changing text to victory.
 ** TODO Implement so that if score is not sufficient (levels must have entry price) at level complete the game is over and it is not possible to go to next level. [0/3]
-*** TODO If there isn't enough total points to enter the next level then finish game button appears with a different image in it and different end screen.
+*** TODO If there isn't enough total points to enter the next level then player can restart level or go to menu, just like when he has fallen.
 *** TODO Implement so that total score/required score for the next level is displayed constantly in the corner and it updates in realtime showing if it is possible to get to next level.
 *** TODO Implement so that it is possible to reset level at which the not sufficient score was reached with the score that was at the level start.
 * IN-PROGRESS Implement music looping and starting correctly.
