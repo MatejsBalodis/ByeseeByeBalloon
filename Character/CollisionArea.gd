@@ -11,6 +11,7 @@ func _on_CollisionArea_body_entered(body):
 	main_character.obstacle_collision_is_active = true
 	main_character.current_up_force = Vector2()
 	main_character.set_descrete_facial_animation(2, true)
+	main_character.get_node("MainCharacterAudioStreamPlayer").play_hit_sfx()
 
 func _on_CollisionArea_body_exited(body):
 	main_character.obstacle_collision_is_active = false

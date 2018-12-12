@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Baloon_Trying_hard2-ogg-converted.ogg-411b50f6a100d74fc95ef0b45647f694.oggstr"
+
+[deps]
+
+source_file="res://Audio/sfx/Baloon_Trying_hard2-ogg-converted.ogg"
+dest_files=[ "res://.import/Baloon_Trying_hard2-ogg-converted.ogg-411b50f6a100d74fc95ef0b45647f694.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

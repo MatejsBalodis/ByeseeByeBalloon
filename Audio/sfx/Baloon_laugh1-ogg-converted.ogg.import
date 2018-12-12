@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Baloon_laugh1-ogg-converted.ogg-090eada918a36c2ecbf540de5d5f6f09.oggstr"
+
+[deps]
+
+source_file="res://Audio/sfx/Baloon_laugh1-ogg-converted.ogg"
+dest_files=[ "res://.import/Baloon_laugh1-ogg-converted.ogg-090eada918a36c2ecbf540de5d5f6f09.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

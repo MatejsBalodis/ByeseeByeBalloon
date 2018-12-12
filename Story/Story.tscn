@@ -321,7 +321,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.98, 0.98 ) ]
 }
 
-[node name="Story" type="Node2D"]
+[node name="Story" type="Node2D" index="0"]
 
 [node name="Sky" type="Sprite" parent="." index="0"]
 
@@ -732,7 +732,7 @@ volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true
 mix_target = 0
-bus = "Master"
+bus = "Music"
 
 [connection signal="pressed" from="CanvasLayer/SkipButton" to="CanvasLayer/SkipButton" method="_on_SkipButton_pressed"]
 

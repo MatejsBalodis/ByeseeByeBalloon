@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var audio_manager = get_parent().get_parent().get_node("AudioManager") # For speed and convenience.
+onready var music_manager = get_parent().get_parent().get_node("MusicManager") # For speed and convenience.
 onready var gui_layer = get_parent().get_parent().get_node("GUILayer") # For speed and convenience.
 onready var sacrifice_item_layer = get_parent().get_node("SacrificeItemWrapper") # For speed and convenience.
 onready var game_over_wrapper = gui_layer.get_node("GameOverWrapper") # For speed and convenience.
@@ -21,6 +21,7 @@ onready var texture_progress_bar = gui_layer.get_node("ProgressBar").get_node("T
 onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
 onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
 onready var body_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationPlayer") # To save resources.
+onready var main_character_audio_stream_player = get_node("MainCharacterAudioStreamPlayer") # For speed and convenience.
 # These have to be reset on level change.
 onready var background = get_parent().get_parent().get_node("Level") # For speed and convenience.
 onready var finish_line = background.get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
@@ -104,7 +105,8 @@ func reset():
 	selection_item_bar.regenerate_items()
 
 	game_over_audio_stream_player.stop()
-	audio_manager.get_node("AudioStreamPlayer").play()
+	music_manager.get_node("AudioStreamPlayer").play()
+	main_character_audio_stream_player.stop()
 
 	current_facial_animation_index = -1
 	forbid_changing_facial_animation = false
@@ -144,18 +146,20 @@ func initiate_level_end(level_stop_state):
 	game_over_restart_button.visible = true
 	level_end_velocity_coefficient = .0
 
-	audio_manager.get_node("AudioStreamPlayer").stop()
+	music_manager.get_node("AudioStreamPlayer").stop()
 
 	if level_stop_state == Global.Level_stop_states.LEVEL_COMPLETE:
 		score_background.visible = true
 		level_complete_text.visible = true
 		Global.current_level_stop_state = Global.Level_stop_states.LEVEL_COMPLETE
 		game_over_audio_stream_player.stream = level_complete_audio_stream
+		main_character_audio_stream_player.play_win_sfx()
 	elif level_stop_state == Global.Level_stop_states.GAME_OVER:
 		current_level_score = 0
 		game_over_text.visible = true
 		Global.current_level_stop_state = Global.Level_stop_states.GAME_OVER
 		game_over_audio_stream_player.stream = game_over_audio_stream
+		main_character_audio_stream_player.play_die_sfx()
 
 	game_over_audio_stream_player.play()
 
@@ -180,6 +184,8 @@ func _physics_process(delta):
 			manage_level_complete_state(delta)
 
 func start_up_item_event(item_index):
+	forbid_changing_facial_animation = false
+	set_facial_animation(1)
 	current_up_item_index = item_index
 	item_drop_start_time = OS.get_ticks_msec()
 	current_drop_animation_length = animation_blend_tree.animation_node_get_animation("drop2").length * ACTUAL_ANIMATION_RESET
@@ -196,6 +202,7 @@ func manage_up_item_event():
 	current_level_score -= up_items[Global.current_level_index][current_up_item_index][2]
 	if current_up_force < up_items[Global.current_level_index][current_up_item_index][0]:
 		current_up_force = up_items[Global.current_level_index][current_up_item_index][0] + up_items[Global.current_level_index][current_up_item_index][0] * .1
+	main_character_audio_stream_player.play_ascend_sfx()
 
 func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_goal, incline_decline_goal, death_levelcomplete_goal, new_state_reach_lerp_speed):
 	float_dead = lerp(float_dead, float_dead_goal, new_state_reach_lerp_speed)
