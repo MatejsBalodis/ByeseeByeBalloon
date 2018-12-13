@@ -31,6 +31,15 @@ func regenerate_items():
 	return_on_reset = true
 	current_x_offset = MARGIN_BETWEEN_BUTTONS
 	free_memory_from_the_previous_item_set()
+
+	level_selection_bars.clear()
+	for i in range(0, player.up_items.size()):
+		level_selection_bars.append([])
+		for i2 in range(0, player.up_items[i].size()):
+			level_selection_bars[i].append([])
+			for i3 in range(0, 2):
+				level_selection_bars[i][i2].append(null)
+
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
 		level_selection_bars[Global.current_level_index][i][0] = selection_bar_item.instance()
 		var up_item = level_selection_bars[Global.current_level_index][i][0].get_node("UpItem") # For speed and convenience.
@@ -66,13 +75,14 @@ func _process(delta):
 				return_lerp_progress = clamp(return_lerp_progress, .0, 1.0)
 				rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
 		else:
+			var bar_width = (get_viewport().size.x if get_viewport().size.x < current_x_offset else current_x_offset) # For speed and convenience.
 			var relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
 			if relative_mouse_position.y > rect_position.y - button_height:
 				if rect_position.x < .0:
 					drag_indicator_left.lerp_indicator_opacity(false, .0, delta)
 				else:
 					drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
-				if rect_position.x > -(current_x_offset - get_viewport().size.x):
+				if rect_position.x > -(current_x_offset - bar_width):
 					drag_indicator_right.lerp_indicator_opacity(false, .0, delta)
 				else:
 					drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
@@ -85,8 +95,8 @@ func _process(delta):
 				drag_is_active = false
 				if rect_position.x > .0:
 					rect_position.x = lerp(rect_position.x, .0, delta * return_speed)
-				elif rect_position.x < -(current_x_offset - get_viewport().size.x):
-					rect_position.x = lerp(rect_position.x, -(current_x_offset - get_viewport().size.x), delta * return_speed)
+				elif rect_position.x < -(current_x_offset - bar_width):
+					rect_position.x = lerp(rect_position.x, -(current_x_offset - bar_width), delta * return_speed)
 			if drag_is_active:
-				rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (get_viewport().size.x / clamp(rect_position.x, 1.0, get_viewport().size.x))))
+				rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (bar_width / clamp(rect_position.x, 1.0, bar_width))))
 			old_mouse_position = relative_mouse_position
