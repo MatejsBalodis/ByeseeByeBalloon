@@ -64,8 +64,11 @@
 * DONE Fix so that progress balloon is over finish line.
 * DONE Get rid of the bottom warning line and introduce that item selection bars starts to red blink if balloon is too low.
 * DONE Bottom selection bar should move up and down additionally to fading out and in.
-* TODO Remove the bottom bar.
-* TODO Implement bar dissappearing on level complete.
+* DONE Pressing pause doesn't cause for item bar to appear.
+* DONE When the last level is reached pressing on next level button causes for the game to crash instead of opening the victory screen.
+* DONE Sometimes item bar doesn't dissappear when the end of level is reached.
+* DONE Remove the bottom danger bar.
+* DONE Implement bar dissappearing on level complete.
 * TODO Implement transitions between scenes.
 ** Fade in and fade out.
 *** Both graphics and music.

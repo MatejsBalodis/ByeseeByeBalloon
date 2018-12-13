@@ -18,7 +18,7 @@ func _on_NextLevelButton_pressed():
 	current_obstacle_wrapper.name = "obstacle_wrapper_for_deletion"
 	current_obstacle_wrapper.queue_free()
 	Global.current_level_index += 1
-	if Global.current_level_index - 1 > main_character.up_items.size() - 1:
+	if Global.current_level_index - 1 > level_scenes.size() - 1:
 		Global.goto_scene(VICTORY_SCENE_PATH)
 		return
 	current_level_scene = level_scenes[Global.current_level_index - 1][0].instance()

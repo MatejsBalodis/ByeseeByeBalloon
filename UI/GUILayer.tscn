@@ -270,7 +270,7 @@ expand_margin_bottom = 0.0
 modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 
-[node name="GUILayer" type="CanvasLayer"]
+[node name="GUILayer" type="CanvasLayer" index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -421,8 +421,10 @@ stretch_mode = 0
 
 [node name="ItemSelectionBar" parent="." index="1" instance=ExtResource( 28 )]
 
+pause_mode = 2
 anchor_right = 1.0
 margin_right = 0.0
+_sections_unfolded = [ "Pause" ]
 
 [node name="ProgressBar" parent="." index="2" instance=ExtResource( 29 )]
 

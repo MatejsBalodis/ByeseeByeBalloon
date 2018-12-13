@@ -16,12 +16,12 @@ func _on_PauseButton_pressed():
 		get_tree().paused = false
 		game_over_restart_button.visible = false
 		game_over_menu_button.visible = false
-		get_parent().get_node("ItemSelectionBar").visible = true
+		Global.current_level_stop_state = Global.Level_stop_states.NONE
 	else:
 		get_tree().paused = true
 		game_over_restart_button.visible = true
 		game_over_menu_button.visible = true
-		get_parent().get_node("ItemSelectionBar").visible = false
+		Global.current_level_stop_state = Global.Level_stop_states.PAUSE
 
 func _process(delta):
 	if get_tree().paused:
@@ -29,7 +29,7 @@ func _process(delta):
 	else:
 		music_audio_stream_player.volume_db = lerp(music_audio_stream_player.volume_db, original_music_volume, delta)
 
-	if Global.current_level_stop_state != Global.Level_stop_states.NONE:
+	if Global.current_level_stop_state == Global.Level_stop_states.LEVEL_COMPLETE || Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
 		visible = false
 	else:
 		visible = true
