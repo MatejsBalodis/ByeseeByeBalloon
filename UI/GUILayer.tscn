@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://Audio/Music/Gameover-ogg-converted.ogg" type="AudioStream" id=1]
 [ext_resource path="res://UI/Restart.png" type="Texture" id=2]
@@ -6,35 +6,33 @@
 [ext_resource path="res://UI/GotoMenuButton.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/NextLevel.png" type="Texture" id=5]
 [ext_resource path="res://UI/NextLevelButton.gd" type="Script" id=6]
-[ext_resource path="res://Environment/Level0.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Obstacles/ObstacleWrapper0.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Environment/Level1.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Obstacles/ObstacleWrapper1.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Environment/Level2.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Obstacles/ObstacleWrapper2.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Environment/Level3.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Obstacles/ObstacleWrapper3.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Environment/Level4.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Obstacles/ObstacleWrapper4.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Environment/Level5.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Obstacles/ObstacleWrapper5.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Environment/Level6.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Obstacles/ObstacleWrapper6.tscn" type="PackedScene" id=20]
-[ext_resource path="res://Environment/Level7.tscn" type="PackedScene" id=21]
-[ext_resource path="res://Obstacles/ObstacleWrapper7.tscn" type="PackedScene" id=22]
-[ext_resource path="res://Environment/Level8.tscn" type="PackedScene" id=23]
-[ext_resource path="res://Obstacles/ObstacleWrapper8.tscn" type="PackedScene" id=24]
-[ext_resource path="res://Environment/Level9.tscn" type="PackedScene" id=25]
-[ext_resource path="res://Obstacles/ObstacleWrapper9.tscn" type="PackedScene" id=26]
-[ext_resource path="res://UI/LevelComplete.png" type="Texture" id=27]
-[ext_resource path="res://UI/GameOverText.png" type="Texture" id=28]
-[ext_resource path="res://UI/ScoreBackground.tscn" type="PackedScene" id=29]
-[ext_resource path="res://UI/ItemSelectionBar/ItemSelectionBar.tscn" type="PackedScene" id=30]
-[ext_resource path="res://UI/ProgressBar/ProgressBar.tscn" type="PackedScene" id=31]
-[ext_resource path="res://UI/ScrollIndicator.png" type="Texture" id=32]
-[ext_resource path="res://UI/ItemSelectionBar/DragIndicator.gd" type="Script" id=33]
-[ext_resource path="res://UI/Pause.png" type="Texture" id=34]
-[ext_resource path="res://UI/PauseButton.gd" type="Script" id=35]
+[ext_resource path="res://Environment/Level1.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Obstacles/ObstacleWrapper1.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Environment/Level2.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Obstacles/ObstacleWrapper2.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Environment/Level3.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Obstacles/ObstacleWrapper3.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Environment/Level4.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Obstacles/ObstacleWrapper4.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Environment/Level5.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Obstacles/ObstacleWrapper5.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Environment/Level6.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Obstacles/ObstacleWrapper6.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Environment/Level7.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Obstacles/ObstacleWrapper7.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Environment/Level8.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Obstacles/ObstacleWrapper8.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Environment/Level9.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Obstacles/ObstacleWrapper9.tscn" type="PackedScene" id=24]
+[ext_resource path="res://UI/LevelComplete.png" type="Texture" id=25]
+[ext_resource path="res://UI/GameOverText.png" type="Texture" id=26]
+[ext_resource path="res://UI/ScoreBackground.tscn" type="PackedScene" id=27]
+[ext_resource path="res://UI/ItemSelectionBar/ItemSelectionBar.tscn" type="PackedScene" id=28]
+[ext_resource path="res://UI/ProgressBar/ProgressBar.tscn" type="PackedScene" id=29]
+[ext_resource path="res://UI/ScrollIndicator.png" type="Texture" id=30]
+[ext_resource path="res://UI/ItemSelectionBar/DragIndicator.gd" type="Script" id=31]
+[ext_resource path="res://UI/Pause.png" type="Texture" id=32]
+[ext_resource path="res://UI/PauseButton.gd" type="Script" id=33]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -193,7 +191,7 @@ content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
-texture = ExtResource( 34 )
+texture = ExtResource( 32 )
 region_rect = Rect2( 0, 0, 439, 298 )
 margin_left = 0.0
 margin_right = 0.0
@@ -213,7 +211,7 @@ content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
-texture = ExtResource( 34 )
+texture = ExtResource( 32 )
 region_rect = Rect2( 0, 0, 439, 298 )
 margin_left = 0.0
 margin_right = 0.0
@@ -240,7 +238,7 @@ content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
-texture = ExtResource( 34 )
+texture = ExtResource( 32 )
 region_rect = Rect2( 0, 0, 439, 298 )
 margin_left = 0.0
 margin_right = 0.0
@@ -259,7 +257,7 @@ content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
-texture = ExtResource( 34 )
+texture = ExtResource( 32 )
 region_rect = Rect2( 0, 0, 439, 298 )
 margin_left = 0.0
 margin_right = 0.0
@@ -379,7 +377,7 @@ flat = false
 align = 1
 script = ExtResource( 6 )
 _sections_unfolded = [ "Rect", "custom_styles" ]
-level_scenes = [ [ ExtResource( 7 ), ExtResource( 8 ) ], [ ExtResource( 9 ), ExtResource( 10 ) ], [ ExtResource( 11 ), ExtResource( 12 ) ], [ ExtResource( 13 ), ExtResource( 14 ) ], [ ExtResource( 15 ), ExtResource( 16 ) ], [ ExtResource( 17 ), ExtResource( 18 ) ], [ ExtResource( 19 ), ExtResource( 20 ) ], [ ExtResource( 21 ), ExtResource( 22 ) ], [ ExtResource( 23 ), ExtResource( 24 ) ], [ ExtResource( 25 ), ExtResource( 26 ) ] ]
+level_scenes = [ [ ExtResource( 7 ), ExtResource( 8 ) ], [ ExtResource( 9 ), ExtResource( 10 ) ], [ ExtResource( 11 ), ExtResource( 12 ) ], [ ExtResource( 13 ), ExtResource( 14 ) ], [ ExtResource( 15 ), ExtResource( 16 ) ], [ ExtResource( 17 ), ExtResource( 18 ) ], [ ExtResource( 19 ), ExtResource( 20 ) ], [ ExtResource( 21 ), ExtResource( 22 ) ], [ ExtResource( 23 ), ExtResource( 24 ) ] ]
 
 [node name="LevelCompleteText" type="TextureRect" parent="GameOverWrapper" index="4"]
 
@@ -397,7 +395,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 27 )
+texture = ExtResource( 25 )
 stretch_mode = 0
 
 [node name="GameOverText" type="TextureRect" parent="GameOverWrapper" index="5"]
@@ -416,17 +414,17 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 28 )
+texture = ExtResource( 26 )
 stretch_mode = 0
 
-[node name="ScoreBackground" parent="GameOverWrapper" index="6" instance=ExtResource( 29 )]
+[node name="ScoreBackground" parent="GameOverWrapper" index="6" instance=ExtResource( 27 )]
 
-[node name="ItemSelectionBar" parent="." index="1" instance=ExtResource( 30 )]
+[node name="ItemSelectionBar" parent="." index="1" instance=ExtResource( 28 )]
 
 anchor_right = 1.0
 margin_right = 0.0
 
-[node name="ProgressBar" parent="." index="2" instance=ExtResource( 31 )]
+[node name="ProgressBar" parent="." index="2" instance=ExtResource( 29 )]
 
 margin_top = 17.0
 margin_bottom = 109.0
@@ -449,9 +447,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 32 )
+texture = ExtResource( 30 )
 stretch_mode = 0
-script = ExtResource( 33 )
+script = ExtResource( 31 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="DragIndicatorLeft" type="TextureRect" parent="." index="4"]
@@ -472,9 +470,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 32 )
+texture = ExtResource( 30 )
 stretch_mode = 0
-script = ExtResource( 33 )
+script = ExtResource( 31 )
 _sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="PauseButton" type="Button" parent="." index="5"]
@@ -506,7 +504,7 @@ shortcut = null
 group = null
 flat = false
 align = 1
-script = ExtResource( 35 )
+script = ExtResource( 33 )
 _sections_unfolded = [ "Pause", "Rect", "custom_styles" ]
 
 [connection signal="pressed" from="GameOverWrapper/GameOverRestartButton" to="GameOverWrapper/GameOverRestartButton" method="_on_RestartButton_pressed"]

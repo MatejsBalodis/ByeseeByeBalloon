@@ -604,7 +604,6 @@ texture = ExtResource( 14 )
 
 [node name="BottomIndicationCanvasLayer" type="CanvasLayer" parent="." index="7"]
 
-editor/display_folded = true
 layer = 10
 offset = Vector2( 0, 0 )
 rotation = 0.0

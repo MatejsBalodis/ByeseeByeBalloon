@@ -53,13 +53,22 @@
 * DONE Sound effects
 ** All the relevant sound effects provided by Nezvers
 * DONE Clean all the global scope caches by nulling them at ready()
-* TODO Implement so that next level button is loading in also the first level.
-* TODO Add transition from gameplay music to level stop music.
-* TODO Fix so that progress balloon is over finish line.
+* DONE Implement so that next level button is loading in also the first level.
+:LOGBOOK:
+- Note taken on [2018-12-13 C  02:38] \\
+  Matejs just have to follow instruction in level setup.
+:END:
+* DONE If item selection bar is less wide than the screen it jumps around.
+* DONE Implement so that Item selection bar array is generated automatically and there is no need for manual interaction.
+* DONE Add transition from gameplay music to level stop music.
+* DONE Fix so that progress balloon is over finish line.
+* DONE Get rid of the bottom warning line and introduce that item selection bars starts to red blink if balloon is too low.
+* DONE Bottom selection bar should move up and down additionally to fading out and in.
+* TODO Remove the bottom bar.
+* TODO Implement bar dissappearing on level complete.
 * TODO Implement transitions between scenes.
 ** Fade in and fade out.
 *** Both graphics and music.
-* TODO Get rid of the bottom warning line and introduce that item selection bars starts to red blink if balloon is too low.
 * IN-PROGRESS Implement pause button. [3/5]
 ** DONE Quiet music
 ** DONE Restart button
@@ -77,9 +86,6 @@
 ******* They must be assigned to the "Level Scenes" array, which is exported for the NextLevelButton node.
 ******** World->GUILayer->GameOverWrapper->NextLevelButton
 ******* Also World->CharacterLayer->MainCharacter array "Up Items" requires new item added for each level with the level basket items, which are intended to be sacrificed.
-******* Also World->GUILayer->ItemSelectionBar array "Level Selection Bars" requires new item add for each level.
-******** For these elements don't assign anything, just make the same structure as for existing elements.
-********* Elements of this array will be filled automatically during run-time.
 **** To modify 10 existing level assets.
 ***** Just go to 
 ****** Obstacles folder to modify ObstacleWrappers
@@ -89,6 +95,11 @@
 ****** Remember that if array elements are references to Objects held in heap then to add a new unique item it is required to at first Choose new appropriate type object and only then drag in or load the asset.
 ***** To make level longer or shorter, just go to World->Level->FinishLine->ParallaxLayer mark all the FinishLine sprites and Shift arrow key move them back or forth.
 ****** Of course if level is longer then more content should be added to other parallax layers too.
+**** First level setup instruction
+***** Just replace existing World->Level node and World->CharacterLayer->ObstacleWrapper nodes with the first level scenes.
+****** Remember to rename the Level to Level and ObstacleWrapper to ObstacleWrapper.
+******* For example: Level2 should be named Level, when dragged in as the first Level, the same goes for ObstacleWrapper.
+***** Modify Items as for any other level on the main character.
 ** DONE Implement level switching with next button.
 ** DONE Implement switching between levels. [2/2]
 *** DONE Next level button.
