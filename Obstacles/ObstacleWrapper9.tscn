@@ -16,29 +16,44 @@ script = ExtResource( 1 )
 position = Vector2( 2462.77, 812.599 )
 z_index = -4
 
-[node name="AngryCloud3" parent="." index="1" instance=ExtResource( 2 )]
+[node name="AngryCloud2" parent="." index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 4290.64, 295.278 )
+z_index = -4
+
+[node name="AngryCloud4" parent="." index="2" instance=ExtResource( 2 )]
+
+position = Vector2( 8894.8, 278.034 )
+z_index = -4
+
+[node name="AngryCloud3" parent="." index="3" instance=ExtResource( 2 )]
 
 position = Vector2( 7536.61, 773.15 )
 z_index = -4
 
-[node name="Mountain" parent="." index="2" instance=ExtResource( 3 )]
+[node name="Mountain" parent="." index="4" instance=ExtResource( 3 )]
 
 position = Vector2( 5504.05, 1209.49 )
 z_index = -4
 _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
-[node name="FlagPole" parent="." index="3" instance=ExtResource( 4 )]
+[node name="FlagPole" parent="." index="5" instance=ExtResource( 4 )]
 
 position = Vector2( 1147.17, 770.83 )
 z_index = -4
 _sections_unfolded = [ "Transform", "Z Index" ]
 
-[node name="PineTree" parent="." index="4" instance=ExtResource( 5 )]
+[node name="PineTree" parent="." index="6" instance=ExtResource( 5 )]
 
 position = Vector2( 1912.91, 1004.57 )
 z_index = -4
 
-[node name="CommunicationTower" parent="." index="5" instance=ExtResource( 6 )]
+[node name="PineTree2" parent="." index="7" instance=ExtResource( 5 )]
+
+position = Vector2( 3447.63, 1168.39 )
+z_index = -4
+
+[node name="CommunicationTower" parent="." index="8" instance=ExtResource( 6 )]
 
 position = Vector2( 8725.39, 1290.32 )
 z_index = -4

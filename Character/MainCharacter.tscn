@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=82 format=2]
 
 [ext_resource path="res://Character/MainCharacter.gd" type="Script" id=1]
 [ext_resource path="res://Items/Tablet.png" type="Texture" id=2]
@@ -9,43 +9,89 @@
 [ext_resource path="res://UI/ItemSelectionBar/Items/Basket.png" type="Texture" id=7]
 [ext_resource path="res://Items/Beer.png" type="Texture" id=8]
 [ext_resource path="res://UI/ItemSelectionBar/Items/Beer.png" type="Texture" id=9]
-[ext_resource path="res://Items/Bike.png" type="Texture" id=10]
-[ext_resource path="res://UI/ItemSelectionBar/Items/Bike.png" type="Texture" id=11]
+[ext_resource path="res://Items/Cake.png" type="Texture" id=10]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Cake.png" type="Texture" id=11]
 [ext_resource path="res://Items/BowlingBall.png" type="Texture" id=12]
 [ext_resource path="res://UI/ItemSelectionBar/Items/BowlingBall.png" type="Texture" id=13]
-[ext_resource path="res://Items/Cake.png" type="Texture" id=14]
-[ext_resource path="res://UI/ItemSelectionBar/Items/Cake.png" type="Texture" id=15]
-[ext_resource path="res://Items/Camera.png" type="Texture" id=16]
-[ext_resource path="res://UI/ItemSelectionBar/Items/Camera.png" type="Texture" id=17]
-[ext_resource path="res://Items/Console.png" type="Texture" id=18]
-[ext_resource path="res://UI/ItemSelectionBar/Items/Console.png" type="Texture" id=19]
-[ext_resource path="res://Items/Fridge.png" type="Texture" id=20]
-[ext_resource path="res://UI/ItemSelectionBar/Items/Fridge.png" type="Texture" id=21]
+[ext_resource path="res://Items/Suitcase.png" type="Texture" id=14]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Suitcase.png" type="Texture" id=15]
+[ext_resource path="res://Items/Radio.png" type="Texture" id=16]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Radio.png" type="Texture" id=17]
+[ext_resource path="res://Items/Pumpkin.png" type="Texture" id=18]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Pumpkin.png" type="Texture" id=19]
+[ext_resource path="res://Items/Lemonade.png" type="Texture" id=20]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Lemonade.png" type="Texture" id=21]
 [ext_resource path="res://Items/Guitar.png" type="Texture" id=22]
 [ext_resource path="res://UI/ItemSelectionBar/Items/Guitar.png" type="Texture" id=23]
-[ext_resource path="res://Items/Lemonade.png" type="Texture" id=24]
-[ext_resource path="res://UI/ItemSelectionBar/Items/Lemonade.png" type="Texture" id=25]
-[ext_resource path="res://Items/Pumpkin.png" type="Texture" id=26]
-[ext_resource path="res://UI/ItemSelectionBar/Items/Pumpkin.png" type="Texture" id=27]
-[ext_resource path="res://Items/Radio.png" type="Texture" id=28]
-[ext_resource path="res://UI/ItemSelectionBar/Items/Radio.png" type="Texture" id=29]
-[ext_resource path="res://Items/Suitcase.png" type="Texture" id=30]
-[ext_resource path="res://UI/ItemSelectionBar/Items/Suitcase.png" type="Texture" id=31]
-[ext_resource path="res://Items/SacrificeItem.tscn" type="PackedScene" id=32]
-[ext_resource path="res://Character/Camera2D.gd" type="Script" id=33]
-[ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=34]
-[ext_resource path="res://Character/MainCharacterAudioStreamPlayer.gd" type="Script" id=35]
+[ext_resource path="res://Items/Fridge.png" type="Texture" id=24]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Fridge.png" type="Texture" id=25]
+[ext_resource path="res://Items/Camera.png" type="Texture" id=26]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Camera.png" type="Texture" id=27]
+[ext_resource path="res://Items/ActionFigure.png" type="Texture" id=28]
+[ext_resource path="res://UI/ItemSelectionBar/Items/ActionFigure.png" type="Texture" id=29]
+[ext_resource path="res://Items/Console.png" type="Texture" id=30]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Console.png" type="Texture" id=31]
+[ext_resource path="res://Items/Piano.png" type="Texture" id=32]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Piano.png" type="Texture" id=33]
+[ext_resource path="res://Items/Iron.png" type="Texture" id=34]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Iron.png" type="Texture" id=35]
+[ext_resource path="res://Items/Vacuum.png" type="Texture" id=36]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Vacuum.png" type="Texture" id=37]
+[ext_resource path="res://Items/Tire.png" type="Texture" id=38]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Tire.png" type="Texture" id=39]
+[ext_resource path="res://Items/Light.png" type="Texture" id=40]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Light.png" type="Texture" id=41]
+[ext_resource path="res://Items/Bike.png" type="Texture" id=42]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Bike.png" type="Texture" id=43]
+[ext_resource path="res://Items/Watermelon.png" type="Texture" id=44]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Watermelon.png" type="Texture" id=45]
+[ext_resource path="res://Items/TV.png" type="Texture" id=46]
+[ext_resource path="res://UI/ItemSelectionBar/Items/TV.png" type="Texture" id=47]
+[ext_resource path="res://Items/Trashbin.png" type="Texture" id=48]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Trashbin.png" type="Texture" id=49]
+[ext_resource path="res://Items/LongBoard.png" type="Texture" id=50]
+[ext_resource path="res://UI/ItemSelectionBar/Items/LongBoard.png" type="Texture" id=51]
+[ext_resource path="res://Items/Knife.png" type="Texture" id=52]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Knife.png" type="Texture" id=53]
+[ext_resource path="res://Items/Globe.png" type="Texture" id=54]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Globe.png" type="Texture" id=55]
+[ext_resource path="res://Items/CrowBar.png" type="Texture" id=56]
+[ext_resource path="res://UI/ItemSelectionBar/Items/CrowBar.png" type="Texture" id=57]
+[ext_resource path="res://Items/FireExt.png" type="Texture" id=58]
+[ext_resource path="res://UI/ItemSelectionBar/Items/FireExt.png" type="Texture" id=59]
+[ext_resource path="res://Items/Sofa.png" type="Texture" id=60]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Sofa.png" type="Texture" id=61]
+[ext_resource path="res://Items/Axe.png" type="Texture" id=62]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Axe.png" type="Texture" id=63]
+[ext_resource path="res://Items/Gas.png" type="Texture" id=64]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Gas.png" type="Texture" id=65]
+[ext_resource path="res://Items/Glasses.png" type="Texture" id=66]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Glasses.png" type="Texture" id=67]
+[ext_resource path="res://UI/ItemSelectionBar/Items/GodotRobot.png" type="Texture" id=68]
+[ext_resource path="res://Items/GodotRobot.png" type="Texture" id=69]
+[ext_resource path="res://Items/Hammer.png" type="Texture" id=70]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Hammer.png" type="Texture" id=71]
+[ext_resource path="res://Items/Punchingbag.png" type="Texture" id=72]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Punchingbag.png" type="Texture" id=73]
+[ext_resource path="res://Items/VinylPlayer.png" type="Texture" id=74]
+[ext_resource path="res://UI/ItemSelectionBar/Items/VinylPlayer.png" type="Texture" id=75]
+[ext_resource path="res://Items/Lantern.png" type="Texture" id=76]
+[ext_resource path="res://UI/ItemSelectionBar/Items/Lantern.png" type="Texture" id=77]
+[ext_resource path="res://Items/SacrificeItem.tscn" type="PackedScene" id=78]
+[ext_resource path="res://Character/Camera2D.gd" type="Script" id=79]
+[ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=80]
+[ext_resource path="res://Character/MainCharacterAudioStreamPlayer.gd" type="Script" id=81]
 
-[node name="MainCharacter" type="Node2D" index="0"]
+[node name="MainCharacter" type="Node2D"]
 
 position = Vector2( 78.1926, 82.2651 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform", "Z Index", "collision" ]
 gravities = [ Vector2( 0, 100 ) ]
 forward_velocities = [ Vector2( 100, 0 ) ]
-up_items = [ [ [ Vector2( 0, 150 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 10 ), 1200, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 14 ), 10, ExtResource( 15 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 10 ), 1200, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 14 ), 10, ExtResource( 15 ) ], [ Vector2( 0, 115 ), ExtResource( 16 ), 400, ExtResource( 17 ) ], [ Vector2( 0, 115 ), ExtResource( 18 ), 100, ExtResource( 19 ) ], [ Vector2( 0, 180 ), ExtResource( 20 ), 500, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 24 ), 15, ExtResource( 25 ) ], [ Vector2( 0, 140 ), ExtResource( 26 ), 20, ExtResource( 27 ) ], [ Vector2( 0, 122 ), ExtResource( 28 ), 25, ExtResource( 29 ) ], [ Vector2( 0, 130 ), ExtResource( 30 ), 40, ExtResource( 31 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 10 ), 1200, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 14 ), 10, ExtResource( 15 ) ], [ Vector2( 0, 115 ), ExtResource( 16 ), 400, ExtResource( 17 ) ], [ Vector2( 0, 115 ), ExtResource( 18 ), 100, ExtResource( 19 ) ], [ Vector2( 0, 180 ), ExtResource( 20 ), 500, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 24 ), 15, ExtResource( 25 ) ], [ Vector2( 0, 140 ), ExtResource( 26 ), 20, ExtResource( 27 ) ], [ Vector2( 0, 122 ), ExtResource( 28 ), 25, ExtResource( 29 ) ], [ Vector2( 0, 130 ), ExtResource( 30 ), 40, ExtResource( 31 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 10 ), 1200, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 14 ), 10, ExtResource( 15 ) ], [ Vector2( 0, 115 ), ExtResource( 16 ), 400, ExtResource( 17 ) ], [ Vector2( 0, 115 ), ExtResource( 18 ), 100, ExtResource( 19 ) ], [ Vector2( 0, 180 ), ExtResource( 20 ), 500, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 24 ), 15, ExtResource( 25 ) ], [ Vector2( 0, 140 ), ExtResource( 26 ), 20, ExtResource( 27 ) ], [ Vector2( 0, 122 ), ExtResource( 28 ), 25, ExtResource( 29 ) ], [ Vector2( 0, 130 ), ExtResource( 30 ), 40, ExtResource( 31 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 10 ), 1200, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 14 ), 10, ExtResource( 15 ) ], [ Vector2( 0, 115 ), ExtResource( 16 ), 400, ExtResource( 17 ) ], [ Vector2( 0, 115 ), ExtResource( 18 ), 100, ExtResource( 19 ) ], [ Vector2( 0, 180 ), ExtResource( 20 ), 500, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 24 ), 15, ExtResource( 25 ) ], [ Vector2( 0, 140 ), ExtResource( 26 ), 20, ExtResource( 27 ) ], [ Vector2( 0, 122 ), ExtResource( 28 ), 25, ExtResource( 29 ) ], [ Vector2( 0, 130 ), ExtResource( 30 ), 40, ExtResource( 31 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 10 ), 1200, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 14 ), 10, ExtResource( 15 ) ], [ Vector2( 0, 115 ), ExtResource( 16 ), 400, ExtResource( 17 ) ], [ Vector2( 0, 115 ), ExtResource( 18 ), 100, ExtResource( 19 ) ], [ Vector2( 0, 180 ), ExtResource( 20 ), 500, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 24 ), 15, ExtResource( 25 ) ], [ Vector2( 0, 140 ), ExtResource( 26 ), 20, ExtResource( 27 ) ], [ Vector2( 0, 122 ), ExtResource( 28 ), 25, ExtResource( 29 ) ], [ Vector2( 0, 130 ), ExtResource( 30 ), 40, ExtResource( 31 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 10 ), 1200, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 14 ), 10, ExtResource( 15 ) ], [ Vector2( 0, 115 ), ExtResource( 16 ), 400, ExtResource( 17 ) ], [ Vector2( 0, 115 ), ExtResource( 18 ), 100, ExtResource( 19 ) ], [ Vector2( 0, 180 ), ExtResource( 20 ), 500, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 24 ), 15, ExtResource( 25 ) ], [ Vector2( 0, 140 ), ExtResource( 26 ), 20, ExtResource( 27 ) ], [ Vector2( 0, 122 ), ExtResource( 28 ), 25, ExtResource( 29 ) ], [ Vector2( 0, 130 ), ExtResource( 30 ), 40, ExtResource( 31 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 10 ), 1200, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 14 ), 10, ExtResource( 15 ) ], [ Vector2( 0, 115 ), ExtResource( 16 ), 400, ExtResource( 17 ) ], [ Vector2( 0, 115 ), ExtResource( 18 ), 100, ExtResource( 19 ) ], [ Vector2( 0, 180 ), ExtResource( 20 ), 500, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 24 ), 15, ExtResource( 25 ) ], [ Vector2( 0, 140 ), ExtResource( 26 ), 20, ExtResource( 27 ) ], [ Vector2( 0, 122 ), ExtResource( 28 ), 25, ExtResource( 29 ) ], [ Vector2( 0, 130 ), ExtResource( 30 ), 40, ExtResource( 31 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 10 ), 1200, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 14 ), 10, ExtResource( 15 ) ], [ Vector2( 0, 115 ), ExtResource( 16 ), 400, ExtResource( 17 ) ], [ Vector2( 0, 115 ), ExtResource( 18 ), 100, ExtResource( 19 ) ], [ Vector2( 0, 180 ), ExtResource( 20 ), 500, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 24 ), 15, ExtResource( 25 ) ], [ Vector2( 0, 140 ), ExtResource( 26 ), 20, ExtResource( 27 ) ], [ Vector2( 0, 122 ), ExtResource( 28 ), 25, ExtResource( 29 ) ], [ Vector2( 0, 130 ), ExtResource( 30 ), 40, ExtResource( 31 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 10 ), 1200, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 14 ), 10, ExtResource( 15 ) ], [ Vector2( 0, 115 ), ExtResource( 16 ), 400, ExtResource( 17 ) ], [ Vector2( 0, 115 ), ExtResource( 18 ), 100, ExtResource( 19 ) ], [ Vector2( 0, 180 ), ExtResource( 20 ), 500, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 24 ), 15, ExtResource( 25 ) ], [ Vector2( 0, 140 ), ExtResource( 26 ), 20, ExtResource( 27 ) ], [ Vector2( 0, 122 ), ExtResource( 28 ), 25, ExtResource( 29 ) ], [ Vector2( 0, 130 ), ExtResource( 30 ), 40, ExtResource( 31 ) ] ] ]
+up_items = [ [ [ Vector2( 0, 130 ), ExtResource( 2 ), 300, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 300, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 50, ExtResource( 9 ) ], [ Vector2( 0, 115 ), ExtResource( 10 ), 12, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ] ], [ [ Vector2( 0, 135 ), ExtResource( 14 ), 50, ExtResource( 15 ) ], [ Vector2( 0, 130 ), ExtResource( 16 ), 60, ExtResource( 17 ) ], [ Vector2( 0, 140 ), ExtResource( 18 ), 30, ExtResource( 19 ) ], [ Vector2( 0, 126 ), ExtResource( 20 ), 15, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 180 ), ExtResource( 24 ), 500, ExtResource( 25 ) ], [ Vector2( 0, 118 ), ExtResource( 26 ), 400, ExtResource( 27 ) ] ], [ [ Vector2( 0, 115 ), ExtResource( 28 ), 40, ExtResource( 29 ) ], [ Vector2( 0, 120 ), ExtResource( 30 ), 115, ExtResource( 31 ) ], [ Vector2( 0, 180 ), ExtResource( 32 ), 650, ExtResource( 33 ) ], [ Vector2( 0, 135 ), ExtResource( 34 ), 70, ExtResource( 35 ) ], [ Vector2( 0, 135 ), ExtResource( 36 ), 100, ExtResource( 37 ) ], [ Vector2( 0, 150 ), ExtResource( 38 ), 250, ExtResource( 39 ) ], [ Vector2( 0, 120 ), ExtResource( 10 ), 10, ExtResource( 11 ) ], [ Vector2( 0, 125 ), ExtResource( 20 ), 20, ExtResource( 21 ) ], [ Vector2( 0, 120 ), ExtResource( 40 ), 30, ExtResource( 41 ) ] ], [ [ Vector2( 0, 145 ), ExtResource( 42 ), 500, ExtResource( 43 ) ], [ Vector2( 0, 140 ), ExtResource( 44 ), 30, ExtResource( 45 ) ], [ Vector2( 0, 150 ), ExtResource( 46 ), 400, ExtResource( 47 ) ], [ Vector2( 0, 110 ), ExtResource( 48 ), 20, ExtResource( 49 ) ], [ Vector2( 0, 130 ), ExtResource( 50 ), 50, ExtResource( 51 ) ], [ Vector2( 0, 125 ), ExtResource( 52 ), 250, ExtResource( 53 ) ], [ Vector2( 0, 140 ), ExtResource( 54 ), 90, ExtResource( 55 ) ], [ Vector2( 0, 140 ), ExtResource( 56 ), 40, ExtResource( 57 ) ], [ Vector2( 0, 150 ), ExtResource( 58 ), 150, ExtResource( 59 ) ], [ Vector2( 0, 170 ), ExtResource( 60 ), 300, ExtResource( 61 ) ], [ Vector2( 0, 140 ), ExtResource( 18 ), 25, ExtResource( 19 ) ] ], [ [ Vector2( 0, 160 ), ExtResource( 62 ), 500, ExtResource( 63 ) ], [ Vector2( 0, 150 ), ExtResource( 64 ), 300, ExtResource( 65 ) ], [ Vector2( 0, 115 ), ExtResource( 66 ), 90, ExtResource( 67 ) ], [ Vector2( 0, 150 ), ExtResource( 68 ), 100, ExtResource( 69 ) ], [ Vector2( 0, 130 ), ExtResource( 70 ), 60, ExtResource( 71 ) ], [ Vector2( 0, 170 ), ExtResource( 72 ), 300, ExtResource( 73 ) ], [ Vector2( 0, 130 ), ExtResource( 74 ), 350, ExtResource( 75 ) ], [ Vector2( 0, 120 ), ExtResource( 76 ), 80, ExtResource( 77 ) ], [ Vector2( 0, 115 ), ExtResource( 30 ), 100, ExtResource( 31 ) ], [ Vector2( 0, 180 ), ExtResource( 24 ), 500, ExtResource( 25 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 20 ), 15, ExtResource( 21 ) ], [ Vector2( 0, 140 ), ExtResource( 18 ), 20, ExtResource( 19 ) ], [ Vector2( 0, 122 ), ExtResource( 16 ), 25, ExtResource( 17 ) ], [ Vector2( 0, 130 ), ExtResource( 14 ), 40, ExtResource( 15 ) ] ], [ [ Vector2( 0, 120 ), ExtResource( 2 ), 350, ExtResource( 3 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 250, ExtResource( 5 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 30, ExtResource( 7 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 70, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 42 ), 500, ExtResource( 43 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 10 ), 10, ExtResource( 11 ) ], [ Vector2( 0, 115 ), ExtResource( 26 ), 400, ExtResource( 27 ) ], [ Vector2( 0, 115 ), ExtResource( 30 ), 100, ExtResource( 31 ) ], [ Vector2( 0, 180 ), ExtResource( 32 ), 450, ExtResource( 33 ) ], [ Vector2( 0, 115 ), ExtResource( 28 ), 100, ExtResource( 29 ) ], [ Vector2( 0, 126 ), ExtResource( 34 ), 60, ExtResource( 35 ) ], [ Vector2( 0, 120 ), ExtResource( 52 ), 50, ExtResource( 53 ) ], [ Vector2( 0, 125 ), ExtResource( 50 ), 40, ExtResource( 51 ) ], [ Vector2( 0, 130 ), ExtResource( 36 ), 60, ExtResource( 37 ) ] ], [ [ Vector2( 0, 130 ), ExtResource( 44 ), 30, ExtResource( 45 ) ], [ Vector2( 0, 150 ), ExtResource( 46 ), 400, ExtResource( 47 ) ], [ Vector2( 0, 145 ), ExtResource( 38 ), 90, ExtResource( 39 ) ], [ Vector2( 0, 180 ), ExtResource( 60 ), 110, ExtResource( 61 ) ], [ Vector2( 0, 115 ), ExtResource( 48 ), 20, ExtResource( 49 ) ], [ Vector2( 0, 125 ), ExtResource( 12 ), 200, ExtResource( 13 ) ], [ Vector2( 0, 120 ), ExtResource( 52 ), 60, ExtResource( 53 ) ], [ Vector2( 0, 120 ), ExtResource( 26 ), 400, ExtResource( 27 ) ], [ Vector2( 0, 115 ), ExtResource( 40 ), 70, ExtResource( 41 ) ], [ Vector2( 0, 170 ), ExtResource( 72 ), 400, ExtResource( 73 ) ], [ Vector2( 0, 120 ), ExtResource( 54 ), 80, ExtResource( 55 ) ], [ Vector2( 0, 130 ), ExtResource( 16 ), 65, ExtResource( 17 ) ], [ Vector2( 0, 130 ), ExtResource( 50 ), 35, ExtResource( 51 ) ], [ Vector2( 0, 122 ), ExtResource( 22 ), 60, ExtResource( 23 ) ], [ Vector2( 0, 125 ), ExtResource( 2 ), 150, ExtResource( 3 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 42 ), 300, ExtResource( 43 ) ], [ Vector2( 0, 150 ), ExtResource( 62 ), 600, ExtResource( 63 ) ], [ Vector2( 0, 125 ), ExtResource( 66 ), 70, ExtResource( 67 ) ], [ Vector2( 0, 170 ), ExtResource( 8 ), 60, ExtResource( 9 ) ], [ Vector2( 0, 145 ), ExtResource( 58 ), 345, ExtResource( 59 ) ], [ Vector2( 0, 125 ), ExtResource( 74 ), 275, ExtResource( 75 ) ], [ Vector2( 0, 125 ), ExtResource( 6 ), 27, ExtResource( 7 ) ], [ Vector2( 0, 115 ), ExtResource( 28 ), 113, ExtResource( 29 ) ], [ Vector2( 0, 115 ), ExtResource( 30 ), 117, ExtResource( 31 ) ], [ Vector2( 0, 180 ), ExtResource( 24 ), 475, ExtResource( 25 ) ], [ Vector2( 0, 120 ), ExtResource( 76 ), 65, ExtResource( 77 ) ], [ Vector2( 0, 130 ), ExtResource( 56 ), 25, ExtResource( 57 ) ], [ Vector2( 0, 130 ), ExtResource( 69 ), 130, ExtResource( 69 ) ], [ Vector2( 0, 150 ), ExtResource( 64 ), 95, ExtResource( 65 ) ], [ Vector2( 0, 130 ), ExtResource( 14 ), 40, ExtResource( 15 ) ], [ Vector2( 0, 130 ), ExtResource( 36 ), 120, ExtResource( 37 ) ] ], [ [ Vector2( 0, 180 ), ExtResource( 32 ), 600, ExtResource( 33 ) ], [ Vector2( 0, 150 ), ExtResource( 4 ), 400, ExtResource( 5 ) ], [ Vector2( 0, 135 ), ExtResource( 44 ), 35, ExtResource( 45 ) ], [ Vector2( 0, 160 ), ExtResource( 38 ), 90, ExtResource( 39 ) ], [ Vector2( 0, 145 ), ExtResource( 46 ), 450, ExtResource( 47 ) ], [ Vector2( 0, 125 ), ExtResource( 34 ), 95, ExtResource( 35 ) ], [ Vector2( 0, 120 ), ExtResource( 48 ), 10, ExtResource( 49 ) ], [ Vector2( 0, 120 ), ExtResource( 70 ), 50, ExtResource( 71 ) ], [ Vector2( 0, 115 ), ExtResource( 40 ), 60, ExtResource( 41 ) ], [ Vector2( 0, 180 ), ExtResource( 60 ), 500, ExtResource( 61 ) ], [ Vector2( 0, 130 ), ExtResource( 54 ), 150, ExtResource( 55 ) ], [ Vector2( 0, 126 ), ExtResource( 20 ), 17, ExtResource( 21 ) ], [ Vector2( 0, 145 ), ExtResource( 72 ), 125, ExtResource( 73 ) ], [ Vector2( 0, 122 ), ExtResource( 10 ), 25, ExtResource( 11 ) ], [ Vector2( 0, 135 ), ExtResource( 18 ), 40, ExtResource( 19 ) ] ], [ [ Vector2( 0, 150 ), ExtResource( 58 ), 300, ExtResource( 59 ) ], [ Vector2( 0, 150 ), ExtResource( 64 ), 150, ExtResource( 65 ) ], [ Vector2( 0, 130 ), ExtResource( 56 ), 60, ExtResource( 57 ) ], [ Vector2( 0, 170 ), ExtResource( 62 ), 550, ExtResource( 63 ) ], [ Vector2( 0, 145 ), ExtResource( 68 ), 150, ExtResource( 68 ) ], [ Vector2( 0, 130 ), ExtResource( 74 ), 200, ExtResource( 75 ) ], [ Vector2( 0, 120 ), ExtResource( 76 ), 35, ExtResource( 77 ) ], [ Vector2( 0, 115 ), ExtResource( 26 ), 485, ExtResource( 27 ) ], [ Vector2( 0, 115 ), ExtResource( 30 ), 100, ExtResource( 31 ) ], [ Vector2( 0, 115 ), ExtResource( 52 ), 137, ExtResource( 53 ) ], [ Vector2( 0, 120 ), ExtResource( 22 ), 150, ExtResource( 23 ) ], [ Vector2( 0, 126 ), ExtResource( 10 ), 15, ExtResource( 11 ) ], [ Vector2( 0, 145 ), ExtResource( 12 ), 215, ExtResource( 13 ) ], [ Vector2( 0, 122 ), ExtResource( 16 ), 25, ExtResource( 17 ) ], [ Vector2( 0, 130 ), ExtResource( 50 ), 40, ExtResource( 51 ) ] ] ]
 follow_speed = 2.0
-item_template = ExtResource( 32 )
+item_template = ExtResource( 78 )
 
 [node name="Camera2D" type="Camera2D" parent="." index="0"]
 
@@ -71,12 +117,12 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-script = ExtResource( 33 )
+script = ExtResource( 79 )
 _sections_unfolded = [ "Smoothing" ]
 
 [node name="Body" type="Node2D" parent="." index="1"]
 
-[node name="MainCharacterAnimations" parent="Body" index="0" instance=ExtResource( 34 )]
+[node name="MainCharacterAnimations" parent="Body" index="0" instance=ExtResource( 80 )]
 
 [node name="MainCharacterAudioStreamPlayer" type="AudioStreamPlayer" parent="." index="2"]
 
@@ -86,6 +132,6 @@ pitch_scale = 1.0
 autoplay = false
 mix_target = 0
 bus = "Balloon SFX"
-script = ExtResource( 35 )
+script = ExtResource( 81 )
 
 
