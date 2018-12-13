@@ -60,12 +60,12 @@
 :END:
 * DONE If item selection bar is less wide than the screen it jumps around.
 * DONE Implement so that Item selection bar array is generated automatically and there is no need for manual interaction.
-* TODO Add transition from gameplay music to level stop music.
-* TODO Fix so that progress balloon is over finish line.
+* DONE Add transition from gameplay music to level stop music.
+* DONE Fix so that progress balloon is over finish line.
+* TODO Get rid of the bottom warning line and introduce that item selection bars starts to red blink if balloon is too low.
 * TODO Implement transitions between scenes.
 ** Fade in and fade out.
 *** Both graphics and music.
-* TODO Get rid of the bottom warning line and introduce that item selection bars starts to red blink if balloon is too low.
 * IN-PROGRESS Implement pause button. [3/5]
 ** DONE Quiet music
 ** DONE Restart button

@@ -71,8 +71,7 @@ func _process(delta):
 				rect_position.x = .0
 				return_on_reset = false
 			else:
-				return_lerp_progress += delta * BAR_RETURN_SPEED
-				return_lerp_progress = clamp(return_lerp_progress, .0, 1.0)
+				return_lerp_progress = clamp(return_lerp_progress + delta * BAR_RETURN_SPEED, .0, 1.0)
 				rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
 		else:
 			var bar_width = (get_viewport().size.x if get_viewport().size.x < current_x_offset else current_x_offset) # For speed and convenience.

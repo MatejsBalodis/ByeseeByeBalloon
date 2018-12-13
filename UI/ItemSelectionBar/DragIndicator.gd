@@ -12,6 +12,5 @@ func lerp_indicator_opacity(one_shot, lerp_direction, delta):
 	else:
 		if current_indicator_lerp_progress > 1.0 - Global.APPROXIMATION_FLOAT || current_indicator_lerp_progress < Global.APPROXIMATION_FLOAT:
 			drag_indicator_lerp_direction = -drag_indicator_lerp_direction
-	current_indicator_lerp_progress += delta * DRAG_INDICATOR_BLINK_SPEED * drag_indicator_lerp_direction
-	current_indicator_lerp_progress = clamp(current_indicator_lerp_progress, .0, 1.0)
+	current_indicator_lerp_progress = clamp(current_indicator_lerp_progress + delta * DRAG_INDICATOR_BLINK_SPEED * drag_indicator_lerp_direction, .0, 1.0)
 	modulate.a = lerp(DRAG_INDICATOR_ALPHA_BOUNDS.x, DRAG_INDICATOR_ALPHA_BOUNDS.y, current_indicator_lerp_progress)
