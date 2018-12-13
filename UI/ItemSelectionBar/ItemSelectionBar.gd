@@ -5,6 +5,7 @@ onready var player_camera = player.get_node("Camera2D") # For speed and convenie
 onready var drag_is_active = false # To disable drag only, when mouse is released.
 onready var drag_indicator_right = get_parent().get_node("DragIndicatorRight") # For speed and convenience.
 onready var drag_indicator_left = get_parent().get_node("DragIndicatorLeft") # For speed and convenience.
+onready var original_y_position = self.rect_position.y # To know, where to return the bottom bar after reset.
 
 export (PackedScene) var selection_bar_item # To instance the selection bar item.
 export var level_selection_bars = [] # Assign items for each level.
@@ -16,11 +17,18 @@ var button_height = .0 # To detect when to drag activate drag and correctly posi
 var return_on_reset = false # To forbid dragging bar with mouse and return to the initial position.
 var return_speed = 5.0 # How quickly to return the bar to default offset.
 var return_lerp_progress = .0 # To have a tight control over lerping.
+var player_is_in_danger = false # To save resources and check only for this variable in items.
+var player_danger_alpha_coefficient = .0 # To calculate alpha dynamically based on how far in the danger zone the player is in.
 
 const MARGIN_BETWEEN_BUTTONS = 20 # Have a bit of margin between the selection bar items.
 const PUSH_DOWN_DISTANCE = 30 # Buttons should be closer to the bottom of the screen.
 const BAR_RETURN_CLOSE_ENOUGH_DISTANCE = 20.0 # To avoid getting lerp being stuck at the end.
 const BAR_RETURN_SPEED = 3.0 # How quickly to scroll the bar back on reset.
+const DANGER_THRESHOLD = .4 # How low can balloon fall.
+const PLAYER_DYNAMIC_DANGER_TRANSPARENCY_HANDLE = 1.5 # How transparent to make the item background on danger.
+const BAR_ALPHA_DISSAPPEAR_SPEED = 10.0 # How quickly to dissappear on game over state.
+const BAR_ALPHA_APPEAR_SPEED = 3.0 # How quickly to appear on game over state.
+const BAR_MOVE_IN_SPEED = 10.0 # How quickly to move in the bar after reset.
 
 func free_memory_from_the_previous_item_set():
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
@@ -60,7 +68,6 @@ func regenerate_items():
 	drag_indicator_left.current_indicator_lerp_progress = .0
 	return_lerp_progress = .0
 
-
 func _process(delta):
 	if Global.current_level_stop_state != Global.Level_stop_states.NONE:
 		drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
@@ -99,3 +106,16 @@ func _process(delta):
 			if drag_is_active:
 				rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (bar_width / clamp(rect_position.x, 1.0, bar_width))))
 			old_mouse_position = relative_mouse_position
+
+	if player.position.y > get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD:
+		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+			player_is_in_danger = true
+			var the_danger_threshold_distance = get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD # For speed and convenience.
+			player_danger_alpha_coefficient = ((player.position.y - the_danger_threshold_distance) / the_danger_threshold_distance) * PLAYER_DYNAMIC_DANGER_TRANSPARENCY_HANDLE
+		else:
+			modulate.a = lerp(modulate.a, .0, delta * BAR_ALPHA_DISSAPPEAR_SPEED)
+			rect_position.y = lerp(rect_position.y, original_y_position + get_viewport().size.y, delta)
+	else:
+		modulate.a = lerp(modulate.a, 1.0, delta * BAR_ALPHA_APPEAR_SPEED)
+		rect_position.y = lerp(rect_position.y, original_y_position, delta * BAR_MOVE_IN_SPEED)
+		player_is_in_danger = false

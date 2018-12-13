@@ -108,7 +108,6 @@ func reset():
 	for i in range(0, up_items[Global.current_level_index].size()):
 		current_level_score += up_items[Global.current_level_index][i][2]
 
-	selection_item_bar.visible = true
 	selection_item_bar.regenerate_items()
 
 	game_over_audio_stream_player.stop()
@@ -146,7 +145,6 @@ func _process(delta):
 		texture_progress_bar.value = balloon_indicator.rect_position.x
 
 func initiate_level_end(level_stop_state):
-	selection_item_bar.visible = false
 	game_over_restart_button.visible = true
 	game_over_menu_button.visible = true
 	next_level_button.visible = true
