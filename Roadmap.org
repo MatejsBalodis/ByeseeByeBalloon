@@ -69,12 +69,13 @@
 * TODO Implement transitions between scenes.
 ** Fade in and fade out.
 *** Both graphics and music.
-* IN-PROGRESS Implement pause button. [3/5]
+* IN-PROGRESS Implement pause button. [3/6]
 ** DONE Quiet music
 ** DONE Restart button
 ** DONE Menu button
 ** TODO Dropped items must add to time, while pause is active, so that they don't dissapear on unpaused.
 ** TODO Change state(text) to unpause
+** TODO !!! When you press Restart, the item bar disappears.
 * IN-PROGRESS Implement multiple levels. [3/5]
 ** INSTRUCTION FOR IMPLEMENTING NEW LEVELS.
 *** Right now there are 10 levels pre-made.
@@ -109,6 +110,28 @@
 ** TODO Implement so that if score is not sufficient (levels must have entry price) at level complete the game is over and it is not possible to go to next level. [0/3]
 *** TODO If there isn't enough total points to enter the next level then player can restart level or go to menu, just like when he has fallen.
 *** TODO Implement so that total score/required score for the next level is displayed constantly in the corner and it updates in realtime showing if it is possible to get to next level.
+**** Level 0 required score
+***** 500
+**** Level 1 required score
+***** 600
+**** Level 2 required score
+***** 700
+**** Level 3 required score
+***** 750
+**** Level 4 required score
+***** 800
+**** Level 5 required score
+***** 900
+**** Level 6 required score
+***** 950
+**** Level 7 required score
+***** 1000
+**** Level 8 required score
+***** 1050
+**** Level 9 required score
+***** 1250
+**** Total required score
+***** 8500
 *** TODO Implement so that it is possible to reset level at which the not sufficient score was reached with the score that was at the level start.
 * IN-PROGRESS Implement music looping and starting correctly.
 ** TODO Music must start later, to nicely loop.
