@@ -2,6 +2,7 @@ extends Node2D
 
 onready var display_score = 0 # Display this score.
 onready var score_background = get_node("ScoreBackground") # For speed and background.
+
 const SCORE_LERP_SPEED = 5.0 # How quickly to lerp the score up.
 
 func _process(delta):

@@ -17,14 +17,17 @@ onready var game_over_audio_stream = load("res://Audio/Music/Gameover-ogg-conver
 onready var score_background = game_over_wrapper.get_node("ScoreBackground") # For speed and convenience.
 onready var camera = get_node("Camera2D") # For speed and convenience.
 onready var balloon_indicator = gui_layer.get_node("ProgressBar").get_node("Balloon") # For speed and convenience.
+onready var balloon_indicator_finish = balloon_indicator.get_parent().get_node("Finish") # For speed and convenience.
 onready var texture_progress_bar = gui_layer.get_node("ProgressBar").get_node("TextureProgress") # For speed and convenience.
 onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
 onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
 onready var body_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationPlayer") # To save resources.
 onready var main_character_audio_stream_player = get_node("MainCharacterAudioStreamPlayer") # For speed and convenience.
+onready var original_game_over_stream_player_volume_db = game_over_audio_stream_player.volume_db # To know, where to reset the volume.
+onready var music_manager_audio_stream_player = music_manager.get_node("AudioStreamPlayer") # For speed and convenience.
+onready var original_music_manager_volume_db = music_manager_audio_stream_player.volume_db # To know, where to reset the volume.
 # These have to be reset on level change.
-onready var background = get_parent().get_parent().get_node("Level") # For speed and convenience.
-onready var finish_line = background.get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
+onready var finish_line = get_parent().get_parent().get_node("Level").get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
 # End These have to be reset on level change.
 
 var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
@@ -50,6 +53,7 @@ var float_drop = .0 # To control the full character animation tree and be able t
 var decline_death = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
 var incline_decline = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
 var death_levelcomplete = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
+var level_end_delta_volume_lerp_progress = .0 # To have a tight control over the lerping.
 
 export var gravities = [] # At what rate objects fall.
 export var forward_velocities = [] # At what speed in which direction to move.
@@ -70,6 +74,7 @@ const INITIAL_BALLOON_PROGRESS_OFFSET = 60.0 # To have the progress balloon nice
 const TOP_THRESHOLD = 100.0 # How high can the balloon fly.
 const BOTTOM_THRESHOLD = .2 # How low can balloon fall.
 const DEFAULT_DROP_PAUSE = 500 # Don't allow to drop items more frequently than this in any case.
+const NON_AUDIBLE_VOLUME_DB = -80.0 # Consider this to be quiet enough to be considered non audible.
 
 func _ready():
 	level_complete_audio_stream.set_loop(false)
@@ -77,9 +82,11 @@ func _ready():
 	reset()
 	balloon_indicator.rect_position.x = INITIAL_BALLOON_PROGRESS_OFFSET
 
+	gui_layer = null
+	game_over_wrapper = null
+
 func reset():
-	background = get_parent().get_parent().get_node("Level")
-	finish_line = background.get_node("FinishLine/ParallaxLayer/FinishLine")
+	finish_line = get_parent().get_parent().get_node("Level").get_node("FinishLine/ParallaxLayer/FinishLine")
 	actual_mover.position = Vector2(get_viewport().size.x * .5, 80.0)
 	position = actual_mover.position
 	start_position_x = actual_mover.position.x
@@ -101,11 +108,10 @@ func reset():
 	for i in range(0, up_items[Global.current_level_index].size()):
 		current_level_score += up_items[Global.current_level_index][i][2]
 
-	selection_item_bar.visible = true
 	selection_item_bar.regenerate_items()
 
 	game_over_audio_stream_player.stop()
-	music_manager.get_node("AudioStreamPlayer").play()
+	music_manager_audio_stream_player.play()
 	main_character_audio_stream_player.stop()
 
 	current_facial_animation_index = -1
@@ -118,6 +124,8 @@ func reset():
 	item_drop_pending = false
 	current_drop_animation_length = 0
 
+	level_end_delta_volume_lerp_progress = .0
+
 func _process(delta):
 	if (weakref(finish_line)).get_ref():
 		var tmp_lerp_speed = delta * follow_speed # For speed and convenience.
@@ -126,44 +134,31 @@ func _process(delta):
 		get_parent().transform.origin.x = lerp(get_parent().transform.origin.x, -camera.get_global_transform().origin.x + get_viewport().size.x * .5, tmp_lerp_speed)
 
 		var tmp_force_diminish_speed = delta * 10.0 # For speed and convenience.
-		current_up_force.x -= tmp_force_diminish_speed
-		current_up_force.x = clamp(current_up_force.x, .0, MAX_FORCE)
-		current_up_force.y -= tmp_force_diminish_speed
-		current_up_force.y = clamp(current_up_force.y, .0, MAX_FORCE)
+		current_up_force.x = clamp(current_up_force.x - tmp_force_diminish_speed, .0, MAX_FORCE)
+		current_up_force.y = clamp(current_up_force.y - tmp_force_diminish_speed, .0, MAX_FORCE)
 
 		manage_animation(delta)
 
 		var new_progress_position_x = INITIAL_BALLOON_PROGRESS_OFFSET + ((texture_progress_bar.rect_size.x - INITIAL_BALLOON_PROGRESS_OFFSET) * texture_progress_bar.rect_scale.x * (1.0 - (finish_line.position.x - position.x) / the_whole_level_distance)) # For speed and convenience.
-		balloon_indicator.rect_position.x = lerp(balloon_indicator.rect_position.x, new_progress_position_x, delta * (BALLOON_PROGRESS_LERP_SPEED if balloon_indicator.rect_position.x < new_progress_position_x else BALLOON_PROGRESS_LERP_RETURN_SPEED))
 		texture_progress_bar.max_value = texture_progress_bar.rect_size.x * texture_progress_bar.rect_scale.x
+		balloon_indicator.rect_position.x = min(lerp(balloon_indicator.rect_position.x, new_progress_position_x, delta * (BALLOON_PROGRESS_LERP_SPEED if balloon_indicator.rect_position.x < new_progress_position_x else BALLOON_PROGRESS_LERP_RETURN_SPEED)), balloon_indicator_finish.rect_position.x - INITIAL_BALLOON_PROGRESS_OFFSET)
 		texture_progress_bar.value = balloon_indicator.rect_position.x
 
 func initiate_level_end(level_stop_state):
-	selection_item_bar.visible = false
 	game_over_restart_button.visible = true
 	game_over_menu_button.visible = true
 	next_level_button.visible = true
 	game_over_restart_button.visible = true
 	level_end_velocity_coefficient = .0
-
-	music_manager.get_node("AudioStreamPlayer").stop()
-
-	if level_stop_state == Global.Level_stop_states.LEVEL_COMPLETE:
-		score_background.visible = true
-		level_complete_text.visible = true
-		Global.current_level_stop_state = Global.Level_stop_states.LEVEL_COMPLETE
-		game_over_audio_stream_player.stream = level_complete_audio_stream
-		main_character_audio_stream_player.play_win_sfx()
-	elif level_stop_state == Global.Level_stop_states.GAME_OVER:
-		current_level_score = 0
-		game_over_text.visible = true
-		Global.current_level_stop_state = Global.Level_stop_states.GAME_OVER
-		game_over_audio_stream_player.stream = game_over_audio_stream
-		main_character_audio_stream_player.play_die_sfx()
-
+	Global.total_score += current_level_score
 	game_over_audio_stream_player.play()
 
-	Global.total_score += current_level_score
+func manage_level_end_audio_transition(delta):
+	level_end_delta_volume_lerp_progress = clamp(level_end_delta_volume_lerp_progress + delta, .0, 1.0)
+	music_manager_audio_stream_player.volume_db = lerp(original_music_manager_volume_db, NON_AUDIBLE_VOLUME_DB, level_end_delta_volume_lerp_progress)
+	if level_end_delta_volume_lerp_progress > 1.0 - Global.APPROXIMATION_FLOAT:
+		music_manager_audio_stream_player.stop()
+	game_over_audio_stream_player.volume_db = lerp(NON_AUDIBLE_VOLUME_DB, original_game_over_stream_player_volume_db, level_end_delta_volume_lerp_progress)
 
 func manage_level_complete_state(delta):
 	display_score = lerp(display_score, current_level_score, delta * SCORE_LERP_SPEED)
@@ -177,10 +172,22 @@ func _physics_process(delta):
 		actual_mover.move_and_slide(velocity)
 		if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
 			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+				current_level_score = 0
+				game_over_text.visible = true
+				Global.current_level_stop_state = Global.Level_stop_states.GAME_OVER
+				game_over_audio_stream_player.stream = game_over_audio_stream
+				main_character_audio_stream_player.play_die_sfx()
 				initiate_level_end(Global.Level_stop_states.GAME_OVER)
+			manage_level_end_audio_transition(delta)
 		elif position.x > finish_line.position.x:
 			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+				score_background.visible = true
+				level_complete_text.visible = true
+				Global.current_level_stop_state = Global.Level_stop_states.LEVEL_COMPLETE
+				game_over_audio_stream_player.stream = level_complete_audio_stream
+				main_character_audio_stream_player.play_win_sfx()
 				initiate_level_end(Global.Level_stop_states.LEVEL_COMPLETE)
+			manage_level_end_audio_transition(delta)
 			manage_level_complete_state(delta)
 
 func start_up_item_event(item_index):

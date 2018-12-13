@@ -4,6 +4,9 @@ onready var game_over_wrapper = get_parent().get_node("GameOverWrapper") # For s
 onready var game_over_restart_button = game_over_wrapper.get_node("GameOverRestartButton") # For speed and convenience.
 onready var game_over_menu_button = game_over_wrapper.get_node("GameOverMenuButton") # For speed and convenience.
 onready var music_audio_stream_player = get_parent().get_parent().get_node("MusicManager").get_child(0) # For speed and convenience.
+onready var original_music_volume = music_audio_stream_player.volume_db # To know, where to reset the volume.
+
+const PAUSE_VOLUME_DB = -24.0 # How quite does music become on pause.
 
 func _ready():
 	game_over_wrapper = null
@@ -19,9 +22,6 @@ func _on_PauseButton_pressed():
 		game_over_restart_button.visible = true
 		game_over_menu_button.visible = true
 		get_parent().get_node("ItemSelectionBar").visible = false
-
-const PAUSE_VOLUME_DB = -24.0 # How quite does music become on pause.
-onready var original_music_volume = music_audio_stream_player.volume_db # To know, where to reset the volume.
 
 func _process(delta):
 	if get_tree().paused:
