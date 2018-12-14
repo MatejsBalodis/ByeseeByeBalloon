@@ -11,6 +11,7 @@ const TRANSITION_SPEED = 2.0 # How quickly to lerp in and out of transition.
 const TRANSITION_BOUNDS = Vector2(.0, 1.0) # From where to where to do the transition.
 
 func _ready():
+	Global.level_transition = self
 	modulate.a = 1.0
 	Global.current_level_stop_state = Global.Level_stop_states.TRANSITION_IN
 
@@ -35,6 +36,7 @@ func transition_out_and_finish(current_level_stop_state, finish_func, delta):
 	if previous_level_stop_state != current_level_stop_state:
 		if !current_transition_is_in_progress:
 			lerp_progress = 1.0
+		current_transition_is_in_progress = true
 	if lerp_progress > .0:
 		lerp_progress -= delta * TRANSITION_SPEED
 		modulate.a = lerp(TRANSITION_BOUNDS.y, TRANSITION_BOUNDS.x, lerp_progress)

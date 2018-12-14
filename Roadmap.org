@@ -74,7 +74,7 @@
 * TODO Implement transitions between scenes.
 ** Fade in and fade out.
 *** TODO Both graphics and music. [1/2]
-**** DONE Graphics [0/0]
+**** DONE Graphics [5/5]
 ***** DONE Menu scene [3/3]
 ****** DONE Start button
 ****** DONE Options button
@@ -88,7 +88,7 @@
 ****** DONE Next level button
 ***** DONE Finish scene [1/1]
 ****** DONE Menu button
-**** TODO Music [0/0]
+**** IN-PROGRESS Music
 * IN-PROGRESS Implement pause button. [3/6]
 ** DONE Quiet music
 ** DONE Restart button

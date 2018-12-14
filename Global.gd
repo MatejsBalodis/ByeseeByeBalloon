@@ -6,6 +6,7 @@ var current_level_index = 0 # To know globally, which is the current level.
 var current_scene = null # To get the currently loaded scene.
 var total_score = 0 # Total amount of points collected between levels.
 var scene_path = null # Scene to which to switch after transition out.
+var level_transition = null # For speed and convenience.
 
 const APPROXIMATION_FLOAT = .0001 # Global handle.
 

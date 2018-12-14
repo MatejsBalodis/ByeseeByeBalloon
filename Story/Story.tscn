@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Story/Sky.png" type="Texture" id=1]
 [ext_resource path="res://Menu/Background.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Character/MainCharacterAnimations.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Audio/Music/Menu_western1-ogg-converted.ogg" type="AudioStream" id=12]
+[ext_resource path="res://Audio/MusicStreamPlayerManager.gd" type="Script" id=13]
 
 [sub_resource type="Animation" id=1]
 
@@ -322,7 +323,7 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.98, 0.98 ) ]
 }
 
-[node name="Story" type="Node2D" index="0"]
+[node name="Story" type="Node2D"]
 
 [node name="Sky" type="Sprite" parent="." index="0"]
 
@@ -738,6 +739,7 @@ pitch_scale = 1.0
 autoplay = true
 mix_target = 0
 bus = "Music"
+script = ExtResource( 13 )
 
 [connection signal="pressed" from="CanvasLayer/SkipButton" to="CanvasLayer/SkipButton" method="_on_SkipButton_pressed"]
 
