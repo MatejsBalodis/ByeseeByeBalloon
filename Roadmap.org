@@ -172,4 +172,5 @@
 ** TODO Music must start later, to nicely loop.
 *** Consult with Nezvers about exact beginning of the track.
 *** Also maybe he can create story track too!
+* TODO Empty item bars disappear and item bar shrinks
 * TODO Implement (if possible) new story music.
