@@ -31,7 +31,6 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="MountainsParallaxBackground" type="ParallaxBackground" parent="." index="1"]
 
-editor/display_folded = true
 layer = 0
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -53,9 +52,10 @@ _sections_unfolded = [ "Motion" ]
 
 [node name="Mountains" parent="MountainsParallaxBackground/ParallaxLayer" index="0" instance=ExtResource( 2 )]
 
-position = Vector2( 18, 22.756 )
+modulate = Color( 0.928593, 0.80278, 0.964844, 1 )
+position = Vector2( 1087.13, 22.756 )
 scale = Vector2( 1, 1 )
-_sections_unfolded = [ "Transform", "Z Index" ]
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="ForestParallaxBackground" type="ParallaxBackground" parent="." index="2"]
 

@@ -45,7 +45,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="FlagPole2" parent="." index="6" instance=ExtResource( 4 )]
 
-position = Vector2( 9743.68, 1147.44 )
+position = Vector2( 9723.54, 1170.1 )
 z_index = -4
 _sections_unfolded = [ "Transform", "Z Index" ]
 
