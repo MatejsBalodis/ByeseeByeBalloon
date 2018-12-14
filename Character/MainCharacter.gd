@@ -150,7 +150,7 @@ func _process(delta):
 		texture_progress_bar.value = balloon_indicator.rect_position.x
 
 func initiate_level_end(level_stop_state):
-	if Global.current_level_index > next_level_button.level_scenes.size() - 2:
+	if Global.current_level_index > next_level_button.level_scenes.size() - 1:
 		Global.set_custom_button_style_texture(next_level_button, victory_button_texture)
 		next_level_button.visible = false
 	game_over_restart_button.visible = true

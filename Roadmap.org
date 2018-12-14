@@ -101,8 +101,9 @@
 * DONE After merging with Matejs changes MainCharacter.tscn got ruined.
 ** I reset the git head and copied in my version of MainCharacter.tscn
 *** So there may be differences to what Matejs did, but at least all items aren't shifted.
-* TODO When spamming next level button too quickly game crashes.
+* DONE When spamming next level button too quickly game crashes.
 ** Probably have to forbid any behaviour after button is pressed and transition is happening.
+* DONE Victory button appears after the last level.
 * IN-PROGRESS Implement pause button. [5/6]
 ** DONE Quiet music
 ** DONE Restart button
