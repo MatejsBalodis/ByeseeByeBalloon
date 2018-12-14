@@ -26,6 +26,7 @@ onready var main_character_audio_stream_player = get_node("MainCharacterAudioStr
 onready var original_game_over_stream_player_volume_db = game_over_audio_stream_player.volume_db # To know, where to reset the volume.
 onready var music_manager_audio_stream_player = music_manager.get_node("AudioStreamPlayer") # For speed and convenience.
 onready var original_music_manager_volume_db = music_manager_audio_stream_player.volume_db # To know, where to reset the volume.
+onready var original_next_level_button_style_texture = next_level_button.get("custom_styles/hover").texture # To know, where to reset the texture.
 # These have to be reset on level change.
 onready var finish_line = get_parent().get_parent().get_node("Level").get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
 # End These have to be reset on level change.
@@ -55,6 +56,7 @@ var incline_decline = .0 # To control the full character animation tree and be a
 var death_levelcomplete = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
 var level_end_delta_volume_lerp_progress = .0 # To have a tight control over the lerping.
 
+export (Texture) var victory_button_texture = null # Use this texture to turn next level button into victory button.
 export var gravities = [] # At what rate objects fall.
 export var forward_velocities = [] # At what speed in which direction to move.
 export var up_items = [] # Items must have various weights and prices.
@@ -84,6 +86,8 @@ func _ready():
 
 	gui_layer = null
 	game_over_wrapper = null
+
+	Global.set_custom_button_style_texture(next_level_button, original_next_level_button_style_texture)
 
 func reset():
 	finish_line = get_parent().get_parent().get_node("Level").get_node("FinishLine/ParallaxLayer/FinishLine")
@@ -135,8 +139,8 @@ func _process(delta):
 		get_parent().transform.origin.x = lerp(get_parent().transform.origin.x, -camera.get_global_transform().origin.x + get_viewport().size.x * .5, tmp_lerp_speed)
 
 		var tmp_force_diminish_speed = delta * 10.0 # For speed and convenience.
-		current_up_force.x = clamp(current_up_force.x - tmp_force_diminish_speed, .0, MAX_FORCE)
-		current_up_force.y = clamp(current_up_force.y - tmp_force_diminish_speed, .0, MAX_FORCE)
+		current_up_force.x = max(current_up_force.x - tmp_force_diminish_speed, .0)
+		current_up_force.y = max(current_up_force.y - tmp_force_diminish_speed, .0)
 
 		manage_animation(delta)
 
@@ -146,6 +150,9 @@ func _process(delta):
 		texture_progress_bar.value = balloon_indicator.rect_position.x
 
 func initiate_level_end(level_stop_state):
+	if Global.current_level_index > next_level_button.level_scenes.size() - 2:
+		Global.set_custom_button_style_texture(next_level_button, victory_button_texture)
+		next_level_button.visible = false
 	game_over_restart_button.visible = true
 	game_over_menu_button.visible = true
 	next_level_button.visible = true
@@ -155,7 +162,7 @@ func initiate_level_end(level_stop_state):
 	game_over_audio_stream_player.play()
 
 func manage_level_end_audio_transition(delta):
-	level_end_delta_volume_lerp_progress = clamp(level_end_delta_volume_lerp_progress + delta, .0, 1.0)
+	level_end_delta_volume_lerp_progress = min(level_end_delta_volume_lerp_progress + delta, 1.0)
 	music_manager_audio_stream_player.volume_db = lerp(original_music_manager_volume_db, NON_AUDIBLE_VOLUME_DB, level_end_delta_volume_lerp_progress)
 	if level_end_delta_volume_lerp_progress > 1.0 - Global.APPROXIMATION_FLOAT:
 		music_manager_audio_stream_player.stop()

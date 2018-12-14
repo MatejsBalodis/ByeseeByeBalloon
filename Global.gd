@@ -10,6 +10,12 @@ var level_transition = null # For speed and convenience.
 
 const APPROXIMATION_FLOAT = .0001 # Global handle.
 
+func set_custom_button_style_texture(button, current_texture):
+	button.get("custom_styles/hover").texture = current_texture
+	button.get("custom_styles/pressed").texture = current_texture
+	button.get("custom_styles/disabled").texture = current_texture
+	button.get("custom_styles/normal").texture = current_texture
+
 func _ready():
 	var root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() -1)
