@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Victory.gd" type="Script" id=1]
 [ext_resource path="res://Menu/Background.png" type="Texture" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://UI/ScoreBackground.tscn" type="PackedScene" id=12]
 [ext_resource path="res://UI/GotoMenuButton.tscn" type="PackedScene" id=13]
 [ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Audio/Music/Victory-ogg-converted.ogg" type="AudioStream" id=15]
+[ext_resource path="res://Audio/MusicStreamPlayerManager.gd" type="Script" id=16]
 
 [sub_resource type="Animation" id=1]
 
@@ -218,6 +220,7 @@ blend_times = [  ]
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="." index="7"]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -239,5 +242,16 @@ margin_bottom = 526.0
 [node name="LevelTransition" parent="UICanvasLayer" index="2" instance=ExtResource( 14 )]
 
 modulate = Color( 0, 0, 0, 0 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="8"]
+
+stream = ExtResource( 15 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = true
+mix_target = 0
+bus = "Music"
+script = ExtResource( 16 )
+make_quiet_on_ready = false
 
 
