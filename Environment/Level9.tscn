@@ -470,7 +470,6 @@ script = ExtResource( 7 )
 
 [node name="FinishLine" type="ParallaxBackground" parent="." index="5"]
 
-editor/display_folded = true
 layer = 7
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -486,74 +485,73 @@ _sections_unfolded = [ "Scroll" ]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="FinishLine" index="0"]
 
-editor/display_folded = true
 motion_scale = Vector2( 1, 1 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 0, 0 )
 
 [node name="FinishLine" type="Sprite" parent="FinishLine/ParallaxLayer" index="0"]
 
-position = Vector2( 9290.97, 1355 )
+position = Vector2( 9829.92, 1355 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine11" type="Sprite" parent="FinishLine/ParallaxLayer" index="1"]
 
-position = Vector2( 9290.97, 1565 )
+position = Vector2( 9829.92, 1565 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine2" type="Sprite" parent="FinishLine/ParallaxLayer" index="2"]
 
-position = Vector2( 9290.97, 1145 )
+position = Vector2( 9829.92, 1145 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine3" type="Sprite" parent="FinishLine/ParallaxLayer" index="3"]
 
-position = Vector2( 9290.97, 935 )
+position = Vector2( 9829.92, 935 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine4" type="Sprite" parent="FinishLine/ParallaxLayer" index="4"]
 
-position = Vector2( 9290.97, 725 )
+position = Vector2( 9829.92, 725 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine5" type="Sprite" parent="FinishLine/ParallaxLayer" index="5"]
 
-position = Vector2( 9290.97, 515 )
+position = Vector2( 9829.92, 515 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine6" type="Sprite" parent="FinishLine/ParallaxLayer" index="6"]
 
-position = Vector2( 9290.97, 305 )
+position = Vector2( 9829.92, 305 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine7" type="Sprite" parent="FinishLine/ParallaxLayer" index="7"]
 
-position = Vector2( 9290.97, 95 )
+position = Vector2( 9829.92, 95 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine8" type="Sprite" parent="FinishLine/ParallaxLayer" index="8"]
 
-position = Vector2( 9290.97, -115 )
+position = Vector2( 9829.92, -115 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine9" type="Sprite" parent="FinishLine/ParallaxLayer" index="9"]
 
-position = Vector2( 9290.97, -325 )
+position = Vector2( 9829.92, -325 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
 [node name="FinishLine10" type="Sprite" parent="FinishLine/ParallaxLayer" index="10"]
 
-position = Vector2( 9290.97, -535 )
+position = Vector2( 9829.92, -535 )
 scale = Vector2( 0.194444, 0.194444 )
 texture = ExtResource( 13 )
 
