@@ -15,7 +15,6 @@ var old_mouse_position = Vector2() # To determine the direction of mouse movemen
 var current_x_offset = MARGIN_BETWEEN_BUTTONS # To place buttons one by another.
 var button_height = .0 # To detect when to drag activate drag and correctly position buttons at the bottom of the screen.
 var return_on_reset = false # To forbid dragging bar with mouse and return to the initial position.
-var return_speed = 5.0 # How quickly to return the bar to default offset.
 var return_lerp_progress = .0 # To have a tight control over lerping.
 var player_is_in_danger = false # To save resources and check only for this variable in items.
 var player_danger_alpha_coefficient = .0 # To calculate alpha dynamically based on how far in the danger zone the player is in.
@@ -78,7 +77,7 @@ func _process(delta):
 				rect_position.x = .0
 				return_on_reset = false
 			else:
-				return_lerp_progress = clamp(return_lerp_progress + delta * BAR_RETURN_SPEED, .0, 1.0)
+				return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
 				rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
 		else:
 			var bar_width = (get_viewport().size.x if get_viewport().size.x < current_x_offset else current_x_offset) # For speed and convenience.
@@ -94,28 +93,34 @@ func _process(delta):
 					drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
 				if Input.is_action_pressed("left_mouse_button"):
 					drag_is_active = true
+					return_lerp_progress = .0
 			else:
 				drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
 				drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
 			if !Input.is_action_pressed("left_mouse_button"):
 				drag_is_active = false
 				if rect_position.x > .0:
-					rect_position.x = lerp(rect_position.x, .0, delta * return_speed)
+					return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
+					rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
 				elif rect_position.x < -(current_x_offset - bar_width):
-					rect_position.x = lerp(rect_position.x, -(current_x_offset - bar_width), delta * return_speed)
+					return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
+					rect_position.x = lerp(rect_position.x, -(current_x_offset - bar_width), return_lerp_progress)
 			if drag_is_active:
 				rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (bar_width / clamp(rect_position.x, 1.0, bar_width))))
 			old_mouse_position = relative_mouse_position
 
-	if player.position.y > get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD:
-		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+	if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+		manage_bar_visibility(1.0, original_y_position, delta * BAR_ALPHA_APPEAR_SPEED, delta * BAR_MOVE_IN_SPEED)
+		if player.position.y > get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD:
 			player_is_in_danger = true
 			var the_danger_threshold_distance = get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD # For speed and convenience.
 			player_danger_alpha_coefficient = ((player.position.y - the_danger_threshold_distance) / the_danger_threshold_distance) * PLAYER_DYNAMIC_DANGER_TRANSPARENCY_HANDLE
 		else:
-			modulate.a = lerp(modulate.a, .0, delta * BAR_ALPHA_DISSAPPEAR_SPEED)
-			rect_position.y = lerp(rect_position.y, original_y_position + get_viewport().size.y, delta)
+			player_is_in_danger = false
 	else:
-		modulate.a = lerp(modulate.a, 1.0, delta * BAR_ALPHA_APPEAR_SPEED)
-		rect_position.y = lerp(rect_position.y, original_y_position, delta * BAR_MOVE_IN_SPEED)
-		player_is_in_danger = false
+		manage_bar_visibility(.0, original_y_position + get_viewport().size.y, delta * BAR_ALPHA_DISSAPPEAR_SPEED, delta)
+
+func manage_bar_visibility(alpha_goal, y_goal, alpha_speed, y_speed):
+	modulate.a = lerp(modulate.a, alpha_goal, alpha_speed)
+	rect_position.y = lerp(rect_position.y, y_goal, y_speed)
+

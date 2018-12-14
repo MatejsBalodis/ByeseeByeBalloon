@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Options/BackgroundOptions.png" type="Texture" id=1]
 [ext_resource path="res://Menu/MenuMountains.png" type="Texture" id=2]
@@ -9,8 +9,9 @@
 [ext_resource path="res://Options/FullscreenButton.gd" type="Script" id=7]
 [ext_resource path="res://UI/Windowed.png" type="Texture" id=8]
 [ext_resource path="res://UI/GotoMenuButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=10]
 
-[sub_resource type="StyleBoxTexture" id=6]
+[sub_resource type="StyleBoxTexture" id=1]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
@@ -30,7 +31,7 @@ modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 _sections_unfolded = [ "Expand Margin" ]
 
-[sub_resource type="StyleBoxTexture" id=7]
+[sub_resource type="StyleBoxTexture" id=2]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
@@ -56,7 +57,7 @@ content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
 
-[sub_resource type="StyleBoxTexture" id=8]
+[sub_resource type="StyleBoxTexture" id=4]
 
 content_margin_left = -1.0
 content_margin_right = -1.0
@@ -162,10 +163,10 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 7 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 8 )
+custom_styles/disabled = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
 toggle_mode = false
 enabled_focus_mode = 2
@@ -183,6 +184,8 @@ margin_left = -116.0
 margin_top = 48.0
 margin_right = 126.0
 margin_bottom = 211.0
+
+[node name="LevelTransition" parent="." index="3" instance=ExtResource( 10 )]
 
 [connection signal="pressed" from="FullscreenButton" to="FullscreenButton" method="_on_FullscreenButton_pressed"]
 

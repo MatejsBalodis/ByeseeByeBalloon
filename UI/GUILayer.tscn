@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Audio/Music/Gameover-ogg-converted.ogg" type="AudioStream" id=1]
 [ext_resource path="res://UI/Restart.png" type="Texture" id=2]
@@ -33,6 +33,7 @@
 [ext_resource path="res://UI/ItemSelectionBar/DragIndicator.gd" type="Script" id=31]
 [ext_resource path="res://UI/Pause.png" type="Texture" id=32]
 [ext_resource path="res://UI/PauseButton.gd" type="Script" id=33]
+[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=34]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -270,7 +271,7 @@ expand_margin_bottom = 0.0
 modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 
-[node name="GUILayer" type="CanvasLayer"]
+[node name="GUILayer" type="CanvasLayer" index="0"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -421,8 +422,10 @@ stretch_mode = 0
 
 [node name="ItemSelectionBar" parent="." index="1" instance=ExtResource( 28 )]
 
+pause_mode = 2
 anchor_right = 1.0
 margin_right = 0.0
+_sections_unfolded = [ "Pause" ]
 
 [node name="ProgressBar" parent="." index="2" instance=ExtResource( 29 )]
 
@@ -506,6 +509,10 @@ flat = false
 align = 1
 script = ExtResource( 33 )
 _sections_unfolded = [ "Pause", "Rect", "custom_styles" ]
+
+[node name="LevelTransition" parent="." index="6" instance=ExtResource( 34 )]
+
+modulate = Color( 0, 0, 0, 0 )
 
 [connection signal="pressed" from="GameOverWrapper/GameOverRestartButton" to="GameOverWrapper/GameOverRestartButton" method="_on_RestartButton_pressed"]
 
