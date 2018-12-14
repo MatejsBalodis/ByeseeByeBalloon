@@ -28,7 +28,8 @@ onready var music_manager_audio_stream_player = music_manager.get_node("AudioStr
 onready var original_music_manager_volume_db = music_manager_audio_stream_player.volume_db # To know, where to reset the volume.
 onready var original_next_level_button_style_texture = next_level_button.get("custom_styles/hover").texture # To know, where to reset the texture.
 # These have to be reset on level change.
-onready var finish_line = get_parent().get_parent().get_node("Level").get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
+onready var level = get_parent().get_parent().get_node("Level") # For speed and convenience.
+onready var finish_line = level.get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
 # End These have to be reset on level change.
 
 var facial_animations = ["AngryFace", "CarefulFace", "CryFace", "DeadFace", "DisappointedFace", "Idle"] # For speed and convenience.
@@ -90,15 +91,13 @@ func _ready():
 	Global.set_custom_button_style_texture(next_level_button, original_next_level_button_style_texture)
 
 func reset():
-	finish_line = get_parent().get_parent().get_node("Level").get_node("FinishLine/ParallaxLayer/FinishLine")
+	level = get_parent().get_parent().get_node("Level")
+	finish_line = level.get_node("FinishLine/ParallaxLayer/FinishLine")
 	actual_mover.position = Vector2(get_viewport().size.x * .5, 80.0)
 	position = actual_mover.position
 	start_position_x = actual_mover.position.x
 	the_whole_level_distance = finish_line.position.x - start_position_x
 	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + get_viewport().size.x * .5
-	#get_parent().transform.origin.y = -camera.get_global_transform().origin.y + get_viewport().size.y * .5
-	if Global.current_level_stop_state != Global.Level_stop_states.TRANSITION_IN:
-		Global.current_level_stop_state = Global.Level_stop_states.NONE
 	game_over_restart_button.visible = false
 	game_over_menu_button.visible = false
 	#next_level_button.visible = false
@@ -108,10 +107,15 @@ func reset():
 	current_up_item_index = 0
 	level_end_velocity_coefficient = 1.0
 	score_background.visible = false
+	if Global.current_level_stop_state != Global.Level_stop_states.TRANSITION_IN:
+		Global.current_level_stop_state = Global.Level_stop_states.NONE
+		Global.total_score -= current_level_score
 	display_score = 0
 	current_level_score = 0
 	for i in range(0, up_items[Global.current_level_index].size()):
 		current_level_score += up_items[Global.current_level_index][i][2]
+
+	Global.total_score += current_level_score
 
 	selection_item_bar.regenerate_items()
 
@@ -158,7 +162,6 @@ func initiate_level_end(level_stop_state):
 	next_level_button.visible = true
 	game_over_restart_button.visible = true
 	level_end_velocity_coefficient = .0
-	Global.total_score += current_level_score
 	game_over_audio_stream_player.play()
 
 func manage_level_end_audio_transition(delta):
@@ -180,7 +183,6 @@ func _physics_process(delta):
 		actual_mover.move_and_slide(velocity)
 		if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
 			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
-				current_level_score = 0
 				game_over_text.visible = true
 				Global.current_level_stop_state = Global.Level_stop_states.GAME_OVER
 				game_over_audio_stream_player.stream = game_over_audio_stream
@@ -215,6 +217,7 @@ func manage_up_item_event():
 	tmp_up_item.position = position + item_spawn_offset
 	current_up_force += up_items[Global.current_level_index][current_up_item_index][0] * .1
 	current_level_score -= up_items[Global.current_level_index][current_up_item_index][2]
+	Global.total_score -= up_items[Global.current_level_index][current_up_item_index][2]
 	if current_up_force < up_items[Global.current_level_index][current_up_item_index][0]:
 		current_up_force = up_items[Global.current_level_index][current_up_item_index][0] + up_items[Global.current_level_index][current_up_item_index][0] * .1
 	main_character_audio_stream_player.play_ascend_sfx()
