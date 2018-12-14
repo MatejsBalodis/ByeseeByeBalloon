@@ -98,6 +98,11 @@
 - Note taken on [2018-12-14 Pk 06:48] \\
   Is it really gonna be done? Probably not.
 :END:
+* DONE After merging with Matejs changes MainCharacter.tscn got ruined.
+** I reset the git head and copied in my version of MainCharacter.tscn
+*** So there may be differences to what Matejs did, but at least all items aren't shifted.
+* TODO When spamming next level button too quickly game crashes.
+** Probably have to forbid any behaviour after button is pressed and transition is happening.
 * IN-PROGRESS Implement pause button. [5/6]
 ** DONE Quiet music
 ** DONE Restart button
