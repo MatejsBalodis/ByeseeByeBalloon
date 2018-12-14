@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Environment/Sky.png" type="Texture" id=1]
 [ext_resource path="res://Environment/Mountains.tscn" type="PackedScene" id=2]
@@ -14,10 +14,8 @@
 [ext_resource path="res://Environment/Cloud6.png" type="Texture" id=12]
 [ext_resource path="res://Environment/FinishLine.png" type="Texture" id=13]
 [ext_resource path="res://Environment/FrontLineTrees.png" type="Texture" id=14]
-[ext_resource path="res://Environment/WhiteSprite.png" type="Texture" id=15]
-[ext_resource path="res://Environment/BottomLine.gd" type="Script" id=16]
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="Node2D" index="0"]
 
 position = Vector2( 0, -541 )
 scale = Vector2( 2, 2 )
@@ -603,22 +601,5 @@ texture = ExtResource( 14 )
 
 position = Vector2( 8995.64, 1404.53 )
 texture = ExtResource( 14 )
-
-[node name="BottomIndicationCanvasLayer" type="CanvasLayer" parent="." index="7"]
-
-layer = 10
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-
-[node name="BottomLine" type="Sprite" parent="BottomIndicationCanvasLayer" index="0"]
-
-modulate = Color( 1, 0.261719, 0.555878, 1 )
-position = Vector2( 4479.92, 1300 )
-scale = Vector2( 200, 0.2 )
-texture = ExtResource( 15 )
-script = ExtResource( 16 )
-_sections_unfolded = [ "Rect", "Textures", "Transform", "Visibility" ]
 
 

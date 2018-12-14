@@ -64,19 +64,48 @@
 * DONE Fix so that progress balloon is over finish line.
 * DONE Get rid of the bottom warning line and introduce that item selection bars starts to red blink if balloon is too low.
 * DONE Bottom selection bar should move up and down additionally to fading out and in.
-* TODO Remove the bottom bar.
-* TODO Implement bar dissappearing on level complete.
-* TODO Implement transitions between scenes.
+* DONE Pressing pause doesn't cause for item bar to appear.
+* DONE When the last level is reached pressing on next level button causes for the game to crash instead of opening the victory screen.
+* DONE Sometimes item bar doesn't dissappear when the end of level is reached.
+* DONE Remove the bottom danger bar.
+* DONE Implement bar dissappearing on level complete.
+* DONE Implement a menu button in Victory scene.
+* DONE Implement transitions between scenes.
 ** Fade in and fade out.
-*** Both graphics and music.
-* IN-PROGRESS Implement pause button. [3/6]
+*** DONE Both graphics and music. [2/2]
+**** DONE Graphics [5/5]
+***** DONE Menu scene [3/3]
+****** DONE Start button
+****** DONE Options button
+****** DONE Quit button
+***** DONE Story scene [1/1]
+****** DONE Skip button
+***** DONE Options scene [1/1]
+****** DONE Menu button
+***** DONE Level scenes [2/2]
+****** DONE Menu button
+****** DONE Next level button
+***** DONE Finish scene [1/1]
+****** DONE Menu button
+**** DONE Music
+* DONE Change the appropriate clamps to mins.
+* DONE When game is beaten and played again there is an error, when game is started.
+* DONE Fix so that left white arrow doesn't show so long, make bar to return nicely.
+* DONE Game complete screen. [2/2]
+** DONE Implementation from next level button.
+** CANCELLED Design the look - Kristaps
+:LOGBOOK:
+- Note taken on [2018-12-14 Pk 06:48] \\
+  Is it really gonna be done? Probably not.
+:END:
+* IN-PROGRESS Implement pause button. [5/6]
 ** DONE Quiet music
 ** DONE Restart button
 ** DONE Menu button
-** TODO Dropped items must add to time, while pause is active, so that they don't dissapear on unpaused.
+** DONE !!! When you press Restart, the item bar disappears.
+** DONE Dropped items must add to time, while pause is active, so that they don't dissapear on unpaused.
 ** TODO Change state(text) to unpause
-** TODO !!! When you press Restart, the item bar disappears.
-* IN-PROGRESS Implement multiple levels. [3/5]
+* IN-PROGRESS Implement multiple levels. [4/5]
 ** INSTRUCTION FOR IMPLEMENTING NEW LEVELS.
 *** Right now there are 10 levels pre-made.
 **** I think 10 for now is enough, but more can be added at hearts desire.
@@ -106,7 +135,7 @@
 *** DONE Next level button.
 *** DONE Implement specific set of items for each level.
 ** DONE Implement so that score is persistent between levels.
-** TODO Next level button changing text to victory.
+** DONE Next level button changing text to victory.
 ** TODO Implement so that if score is not sufficient (levels must have entry price) at level complete the game is over and it is not possible to go to next level. [0/3]
 *** TODO If there isn't enough total points to enter the next level then player can restart level or go to menu, just like when he has fallen.
 *** TODO Implement so that total score/required score for the next level is displayed constantly in the corner and it updates in realtime showing if it is possible to get to next level. [0/12]
@@ -138,7 +167,4 @@
 ** TODO Music must start later, to nicely loop.
 *** Consult with Nezvers about exact beginning of the track.
 *** Also maybe he can create story track too!
-* IN-PROGRESS Game complete screen. [1/2]
-** DONE Implementation from next level button.
-** TODO Design the look - Kristaps
-* TODO Implement story music.
+* TODO Implement (if possible) new story music.
