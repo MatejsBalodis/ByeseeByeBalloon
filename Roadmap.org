@@ -138,29 +138,30 @@
 ** DONE Next level button changing text to victory.
 ** TODO Implement so that if score is not sufficient (levels must have entry price) at level complete the game is over and it is not possible to go to next level. [0/3]
 *** TODO If there isn't enough total points to enter the next level then player can restart level or go to menu, just like when he has fallen.
-*** TODO Implement so that total score/required score for the next level is displayed constantly in the corner and it updates in realtime showing if it is possible to get to next level.
-**** Level 0 required score
+*** TODO Implement so that total score/required score for the next level is displayed constantly in the corner and it updates in realtime showing if it is possible to get to next level. [0/12]
+**** TODO Level 0 required score
 ***** 500
-**** Level 1 required score
+**** TODO Level 1 required score
 ***** 600
-**** Level 2 required score
+**** TODO Level 2 required score
 ***** 700
-**** Level 3 required score
+**** TODO Level 3 required score
 ***** 750
-**** Level 4 required score
+**** TODO Level 4 required score
 ***** 800
-**** Level 5 required score
+**** TODO Level 5 required score
 ***** 900
-**** Level 6 required score
+**** TODO Level 6 required score
 ***** 950
-**** Level 7 required score
+**** TODO Level 7 required score
 ***** 1000
-**** Level 8 required score
+**** TODO Level 8 required score
 ***** 1050
-**** Level 9 required score
+**** TODO Level 9 required score
 ***** 1250
-**** Total required score
+**** TODO Total required score
 ***** 8500
+**** TODO Total best merchant score required 10000
 *** TODO Implement so that it is possible to reset level at which the not sufficient score was reached with the score that was at the level start.
 * IN-PROGRESS Implement music looping and starting correctly.
 ** TODO Music must start later, to nicely loop.
