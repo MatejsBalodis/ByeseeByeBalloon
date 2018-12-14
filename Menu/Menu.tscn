@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Menu/Background.png" type="Texture" id=1]
 [ext_resource path="res://Menu/SunFlare.png" type="Texture" id=2]
@@ -35,7 +35,8 @@
 [ext_resource path="res://Menu/OptionsButton.gd" type="Script" id=33]
 [ext_resource path="res://UI/Quit.png" type="Texture" id=34]
 [ext_resource path="res://Menu/QuitButton.gd" type="Script" id=35]
-[ext_resource path="res://Audio/Music/Menu_western1-ogg-converted.ogg" type="AudioStream" id=36]
+[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=36]
+[ext_resource path="res://Audio/Music/Menu_western1-ogg-converted.ogg" type="AudioStream" id=37]
 
 [sub_resource type="Animation" id=1]
 
@@ -794,7 +795,7 @@ modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 _sections_unfolded = [ "Modulate" ]
 
-[node name="Menu" type="Node2D"]
+[node name="Menu" type="Node2D" index="0"]
 
 _sections_unfolded = [ "Z Index" ]
 
@@ -1087,7 +1088,6 @@ blend_times = [  ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="8"]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -1204,13 +1204,17 @@ align = 1
 script = ExtResource( 35 )
 _sections_unfolded = [ "Margin", "Rect", "custom_styles" ]
 
+[node name="LevelTransition" parent="CanvasLayer" index="1" instance=ExtResource( 36 )]
+
+modulate = Color( 0, 0, 0, 0 )
+
 [node name="Node2D" type="Node2D" parent="." index="9"]
 
 _sections_unfolded = [ "Z Index" ]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Node2D" index="0"]
 
-stream = ExtResource( 36 )
+stream = ExtResource( 37 )
 volume_db = 0.0
 pitch_scale = 1.0
 autoplay = true

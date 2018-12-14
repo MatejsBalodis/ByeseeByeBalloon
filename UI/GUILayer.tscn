@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Audio/Music/Gameover-ogg-converted.ogg" type="AudioStream" id=1]
 [ext_resource path="res://UI/Restart.png" type="Texture" id=2]
@@ -33,6 +33,7 @@
 [ext_resource path="res://UI/ItemSelectionBar/DragIndicator.gd" type="Script" id=31]
 [ext_resource path="res://UI/Pause.png" type="Texture" id=32]
 [ext_resource path="res://UI/PauseButton.gd" type="Script" id=33]
+[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=34]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -508,6 +509,10 @@ flat = false
 align = 1
 script = ExtResource( 33 )
 _sections_unfolded = [ "Pause", "Rect", "custom_styles" ]
+
+[node name="LevelTransition" parent="." index="6" instance=ExtResource( 34 )]
+
+modulate = Color( 0, 0, 0, 0 )
 
 [connection signal="pressed" from="GameOverWrapper/GameOverRestartButton" to="GameOverWrapper/GameOverRestartButton" method="_on_RestartButton_pressed"]
 

@@ -69,9 +69,26 @@
 * DONE Sometimes item bar doesn't dissappear when the end of level is reached.
 * DONE Remove the bottom danger bar.
 * DONE Implement bar dissappearing on level complete.
+* DONE Implement a menu button in Victory scene.
+* TODO Change the appropriate clamps to mins.
 * TODO Implement transitions between scenes.
 ** Fade in and fade out.
-*** Both graphics and music.
+*** TODO Both graphics and music. [1/2]
+**** DONE Graphics [0/0]
+***** DONE Menu scene [3/3]
+****** DONE Start button
+****** DONE Options button
+****** DONE Quit button
+***** DONE Story scene [1/1]
+****** DONE Skip button
+***** DONE Options scene [1/1]
+****** DONE Menu button
+***** DONE Level scenes [2/2]
+****** DONE Menu button
+****** DONE Next level button
+***** DONE Finish scene [1/1]
+****** DONE Menu button
+**** TODO Music [0/0]
 * IN-PROGRESS Implement pause button. [3/6]
 ** DONE Quiet music
 ** DONE Restart button

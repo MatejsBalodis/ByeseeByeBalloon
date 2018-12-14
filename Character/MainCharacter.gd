@@ -93,7 +93,8 @@ func reset():
 	the_whole_level_distance = finish_line.position.x - start_position_x
 	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + get_viewport().size.x * .5
 	#get_parent().transform.origin.y = -camera.get_global_transform().origin.y + get_viewport().size.y * .5
-	Global.current_level_stop_state = Global.Level_stop_states.NONE
+	if Global.current_level_stop_state != Global.Level_stop_states.TRANSITION_IN:
+		Global.current_level_stop_state = Global.Level_stop_states.NONE
 	game_over_restart_button.visible = false
 	game_over_menu_button.visible = false
 	#next_level_button.visible = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Victory.gd" type="Script" id=1]
 [ext_resource path="res://Menu/Background.png" type="Texture" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://Environment/Cloud4.png" type="Texture" id=10]
 [ext_resource path="res://Environment/Cloud2.png" type="Texture" id=11]
 [ext_resource path="res://UI/ScoreBackground.tscn" type="PackedScene" id=12]
+[ext_resource path="res://UI/GotoMenuButton.tscn" type="PackedScene" id=13]
+[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=14]
 
 [sub_resource type="Animation" id=1]
 
@@ -111,7 +113,7 @@ tracks/4/keys = {
 "values": [ Vector2( -152.467, -258.35 ), Vector2( -110.115, -228.458 ) ]
 }
 
-[node name="Victory" type="Node2D"]
+[node name="Victory" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
@@ -214,9 +216,28 @@ playback_speed = 1.0
 anims/Idle = SubResource( 2 )
 blend_times = [  ]
 
-[node name="ScoreBackground" parent="." index="7" instance=ExtResource( 12 )]
+[node name="UICanvasLayer" type="CanvasLayer" parent="." index="7"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="ScoreBackground" parent="UICanvasLayer" index="0" instance=ExtResource( 12 )]
 
 margin_top = 723.0
 margin_bottom = 1021.0
+
+[node name="GameOverMenuButton" parent="UICanvasLayer" index="1" instance=ExtResource( 13 )]
+
+margin_left = -786.0
+margin_top = 222.0
+margin_right = -335.0
+margin_bottom = 526.0
+
+[node name="LevelTransition" parent="UICanvasLayer" index="2" instance=ExtResource( 14 )]
+
+modulate = Color( 0, 0, 0, 0 )
 
 

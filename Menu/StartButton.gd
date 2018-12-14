@@ -1,4 +1,4 @@
 extends Button
 
 func _on_StartButton_pressed():
-	Global.goto_scene("res://Story/Story.tscn")
+	Global.transition_to_scene("res://Story/Story.tscn")

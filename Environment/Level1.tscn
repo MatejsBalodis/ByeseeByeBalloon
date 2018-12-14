@@ -15,7 +15,7 @@
 [ext_resource path="res://Environment/FinishLine.png" type="Texture" id=13]
 [ext_resource path="res://Environment/FrontLineTrees.png" type="Texture" id=14]
 
-[node name="Level" type="Node2D" index="0"]
+[node name="Level" type="Node2D"]
 
 position = Vector2( 0, -541 )
 scale = Vector2( 2, 2 )
