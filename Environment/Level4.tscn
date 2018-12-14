@@ -52,8 +52,10 @@ _sections_unfolded = [ "Motion" ]
 
 [node name="Mountains1" parent="MountainsParallaxBackground/ParallaxLayer" index="0" instance=ExtResource( 2 )]
 
+modulate = Color( 0.924536, 0.878906, 1, 1 )
 position = Vector2( 18, 22.756 )
 scale = Vector2( 1, 1 )
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="ForestParallaxBackground" type="ParallaxBackground" parent="." index="2"]
 

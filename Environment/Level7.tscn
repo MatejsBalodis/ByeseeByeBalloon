@@ -1,19 +1,20 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Environment/Sky.png" type="Texture" id=1]
 [ext_resource path="res://Environment/Mountains.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Environment/BackTrees.png" type="Texture" id=3]
-[ext_resource path="res://Environment/MiddleTrees.png" type="Texture" id=4]
-[ext_resource path="res://Environment/FrontTrees.png" type="Texture" id=5]
-[ext_resource path="res://Environment/Cloud1.png" type="Texture" id=6]
-[ext_resource path="res://Environment/Cloud.gd" type="Script" id=7]
-[ext_resource path="res://Environment/Cloud2.png" type="Texture" id=8]
-[ext_resource path="res://Environment/Cloud3.png" type="Texture" id=9]
-[ext_resource path="res://Environment/Cloud4.png" type="Texture" id=10]
-[ext_resource path="res://Environment/Cloud5.png" type="Texture" id=11]
-[ext_resource path="res://Environment/Cloud6.png" type="Texture" id=12]
-[ext_resource path="res://Environment/FinishLine.png" type="Texture" id=13]
-[ext_resource path="res://Environment/FrontLineTrees.png" type="Texture" id=14]
+[ext_resource path="res://Environment/Mountains1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Environment/BackTrees.png" type="Texture" id=4]
+[ext_resource path="res://Environment/MiddleTrees.png" type="Texture" id=5]
+[ext_resource path="res://Environment/FrontTrees.png" type="Texture" id=6]
+[ext_resource path="res://Environment/Cloud1.png" type="Texture" id=7]
+[ext_resource path="res://Environment/Cloud.gd" type="Script" id=8]
+[ext_resource path="res://Environment/Cloud2.png" type="Texture" id=9]
+[ext_resource path="res://Environment/Cloud3.png" type="Texture" id=10]
+[ext_resource path="res://Environment/Cloud4.png" type="Texture" id=11]
+[ext_resource path="res://Environment/Cloud5.png" type="Texture" id=12]
+[ext_resource path="res://Environment/Cloud6.png" type="Texture" id=13]
+[ext_resource path="res://Environment/FinishLine.png" type="Texture" id=14]
+[ext_resource path="res://Environment/FrontLineTrees.png" type="Texture" id=15]
 
 [node name="Level" type="Node2D" index="0"]
 
@@ -30,7 +31,6 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="MountainsParallaxBackground" type="ParallaxBackground" parent="." index="1"]
 
-editor/display_folded = true
 layer = 0
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -48,13 +48,18 @@ scroll_ignore_camera_zoom = true
 motion_scale = Vector2( 0.1, 1 )
 motion_offset = Vector2( 0, 0 )
 motion_mirroring = Vector2( 0, 0 )
-_sections_unfolded = [ "Motion" ]
+_sections_unfolded = [ "Motion", "Transform" ]
 
 [node name="Mountains" parent="MountainsParallaxBackground/ParallaxLayer" index="0" instance=ExtResource( 2 )]
 
-position = Vector2( 18, 22.756 )
+position = Vector2( 4565.45, 99.1837 )
 scale = Vector2( 1, 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Mountains2" parent="MountainsParallaxBackground/ParallaxLayer" index="1" instance=ExtResource( 3 )]
+
+position = Vector2( -76.9812, 23.9345 )
+scale = Vector2( 1, 1 )
 
 [node name="ForestParallaxBackground" type="ParallaxBackground" parent="." index="2"]
 
@@ -99,17 +104,17 @@ position = Vector2( 4200, 0 )
 [node name="Sprite" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6/Node2D4" index="0"]
 
 position = Vector2( 535, 755.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Sprite2" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6/Node2D4" index="1"]
 
 position = Vector2( 615, 840.5 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite3" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6/Node2D4" index="2"]
 
 position = Vector2( 630, 935.5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Node2D3" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6" index="1"]
 
@@ -119,17 +124,17 @@ position = Vector2( 2845, 0 )
 [node name="Sprite" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6/Node2D3" index="0"]
 
 position = Vector2( 535, 755.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Sprite2" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6/Node2D3" index="1"]
 
 position = Vector2( 615, 840.5 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite3" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6/Node2D3" index="2"]
 
 position = Vector2( 630, 935.5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Node2D2" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6" index="2"]
 
@@ -139,17 +144,17 @@ position = Vector2( 1340, 0 )
 [node name="Sprite" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6/Node2D2" index="0"]
 
 position = Vector2( 535, 755.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Sprite2" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6/Node2D2" index="1"]
 
 position = Vector2( 615, 840.5 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite3" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D6/Node2D2" index="2"]
 
 position = Vector2( 630, 935.5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Node2D" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer/Forest" index="1"]
 
@@ -159,17 +164,17 @@ position = Vector2( 5555, 0.5 )
 [node name="Sprite" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D" index="0"]
 
 position = Vector2( 535, 755.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Sprite2" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D" index="1"]
 
 position = Vector2( 615, 840.5 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite3" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D" index="2"]
 
 position = Vector2( 630, 935.5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Node2D5" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer/Forest" index="2"]
 
@@ -183,17 +188,17 @@ position = Vector2( 4200, 0 )
 [node name="Sprite" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D4" index="0"]
 
 position = Vector2( 535, 755.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Sprite2" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D4" index="1"]
 
 position = Vector2( 615, 840.5 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite3" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D4" index="2"]
 
 position = Vector2( 630, 935.5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Node2D3" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5" index="1"]
 
@@ -203,17 +208,17 @@ position = Vector2( 2845, 0 )
 [node name="Sprite" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D3" index="0"]
 
 position = Vector2( 535, 755.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Sprite2" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D3" index="1"]
 
 position = Vector2( 615, 840.5 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite3" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D3" index="2"]
 
 position = Vector2( 630, 935.5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Node2D2" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5" index="2"]
 
@@ -223,17 +228,17 @@ position = Vector2( 1340, 0 )
 [node name="Sprite" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D2" index="0"]
 
 position = Vector2( 535, 755.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Sprite2" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D2" index="1"]
 
 position = Vector2( 615, 840.5 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite3" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D2" index="2"]
 
 position = Vector2( 630, 935.5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="Node2D" type="Node2D" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5" index="3"]
 
@@ -242,17 +247,17 @@ editor/display_folded = true
 [node name="Sprite" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D" index="0"]
 
 position = Vector2( 535, 755.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Sprite2" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D" index="1"]
 
 position = Vector2( 615, 840.5 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite3" type="Sprite" parent="ForestParallaxBackground/ParallaxLayer/Forest/Node2D5/Node2D" index="2"]
 
 position = Vector2( 630, 935.5 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="CloudsParallaxBackground" type="ParallaxBackground" parent="." index="3"]
 
@@ -287,128 +292,128 @@ _sections_unfolded = [ "Transform" ]
 [node name="Sprite" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="0"]
 
 position = Vector2( 243.2, 649.723 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite20" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="1"]
 
 position = Vector2( 10601, 630.441 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite8" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="2"]
 
 position = Vector2( 4403.2, 882.853 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite11" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="3"]
 
 position = Vector2( 6310.4, 416.593 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite2" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="4"]
 
 position = Vector2( 780.8, 822.037 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 
 [node name="Sprite19" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="5"]
 
 position = Vector2( 11252.2, 1004.09 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 
 [node name="Sprite16" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="6"]
 
 position = Vector2( 9804.8, 568.634 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 
 [node name="Sprite7" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="7"]
 
 position = Vector2( 3571.2, 639.587 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 
 [node name="Sprite12" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="8"]
 
 position = Vector2( 7001.6, 832.173 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 
 [node name="Sprite3" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="9"]
 
 position = Vector2( 2816, 852.445 )
-texture = ExtResource( 9 )
-script = ExtResource( 7 )
+texture = ExtResource( 10 )
+script = ExtResource( 8 )
 
 [node name="Sprite18" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="10"]
 
 position = Vector2( 12173.5, 1024.17 )
-texture = ExtResource( 9 )
-script = ExtResource( 7 )
+texture = ExtResource( 10 )
+script = ExtResource( 8 )
 
 [node name="Sprite14" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="11"]
 
 position = Vector2( 7974.4, 538.226 )
-texture = ExtResource( 9 )
-script = ExtResource( 7 )
+texture = ExtResource( 10 )
+script = ExtResource( 8 )
 
 [node name="Sprite4" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="12"]
 
 position = Vector2( 1177.6, 517.954 )
-texture = ExtResource( 10 )
-script = ExtResource( 7 )
+texture = ExtResource( 11 )
+script = ExtResource( 8 )
 
 [node name="Sprite21" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="13"]
 
 position = Vector2( 12949.9, 730.976 )
-texture = ExtResource( 10 )
-script = ExtResource( 7 )
+texture = ExtResource( 11 )
+script = ExtResource( 8 )
 
 [node name="Sprite10" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="14"]
 
 position = Vector2( 5785.6, 761.22 )
-texture = ExtResource( 10 )
-script = ExtResource( 7 )
+texture = ExtResource( 11 )
+script = ExtResource( 8 )
 
 [node name="Sprite15" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="15"]
 
 position = Vector2( 8934.4, 801.764 )
-texture = ExtResource( 10 )
-script = ExtResource( 7 )
+texture = ExtResource( 11 )
+script = ExtResource( 8 )
 
 [node name="Sprite5" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="16"]
 
 position = Vector2( 1817.6, 690.267 )
-texture = ExtResource( 11 )
-script = ExtResource( 7 )
+texture = ExtResource( 12 )
+script = ExtResource( 8 )
 
 [node name="Sprite17" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="17"]
 
 position = Vector2( 12325.1, 392.22 )
-texture = ExtResource( 11 )
-script = ExtResource( 7 )
+texture = ExtResource( 12 )
+script = ExtResource( 8 )
 
 [node name="Sprite9" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="18"]
 
 position = Vector2( 5056, 659.859 )
-texture = ExtResource( 11 )
-script = ExtResource( 7 )
+texture = ExtResource( 12 )
+script = ExtResource( 8 )
 
 [node name="Sprite6" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="19"]
 
 position = Vector2( 2240, 457.137 )
-texture = ExtResource( 12 )
-script = ExtResource( 7 )
+texture = ExtResource( 13 )
+script = ExtResource( 8 )
 
 [node name="Sprite13" type="Sprite" parent="CloudsParallaxBackground/ParallaxLayer/Clouds" index="20"]
 
 position = Vector2( 7475.2, 588.907 )
-texture = ExtResource( 12 )
-script = ExtResource( 7 )
+texture = ExtResource( 13 )
+script = ExtResource( 8 )
 
 [node name="CloudsFrontParallaxBackground" type="ParallaxBackground" parent="." index="4"]
 
@@ -443,85 +448,85 @@ _sections_unfolded = [ "Transform" ]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 2460, 521 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite2" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="1"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 9139.5, 573.928 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite11" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="2"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 5080, 1321 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
 
 [node name="Sprite16" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="3"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 7740, 1241 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 
 [node name="Sprite12" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="4"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 8400, 601 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 
 [node name="Sprite3" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="5"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 4240, 651 )
-texture = ExtResource( 9 )
-script = ExtResource( 7 )
+texture = ExtResource( 10 )
+script = ExtResource( 8 )
 
 [node name="Sprite6" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="6"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 10919.5, 703.928 )
-texture = ExtResource( 9 )
-script = ExtResource( 7 )
+texture = ExtResource( 10 )
+script = ExtResource( 8 )
 
 [node name="Sprite4" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="7"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 3220, 1351 )
-texture = ExtResource( 10 )
-script = ExtResource( 7 )
+texture = ExtResource( 11 )
+script = ExtResource( 8 )
 
 [node name="Sprite5" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="8"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 9899.5, 1403.93 )
-texture = ExtResource( 10 )
-script = ExtResource( 7 )
+texture = ExtResource( 11 )
+script = ExtResource( 8 )
 
 [node name="Sprite15" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="9"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 3110, 511 )
-texture = ExtResource( 10 )
-script = ExtResource( 7 )
+texture = ExtResource( 11 )
+script = ExtResource( 8 )
 
 [node name="Sprite9" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="10"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 6100, 1321 )
-texture = ExtResource( 11 )
-script = ExtResource( 7 )
+texture = ExtResource( 12 )
+script = ExtResource( 8 )
 
 [node name="Sprite13" type="Sprite" parent="CloudsFrontParallaxBackground/ParallaxLayer/Clouds" index="11"]
 
 modulate = Color( 1, 1, 1, 0.530392 )
 position = Vector2( 5300, 521 )
-texture = ExtResource( 12 )
-script = ExtResource( 7 )
+texture = ExtResource( 13 )
+script = ExtResource( 8 )
 
 [node name="FinishLine" type="ParallaxBackground" parent="." index="5"]
 
@@ -550,67 +555,67 @@ motion_mirroring = Vector2( 0, 0 )
 
 position = Vector2( 11520.8, 1355 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="FinishLine11" type="Sprite" parent="FinishLine/ParallaxLayer" index="1"]
 
 position = Vector2( 11520.8, 1565 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="FinishLine2" type="Sprite" parent="FinishLine/ParallaxLayer" index="2"]
 
 position = Vector2( 11520.8, 1145 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="FinishLine3" type="Sprite" parent="FinishLine/ParallaxLayer" index="3"]
 
 position = Vector2( 11520.8, 935 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="FinishLine4" type="Sprite" parent="FinishLine/ParallaxLayer" index="4"]
 
 position = Vector2( 11520.8, 725 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="FinishLine5" type="Sprite" parent="FinishLine/ParallaxLayer" index="5"]
 
 position = Vector2( 11520.8, 515 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="FinishLine6" type="Sprite" parent="FinishLine/ParallaxLayer" index="6"]
 
 position = Vector2( 11520.8, 305 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="FinishLine7" type="Sprite" parent="FinishLine/ParallaxLayer" index="7"]
 
 position = Vector2( 11520.8, 95 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="FinishLine8" type="Sprite" parent="FinishLine/ParallaxLayer" index="8"]
 
 position = Vector2( 11520.8, -115 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="FinishLine9" type="Sprite" parent="FinishLine/ParallaxLayer" index="9"]
 
 position = Vector2( 11520.8, -325 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="FinishLine10" type="Sprite" parent="FinishLine/ParallaxLayer" index="10"]
 
 position = Vector2( 11520.8, -535 )
 scale = Vector2( 0.194444, 0.194444 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="TreesFrontParallaxForeground" type="ParallaxBackground" parent="." index="6"]
 
@@ -640,31 +645,31 @@ editor/display_folded = true
 [node name="Trees" type="Sprite" parent="TreesFrontParallaxForeground/ParallaxLayer/TreeWrapper" index="0"]
 
 position = Vector2( 238.771, 1404.53 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Trees8" type="Sprite" parent="TreesFrontParallaxForeground/ParallaxLayer/TreeWrapper" index="1"]
 
 position = Vector2( 4929.52, 1404.53 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Trees5" type="Sprite" parent="TreesFrontParallaxForeground/ParallaxLayer/TreeWrapper" index="2"]
 
 position = Vector2( 6298.94, 1404.53 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Trees3" type="Sprite" parent="TreesFrontParallaxForeground/ParallaxLayer/TreeWrapper" index="3"]
 
 position = Vector2( 2977.61, 1404.53 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Trees7" type="Sprite" parent="TreesFrontParallaxForeground/ParallaxLayer/TreeWrapper" index="4"]
 
 position = Vector2( 8995.64, 1404.53 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 [node name="Trees9" type="Sprite" parent="TreesFrontParallaxForeground/ParallaxLayer/TreeWrapper" index="5"]
 
 position = Vector2( 11575.1, 1404.53 )
-texture = ExtResource( 14 )
+texture = ExtResource( 15 )
 
 

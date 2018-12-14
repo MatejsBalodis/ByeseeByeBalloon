@@ -6,7 +6,7 @@
 [ext_resource path="res://Obstacles/ItemScenes/FlagPole.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Obstacles/ItemScenes/PineTree.tscn" type="PackedScene" id=5]
 
-[node name="ObstacleWrapper" type="Node2D"]
+[node name="ObstacleWrapper" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 
@@ -30,19 +30,24 @@ z_index = -4
 position = Vector2( 5821.75, 222.7 )
 z_index = -4
 
-[node name="Mountain" parent="." index="4" instance=ExtResource( 3 )]
+[node name="AngryCloud6" parent="." index="4" instance=ExtResource( 2 )]
+
+position = Vector2( 8521.07, 116.844 )
+z_index = -4
+
+[node name="Mountain" parent="." index="5" instance=ExtResource( 3 )]
 
 position = Vector2( 5504.05, 1336.52 )
 z_index = -4
 _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
-[node name="FlagPole" parent="." index="5" instance=ExtResource( 4 )]
+[node name="FlagPole" parent="." index="6" instance=ExtResource( 4 )]
 
 position = Vector2( 8916.98, 1194.25 )
 z_index = -4
 _sections_unfolded = [ "Transform", "Z Index" ]
 
-[node name="PineTree" parent="." index="6" instance=ExtResource( 5 )]
+[node name="PineTree" parent="." index="7" instance=ExtResource( 5 )]
 
 position = Vector2( 3087.91, 1375.07 )
 z_index = -4
