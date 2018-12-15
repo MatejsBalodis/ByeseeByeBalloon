@@ -31,6 +31,7 @@ var player_danger_alpha_coefficient = .0 # To calculate alpha dynamically based 
 var bar_shrink_items = [] # To know when and which items to remove from the bar.
 var original_item_positions = [] # Change positions relative to this.
 var one_item_width = .0 # For speed and convenience.
+var actual_bar_width = .0 # To correctly display indication arrows, even if bar width changes.
 
 func free_memory_from_the_previous_item_set():
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
@@ -76,6 +77,13 @@ func regenerate_items():
 	bar_shrink_items.clear()
 
 	one_item_width = original_item_positions[1] - original_item_positions[0]
+	calculate_actual_bar_width()
+
+func calculate_actual_bar_width():
+	actual_bar_width = .0
+	for i in range(0, level_selection_bars[Global.current_level_index].size()):
+		if level_selection_bars[Global.current_level_index][i][0].alpha_must_be_managed:
+			actual_bar_width += one_item_width
 
 func _process(delta):
 	if Global.current_level_stop_state != Global.Level_stop_states.NONE:
@@ -97,7 +105,7 @@ func _process(delta):
 					drag_indicator_left.lerp_indicator_opacity(false, .0, delta)
 				else:
 					drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
-				if rect_position.x > -(current_x_offset - bar_width):
+				if rect_position.x + actual_bar_width > get_viewport().size.x:
 					drag_indicator_right.lerp_indicator_opacity(false, .0, delta)
 				else:
 					drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
@@ -141,6 +149,7 @@ func _physics_process(delta):
 					bar_shrink_item = i2 + bar_shrink_items[0] + 1
 					level_selection_bars[Global.current_level_index][bar_shrink_item][0].rect_position.x = original_item_positions[int(level_selection_bars[Global.current_level_index][bar_shrink_item][0].rect_position.x / one_item_width)]
 				bar_shrink_items.remove(0)
+				calculate_actual_bar_width()
 				break
 
 func manage_bar_visibility(alpha_goal, y_goal, alpha_speed, y_speed):
