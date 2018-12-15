@@ -174,10 +174,12 @@
 ***** 8500
 **** DONE Total best merchant score required 10000
 *** DONE Implement so that it is possible to reset level at which the not sufficient score was reached with the score that was at the level start.
-* TODO Pressing menu made the pause button to appear on level complete.
-* TODO Level value points must be tuned so that the growth of the total score is taken into account.
-* TODO Empty item bars disappear and item bar shrinks
+* DONE Pressing menu made the pause button to appear on level complete.
+* DONE Dropped item background disappears and item bar shrinks.
+* TODO Item bar must not be draggable if invisible (White arrows should not appear)
 * TODO Level complete items fade in and out instead of just popping in and out.
+* TODO White arrow appears too soon on the right side when the selection bar is less wide than the screen width.
+* TODO Level value points must be tuned so that the growth of the total score is taken into account.
 * IN-PROGRESS Implement music looping and starting correctly.
 ** TODO Music must start later, to nicely loop.
 *** Consult with Nezvers about exact beginning of the track.

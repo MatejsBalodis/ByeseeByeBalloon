@@ -36,5 +36,5 @@ func _process(delta):
 
 	if Global.current_level_stop_state == Global.Level_stop_states.LEVEL_COMPLETE || Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
 		visible = false
-	else:
+	elif Global.current_level_stop_state != Global.Level_stop_states.TRANSITION_OUT:
 		visible = true
