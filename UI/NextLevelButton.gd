@@ -13,17 +13,18 @@ onready var main_character = character_layer.get_node("MainCharacter") # For spe
 onready var level_transition = get_parent().get_parent().get_node("LevelTransition") # For speed and convenience.
 
 func _on_NextLevelButton_pressed():
-	item_selection_bar.free_memory_from_the_previous_item_set()
-	current_level_scene.name = "level_for_deletion"
-	current_level_scene.queue_free()
-	current_obstacle_wrapper.name = "obstacle_wrapper_for_deletion"
-	current_obstacle_wrapper.queue_free()
-	Global.current_level_index += 1
-	if Global.current_level_index - 1 > level_scenes.size() - 1:
-		Global.transition_to_scene(VICTORY_SCENE_PATH)
-		return
-	Global.current_level_stop_state = Global.Level_stop_states.SWITCH_LEVEL_OUT
-	level_transition.current_transition_is_in_progress = true
+	if Global.current_level_stop_state == Global.Level_stop_states.LEVEL_COMPLETE || Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
+		item_selection_bar.free_memory_from_the_previous_item_set()
+		current_level_scene.name = "level_for_deletion"
+		current_level_scene.queue_free()
+		current_obstacle_wrapper.name = "obstacle_wrapper_for_deletion"
+		current_obstacle_wrapper.queue_free()
+		Global.current_level_index += 1
+		Global.current_level_stop_state = Global.Level_stop_states.SWITCH_LEVEL_OUT
+		level_transition.current_transition_is_in_progress = true
+		if Global.current_level_index - 1 > level_scenes.size() - 1:
+			Global.transition_to_scene(VICTORY_SCENE_PATH)
+			return
 
 func _process(delta):
 	if Global.current_level_stop_state == Global.Level_stop_states.SWITCH_LEVEL_OUT && !level_transition.current_transition_is_in_progress:

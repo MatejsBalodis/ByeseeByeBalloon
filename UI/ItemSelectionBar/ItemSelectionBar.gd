@@ -10,15 +10,6 @@ onready var original_y_position = self.rect_position.y # To know, where to retur
 export (PackedScene) var selection_bar_item # To instance the selection bar item.
 export var level_selection_bars = [] # Assign items for each level.
 
-var selection_bar_drag_height = .2 # To know, where to allow the drag.
-var old_mouse_position = Vector2() # To determine the direction of mouse movement.
-var current_x_offset = MARGIN_BETWEEN_BUTTONS # To place buttons one by another.
-var button_height = .0 # To detect when to drag activate drag and correctly position buttons at the bottom of the screen.
-var return_on_reset = false # To forbid dragging bar with mouse and return to the initial position.
-var return_lerp_progress = .0 # To have a tight control over lerping.
-var player_is_in_danger = false # To save resources and check only for this variable in items.
-var player_danger_alpha_coefficient = .0 # To calculate alpha dynamically based on how far in the danger zone the player is in.
-
 const MARGIN_BETWEEN_BUTTONS = 20 # Have a bit of margin between the selection bar items.
 const PUSH_DOWN_DISTANCE = 30 # Buttons should be closer to the bottom of the screen.
 const BAR_RETURN_CLOSE_ENOUGH_DISTANCE = 20.0 # To avoid getting lerp being stuck at the end.
@@ -28,6 +19,19 @@ const PLAYER_DYNAMIC_DANGER_TRANSPARENCY_HANDLE = 1.5 # How transparent to make 
 const BAR_ALPHA_DISSAPPEAR_SPEED = 10.0 # How quickly to dissappear on game over state.
 const BAR_ALPHA_APPEAR_SPEED = 3.0 # How quickly to appear on game over state.
 const BAR_MOVE_IN_SPEED = 10.0 # How quickly to move in the bar after reset.
+const ITEM_SHRINK_SPEED = 1000.0 # How quickly to push items together.
+
+var old_mouse_position = Vector2() # To determine the direction of mouse movement.
+var current_x_offset = MARGIN_BETWEEN_BUTTONS # To place buttons one by another.
+var button_height = .0 # To detect when to drag activate drag and correctly position buttons at the bottom of the screen.
+var return_on_reset = false # To forbid dragging bar with mouse and return to the initial position.
+var return_lerp_progress = .0 # To have a tight control over lerping.
+var player_is_in_danger = false # To save resources and check only for this variable in items.
+var player_danger_alpha_coefficient = .0 # To calculate alpha dynamically based on how far in the danger zone the player is in.
+var bar_shrink_items = [] # To know when and which items to remove from the bar.
+var original_item_positions = [] # Change positions relative to this.
+var one_item_width = .0 # For speed and convenience.
+var actual_bar_width = .0 # To correctly display indication arrows, even if bar width changes.
 
 func free_memory_from_the_previous_item_set():
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
@@ -47,6 +51,8 @@ func regenerate_items():
 			for i3 in range(0, 2):
 				level_selection_bars[i][i2].append(null)
 
+	original_item_positions.clear()
+
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
 		level_selection_bars[Global.current_level_index][i][0] = selection_bar_item.instance()
 		var up_item = level_selection_bars[Global.current_level_index][i][0].get_node("UpItem") # For speed and convenience.
@@ -58,6 +64,7 @@ func regenerate_items():
 		up_item.item_index = i
 		up_item.player = player
 		add_child(level_selection_bars[Global.current_level_index][i][0])
+		original_item_positions.append(current_x_offset)
 		level_selection_bars[Global.current_level_index][i][0].rect_position.x = current_x_offset
 		level_selection_bars[Global.current_level_index][i][0].rect_position.y -= level_selection_bars[Global.current_level_index][0][0].texture.get_size().y - PUSH_DOWN_DISTANCE
 		current_x_offset += level_selection_bars[Global.current_level_index][i][0].texture.get_size().x + MARGIN_BETWEEN_BUTTONS
@@ -66,6 +73,17 @@ func regenerate_items():
 	drag_indicator_right.current_indicator_lerp_progress = .0
 	drag_indicator_left.current_indicator_lerp_progress = .0
 	return_lerp_progress = .0
+
+	bar_shrink_items.clear()
+
+	one_item_width = original_item_positions[1] - original_item_positions[0]
+	calculate_actual_bar_width()
+
+func calculate_actual_bar_width():
+	actual_bar_width = .0
+	for i in range(0, level_selection_bars[Global.current_level_index].size()):
+		if level_selection_bars[Global.current_level_index][i][0].alpha_must_be_managed:
+			actual_bar_width += one_item_width
 
 func _process(delta):
 	if Global.current_level_stop_state != Global.Level_stop_states.NONE:
@@ -87,7 +105,7 @@ func _process(delta):
 					drag_indicator_left.lerp_indicator_opacity(false, .0, delta)
 				else:
 					drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
-				if rect_position.x > -(current_x_offset - bar_width):
+				if rect_position.x + actual_bar_width > get_viewport().size.x:
 					drag_indicator_right.lerp_indicator_opacity(false, .0, delta)
 				else:
 					drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
@@ -120,7 +138,24 @@ func _process(delta):
 	else:
 		manage_bar_visibility(.0, original_y_position + get_viewport().size.y, delta * BAR_ALPHA_DISSAPPEAR_SPEED, delta)
 
+func _physics_process(delta):
+	if bar_shrink_items.size() > 0:
+		var loop_range = level_selection_bars[Global.current_level_index].size() - (bar_shrink_items[0] + 1) # To know how many items to move.
+		for i in range(0, loop_range):
+			var bar_shrink_item = i + bar_shrink_items[0] + 1 # For speed and convenience.
+			level_selection_bars[Global.current_level_index][bar_shrink_item][0].rect_position.x -= delta * ITEM_SHRINK_SPEED
+			if i == 0 && level_selection_bars[Global.current_level_index][bar_shrink_item][0].rect_position.x <= level_selection_bars[Global.current_level_index][bar_shrink_item - 1][0].rect_position.x:
+				for i2 in range(0, loop_range):
+					bar_shrink_item = i2 + bar_shrink_items[0] + 1
+					level_selection_bars[Global.current_level_index][bar_shrink_item][0].rect_position.x = original_item_positions[int(level_selection_bars[Global.current_level_index][bar_shrink_item][0].rect_position.x / one_item_width)]
+				bar_shrink_items.remove(0)
+				calculate_actual_bar_width()
+				break
+
 func manage_bar_visibility(alpha_goal, y_goal, alpha_speed, y_speed):
 	modulate.a = lerp(modulate.a, alpha_goal, alpha_speed)
 	rect_position.y = lerp(rect_position.y, y_goal, y_speed)
 
+func shrink_bar(index):
+	if index < level_selection_bars[Global.current_level_index].size() - 1:
+		bar_shrink_items.append(index)

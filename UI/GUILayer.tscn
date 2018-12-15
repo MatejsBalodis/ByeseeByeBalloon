@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://Audio/Music/Gameover-ogg-converted.ogg" type="AudioStream" id=1]
 [ext_resource path="res://UI/Restart.png" type="Texture" id=2]
@@ -33,7 +33,10 @@
 [ext_resource path="res://UI/ItemSelectionBar/DragIndicator.gd" type="Script" id=31]
 [ext_resource path="res://UI/Pause.png" type="Texture" id=32]
 [ext_resource path="res://UI/PauseButton.gd" type="Script" id=33]
-[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=34]
+[ext_resource path="res://UI/UnPause.png" type="Texture" id=34]
+[ext_resource path="res://UI/RequiredScoreDeltaWrapper.gd" type="Script" id=35]
+[ext_resource path="res://Font/KismetNF.otf" type="DynamicFontData" id=36]
+[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=37]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -271,6 +274,14 @@ expand_margin_bottom = 0.0
 modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 
+[sub_resource type="DynamicFont" id=15]
+
+size = 90
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 36 )
+_sections_unfolded = [ "Font", "Settings" ]
+
 [node name="GUILayer" type="CanvasLayer" index="0"]
 
 layer = 1
@@ -387,9 +398,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 150.0
-margin_top = 149.0
+margin_top = 179.0
 margin_right = 1750.0
-margin_bottom = 434.0
+margin_bottom = 464.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -406,9 +417,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 265.0
-margin_top = 84.0
+margin_top = 114.0
 margin_right = 1614.0
-margin_bottom = 435.0
+margin_bottom = 465.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -419,6 +430,9 @@ texture = ExtResource( 26 )
 stretch_mode = 0
 
 [node name="ScoreBackground" parent="GameOverWrapper" index="6" instance=ExtResource( 27 )]
+
+margin_top = 533.0
+margin_bottom = 831.0
 
 [node name="ItemSelectionBar" parent="." index="1" instance=ExtResource( 28 )]
 
@@ -509,8 +523,78 @@ flat = false
 align = 1
 script = ExtResource( 33 )
 _sections_unfolded = [ "Pause", "Rect", "custom_styles" ]
+unpause_button_texture = ExtResource( 34 )
 
-[node name="LevelTransition" parent="." index="6" instance=ExtResource( 34 )]
+[node name="RequiredScoreDeltaWrapper" type="Control" parent="." index="6"]
+
+anchor_left = 1.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = -80.0
+margin_top = 20.0
+margin_right = -40.0
+margin_bottom = 60.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+script = ExtResource( 35 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="DeltaScoreShadow" type="Label" parent="RequiredScoreDeltaWrapper" index="0"]
+
+modulate = Color( 0.139053, 0.144531, 0.129288, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -456.0
+margin_top = 102.0
+margin_right = -53.0
+margin_bottom = 185.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 15 )
+text = "99999/99999"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_fonts" ]
+
+[node name="DeltaScore" type="Label" parent="RequiredScoreDeltaWrapper" index="1"]
+
+modulate = Color( 0.913725, 0.778309, 0.0470588, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -458.0
+margin_top = 99.0
+margin_right = -55.0
+margin_bottom = 182.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 15 )
+text = "99999/99999"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "Visibility", "custom_fonts" ]
+
+[node name="LevelTransition" parent="." index="7" instance=ExtResource( 37 )]
 
 modulate = Color( 0, 0, 0, 0 )
 

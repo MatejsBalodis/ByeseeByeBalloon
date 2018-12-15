@@ -101,16 +101,17 @@
 * DONE After merging with Matejs changes MainCharacter.tscn got ruined.
 ** I reset the git head and copied in my version of MainCharacter.tscn
 *** So there may be differences to what Matejs did, but at least all items aren't shifted.
-* TODO When spamming next level button too quickly game crashes.
+* DONE When spamming next level button too quickly game crashes.
 ** Probably have to forbid any behaviour after button is pressed and transition is happening.
-* IN-PROGRESS Implement pause button. [5/6]
+* DONE Victory button appears after the last level.
+* DONE Implement pause button. [6/6]
 ** DONE Quiet music
 ** DONE Restart button
 ** DONE Menu button
 ** DONE !!! When you press Restart, the item bar disappears.
 ** DONE Dropped items must add to time, while pause is active, so that they don't dissapear on unpaused.
-** TODO Change state(text) to unpause
-* IN-PROGRESS Implement multiple levels. [4/5]
+** DONE Change state(text) to unpause
+* DONE Implement multiple levels. [5/5]
 ** INSTRUCTION FOR IMPLEMENTING NEW LEVELS.
 *** Right now there are 10 levels pre-made.
 **** I think 10 for now is enough, but more can be added at hearts desire.
@@ -141,36 +142,53 @@
 *** DONE Implement specific set of items for each level.
 ** DONE Implement so that score is persistent between levels.
 ** DONE Next level button changing text to victory.
-** TODO Implement so that if score is not sufficient (levels must have entry price) at level complete the game is over and it is not possible to go to next level. [0/3]
-*** TODO If there isn't enough total points to enter the next level then player can restart level or go to menu, just like when he has fallen.
-*** TODO Implement so that total score/required score for the next level is displayed constantly in the corner and it updates in realtime showing if it is possible to get to next level. [0/12]
-**** TODO Level 0 required score
+** DONE Implement so that if score is not sufficient (levels must have entry price) at level complete the game is over and it is not possible to go to next level. [3/3]
+*** DONE If there isn't enough total points to enter the next level then player can restart level or go to menu, just like when he has fallen. [1/1]
+**** DONE Character must become angry, instead of dead [2/2]
+***** DONE Animation [2/2]
+****** DONE Face
+****** DONE Body (Red one - incline)
+***** DONE Audio
+*** DONE Implement so that total score/required score for the next level is displayed constantly in the corner and it updates in realtime showing if it is possible to get to next level. [12/12]
+**** DONE Level 0 required score
 ***** 500
-**** TODO Level 1 required score
+**** DONE Level 1 required score
 ***** 600
-**** TODO Level 2 required score
+**** DONE Level 2 required score
 ***** 700
-**** TODO Level 3 required score
+**** DONE Level 3 required score
 ***** 750
-**** TODO Level 4 required score
+**** DONE Level 4 required score
 ***** 800
-**** TODO Level 5 required score
+**** DONE Level 5 required score
 ***** 900
-**** TODO Level 6 required score
+**** DONE Level 6 required score
 ***** 950
-**** TODO Level 7 required score
+**** DONE Level 7 required score
 ***** 1000
-**** TODO Level 8 required score
+**** DONE Level 8 required score
 ***** 1050
-**** TODO Level 9 required score
+**** DONE Level 9 required score
 ***** 1250
-**** TODO Total required score
+**** DONE Total required score
 ***** 8500
-**** TODO Total best merchant score required 10000
-*** TODO Implement so that it is possible to reset level at which the not sufficient score was reached with the score that was at the level start.
+**** DONE Total best merchant score required 10000
+*** DONE Implement so that it is possible to reset level at which the not sufficient score was reached with the score that was at the level start.
+* DONE Pressing menu made the pause button to appear on level complete.
+* DONE Dropped item background disappears and item bar shrinks.
+* DONE Item bar must not be draggable if invisible (White arrows should not appear)
+* DONE White arrow appears too soon on the right side when the selection bar is less wide than the screen width.
+* TODO Level complete items fade in and out instead of just popping in and out.
+* TODO Level value points must be tuned so that the growth of the total score is taken into account.
 * IN-PROGRESS Implement music looping and starting correctly.
 ** TODO Music must start later, to nicely loop.
 *** Consult with Nezvers about exact beginning of the track.
 *** Also maybe he can create story track too!
-* TODO Empty item bars disappear and item bar shrinks
+* TODO Disable next level button. [0/2]
+** TODO Uncomment nextlevelButton setting visibility to false in MainCharacter in physics_process after this
+#+BEGIN_SRC godot-gdscript -n
+if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
+			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+#+END_SRC
+** TODO Set invisible next level button at the beginning.
 * TODO Implement (if possible) new story music.

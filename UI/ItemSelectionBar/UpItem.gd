@@ -12,6 +12,7 @@ onready var item_selection_bar = get_parent().get_parent() # For speed and conve
 onready var original_size = self.rect_size # To perform relative changes.
 onready var original_position = self.rect_position # To perform relative changes.
 onready var VALUE_LABEL = get_child(0) # For speed and convenience.
+onready var item_background = get_parent() # For speed and convenience.
 
 const GRAVITY = Vector2(-20.0, 1000.0) # How quickly are the buttons falling.
 const MAX_ACCEPT_DISTANCE = 25.0 # If the item selection bar has moved more than this, don't accept item.
@@ -29,6 +30,9 @@ func _on_UpItem_button_up():
 		item_is_pressed = false
 		if item_position_on_button_press.distance_squared_to(item_selection_bar.rect_position) < MAX_ACCEPT_DISTANCE && !player.item_drop_pending:
 			player.start_up_item_event(item_index)
+			item_selection_bar.shrink_bar(item_index)
+			item_background.alpha_must_be_managed = false
+			item_background.mouse_filter = 2
 			must_fall = true
 
 func _physics_process(delta):
@@ -39,7 +43,7 @@ func _physics_process(delta):
 		VALUE_LABEL.rect_position -= position_change_step
 		VALUE_LABEL.rect_rotation += delta * VALUE_LABEL_ROTATION_SPEED
 		gravity_increase_speed += GRAVITY_INCREASE_SPEED_STEP
-
+		item_background.self_modulate.a = max(item_background.self_modulate.a - delta, .0)
 
 func _on_UpItem_mouse_entered():
 	if !must_fall:
