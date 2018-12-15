@@ -2,6 +2,7 @@ extends Node2D
 
 onready var music_manager = get_parent().get_parent().get_node("MusicManager") # For speed and convenience.
 onready var gui_layer = get_parent().get_parent().get_node("GUILayer") # For speed and convenience.
+onready var pause_button = gui_layer.get_node("PauseButton") # For speed and convenience.
 onready var sacrifice_item_layer = get_parent().get_node("SacrificeItemWrapper") # For speed and convenience.
 onready var game_over_wrapper = gui_layer.get_node("GameOverWrapper") # For speed and convenience.
 onready var	game_over_restart_button = game_over_wrapper.get_node("GameOverRestartButton") # For speed and convenience.
@@ -101,6 +102,9 @@ func reset():
 	game_over_restart_button.visible = false
 	game_over_menu_button.visible = false
 	#next_level_button.visible = false
+	Global.set_custom_button_style_texture(pause_button, pause_button.original_button_style_texture)
+	pause_button.visible = false
+	pause_button.visible = true
 	game_over_text.visible = false
 	level_complete_text.visible = false
 	current_up_force = Vector2()
@@ -146,23 +150,10 @@ func _process(delta):
 		current_up_force.x = max(current_up_force.x - tmp_force_diminish_speed, .0)
 		current_up_force.y = max(current_up_force.y - tmp_force_diminish_speed, .0)
 
-		manage_animation(delta)
-
 		var new_progress_position_x = INITIAL_BALLOON_PROGRESS_OFFSET + ((texture_progress_bar.rect_size.x - INITIAL_BALLOON_PROGRESS_OFFSET) * texture_progress_bar.rect_scale.x * (1.0 - (finish_line.position.x - position.x) / the_whole_level_distance)) # For speed and convenience.
 		texture_progress_bar.max_value = texture_progress_bar.rect_size.x * texture_progress_bar.rect_scale.x
 		balloon_indicator.rect_position.x = min(lerp(balloon_indicator.rect_position.x, new_progress_position_x, delta * (BALLOON_PROGRESS_LERP_SPEED if balloon_indicator.rect_position.x < new_progress_position_x else BALLOON_PROGRESS_LERP_RETURN_SPEED)), balloon_indicator_finish.rect_position.x - INITIAL_BALLOON_PROGRESS_OFFSET)
 		texture_progress_bar.value = balloon_indicator.rect_position.x
-
-func initiate_level_end(level_stop_state):
-	if Global.current_level_index > next_level_button.level_scenes.size() - 1:
-		Global.set_custom_button_style_texture(next_level_button, victory_button_texture)
-		next_level_button.visible = false
-	game_over_restart_button.visible = true
-	game_over_menu_button.visible = true
-	next_level_button.visible = true
-	game_over_restart_button.visible = true
-	level_end_velocity_coefficient = .0
-	game_over_audio_stream_player.play()
 
 func manage_level_end_audio_transition(delta):
 	level_end_delta_volume_lerp_progress = min(level_end_delta_volume_lerp_progress + delta, 1.0)
@@ -183,22 +174,68 @@ func _physics_process(delta):
 		actual_mover.move_and_slide(velocity)
 		if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
 			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+				#next_level_button.visible = false
 				game_over_text.visible = true
 				Global.current_level_stop_state = Global.Level_stop_states.GAME_OVER
 				game_over_audio_stream_player.stream = game_over_audio_stream
 				main_character_audio_stream_player.play_die_sfx()
-				initiate_level_end(Global.Level_stop_states.GAME_OVER)
+				initiate_level_end()
+				forbid_changing_facial_animation = false
+				set_facial_animation(3)
 			manage_level_end_audio_transition(delta)
+			set_character_blend_state(1.0, .0, 1.0, .0, .0, delta * DEATH_ANIMATION_SPEED)
 		elif position.x > finish_line.position.x:
-			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
-				score_background.visible = true
-				level_complete_text.visible = true
-				Global.current_level_stop_state = Global.Level_stop_states.LEVEL_COMPLETE
-				game_over_audio_stream_player.stream = level_complete_audio_stream
-				main_character_audio_stream_player.play_win_sfx()
-				initiate_level_end(Global.Level_stop_states.LEVEL_COMPLETE)
-			manage_level_end_audio_transition(delta)
-			manage_level_complete_state(delta)
+			if Global.total_score >= level.level_value:
+				if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+					next_level_button.visible = true
+					score_background.visible = true
+					level_complete_text.visible = true
+					Global.current_level_stop_state = Global.Level_stop_states.LEVEL_COMPLETE
+					game_over_audio_stream_player.stream = level_complete_audio_stream
+					main_character_audio_stream_player.play_win_sfx()
+					initiate_level_end()
+					forbid_changing_facial_animation = false
+					set_facial_animation(5)
+				manage_level_end_audio_transition(delta)
+				manage_level_complete_state(delta)
+				set_character_blend_state(1.0, .0, 1.0, .0, 1.0, delta * DEATH_ANIMATION_SPEED)
+			else:
+				if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+					next_level_button.visible = false
+					game_over_text.visible = true
+					Global.current_level_stop_state = Global.Level_stop_states.LEVEL_COMPLETE
+					game_over_audio_stream_player.stream = game_over_audio_stream
+					main_character_audio_stream_player.play_angry_sfx()
+					initiate_level_end()
+					forbid_changing_facial_animation = false
+					set_facial_animation(0)
+				manage_level_end_audio_transition(delta)
+				set_character_blend_state(.0, .0, .0, .0, .0, delta)
+		else:
+			if OS.get_ticks_msec() - item_drop_start_time < current_drop_animation_length:
+				set_character_blend_state(.0, 1.0, .0, .0, .0, delta * DROP_ANIMATION_TRANSITION_SPEED)
+			elif item_drop_pending:
+				item_drop_pending = false
+				manage_up_item_event()
+			elif position.y > get_viewport().size.y - get_viewport().size.y * LEGS_UP_Y_THRESHOLD:
+				set_character_blend_state(1.0, .0, .0, .0, .0, delta)
+				set_facial_animation(5)
+			elif velocity.y > .0:
+				set_character_blend_state(.0, .0, .0, 1.0, .0, delta)
+				set_facial_animation(5)
+			elif velocity.y < .0:
+				set_character_blend_state(.0, .0, .0, .0, .0, delta)
+				set_facial_animation(5)
+
+func initiate_level_end():
+	if Global.current_level_index > next_level_button.level_scenes.size() - 1:
+		Global.set_custom_button_style_texture(next_level_button, victory_button_texture)
+		next_level_button.visible = false
+	game_over_restart_button.visible = true
+	game_over_menu_button.visible = true
+	game_over_restart_button.visible = true
+	level_end_velocity_coefficient = .0
+	game_over_audio_stream_player.play()
 
 func start_up_item_event(item_index):
 	forbid_changing_facial_animation = false
@@ -245,27 +282,3 @@ func set_facial_animation(new_animation_index):
 		face_animator.current_animation = facial_animations[current_facial_animation_index]
 		face_animator.play()
 		face_animator.playback_speed = 1.0
-
-func manage_animation(delta):
-	if Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
-		forbid_changing_facial_animation = false
-		set_character_blend_state(1.0, .0, 1.0, .0, .0, delta * DEATH_ANIMATION_SPEED)
-		set_facial_animation(3)
-	elif Global.current_level_stop_state == Global.Level_stop_states.LEVEL_COMPLETE:
-		forbid_changing_facial_animation = false
-		set_character_blend_state(1.0, .0, 1.0, .0, 1.0, delta * DEATH_ANIMATION_SPEED)
-		set_facial_animation(5)
-	elif OS.get_ticks_msec() - item_drop_start_time < current_drop_animation_length:
-		set_character_blend_state(.0, 1.0, .0, .0, .0, delta * DROP_ANIMATION_TRANSITION_SPEED)
-	elif item_drop_pending:
-		item_drop_pending = false
-		manage_up_item_event()
-	elif position.y > get_viewport().size.y - get_viewport().size.y * LEGS_UP_Y_THRESHOLD:
-		set_character_blend_state(1.0, .0, .0, .0, .0, delta)
-		set_facial_animation(5)
-	elif velocity.y > .0:
-		set_character_blend_state(.0, .0, .0, 1.0, .0, delta)
-		set_facial_animation(5)
-	elif velocity.y < .0:
-		set_character_blend_state(.0, .0, .0, .0, .0, delta)
-		set_facial_animation(5)

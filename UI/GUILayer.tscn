@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://Audio/Music/Gameover-ogg-converted.ogg" type="AudioStream" id=1]
 [ext_resource path="res://UI/Restart.png" type="Texture" id=2]
@@ -33,9 +33,10 @@
 [ext_resource path="res://UI/ItemSelectionBar/DragIndicator.gd" type="Script" id=31]
 [ext_resource path="res://UI/Pause.png" type="Texture" id=32]
 [ext_resource path="res://UI/PauseButton.gd" type="Script" id=33]
-[ext_resource path="res://UI/RequiredScoreDeltaWrapper.gd" type="Script" id=34]
-[ext_resource path="res://Font/KismetNF.otf" type="DynamicFontData" id=35]
-[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=36]
+[ext_resource path="res://UI/UnPause.png" type="Texture" id=34]
+[ext_resource path="res://UI/RequiredScoreDeltaWrapper.gd" type="Script" id=35]
+[ext_resource path="res://Font/KismetNF.otf" type="DynamicFontData" id=36]
+[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=37]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -278,7 +279,7 @@ draw_center = true
 size = 90
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 35 )
+font_data = ExtResource( 36 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [node name="GUILayer" type="CanvasLayer" index="0"]
@@ -522,6 +523,7 @@ flat = false
 align = 1
 script = ExtResource( 33 )
 _sections_unfolded = [ "Pause", "Rect", "custom_styles" ]
+unpause_button_texture = ExtResource( 34 )
 
 [node name="RequiredScoreDeltaWrapper" type="Control" parent="." index="6"]
 
@@ -539,7 +541,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 34 )
+script = ExtResource( 35 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="DeltaScoreShadow" type="Label" parent="RequiredScoreDeltaWrapper" index="0"]
@@ -592,7 +594,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_fonts" ]
 
-[node name="LevelTransition" parent="." index="7" instance=ExtResource( 36 )]
+[node name="LevelTransition" parent="." index="7" instance=ExtResource( 37 )]
 
 modulate = Color( 0, 0, 0, 0 )
 
