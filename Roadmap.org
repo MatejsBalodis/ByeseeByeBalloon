@@ -184,4 +184,11 @@
 ** TODO Music must start later, to nicely loop.
 *** Consult with Nezvers about exact beginning of the track.
 *** Also maybe he can create story track too!
+* TODO Disable next level button. [0/2]
+** TODO Uncomment nextlevelButton setting visibility to false in MainCharacter in physics_process after this
+#+BEGIN_SRC godot-gdscript -n
+if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
+			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+#+END_SRC
+** TODO Set invisible next level button at the beginning.
 * TODO Implement (if possible) new story music.

@@ -174,7 +174,7 @@ func _physics_process(delta):
 		actual_mover.move_and_slide(velocity)
 		if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
 			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
-				next_level_button.visible = false
+				#next_level_button.visible = false
 				game_over_text.visible = true
 				Global.current_level_stop_state = Global.Level_stop_states.GAME_OVER
 				game_over_audio_stream_player.stream = game_over_audio_stream
