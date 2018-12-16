@@ -20,6 +20,8 @@ const BAR_ALPHA_DISSAPPEAR_SPEED = 10.0 # How quickly to dissappear on game over
 const BAR_ALPHA_APPEAR_SPEED = 3.0 # How quickly to appear on game over state.
 const BAR_MOVE_IN_SPEED = 10.0 # How quickly to move in the bar after reset.
 const ITEM_SHRINK_SPEED = 1000.0 # How quickly to push items together.
+const ITEM_ALPHA_TRANSITION_PHASE = 3.8 # How close to the sides of the screen transparency must start.
+const ITEM_ALPHA_TRANSITION_HARSHNESS = 3.0 # How harshly to transition from full opacity to full transparency.
 
 var old_mouse_position = Vector2() # To determine the direction of mouse movement.
 var current_x_offset = MARGIN_BETWEEN_BUTTONS # To place buttons one by another.
@@ -141,16 +143,14 @@ func _process(delta):
 	var previous_transparency_coefficient = -1.0 # For speed and convenience.
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
 		var current_item = level_selection_bars[Global.current_level_index][i][0] # For speed and convenience.
-		if current_item.alpha_must_be_managed:
-			var current_transparency_coefficient = sin(ITEM_ALPHA_TRANSITION_PHASE * (max(rect_position.x + current_item.rect_position.x, .0) / get_viewport().size.x)) # For speed and convenience.
+		if current_item != null && current_item.alpha_must_be_managed:
+			var current_transparency_coefficient = clamp(ITEM_ALPHA_TRANSITION_HARSHNESS * sin(ITEM_ALPHA_TRANSITION_PHASE * (max(rect_position.x + current_item.rect_position.x, .0) / get_viewport().size.x)), .0, 1.0) # For speed and convenience.
 			if previous_transparency_coefficient < .0:
 				current_item.material.set_shader_param("previous_transparency_coefficient", current_transparency_coefficient)
 			else:
 				current_item.material.set_shader_param("previous_transparency_coefficient", previous_transparency_coefficient)
 			current_item.material.set_shader_param("current_transparency_coefficient", current_transparency_coefficient)
 			previous_transparency_coefficient = current_transparency_coefficient
-
-const ITEM_ALPHA_TRANSITION_PHASE = 4.0 # How close to the sides of the screen transparency must start.
 
 func _physics_process(delta):
 	if bar_shrink_items.size() > 0:
