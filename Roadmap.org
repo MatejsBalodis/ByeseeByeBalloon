@@ -178,12 +178,22 @@
 * DONE Dropped item background disappears and item bar shrinks.
 * DONE Item bar must not be draggable if invisible (White arrows should not appear)
 * DONE White arrow appears too soon on the right side when the selection bar is less wide than the screen width.
+* DONE Make a shader for the the item selection bar to fade out at the ends.
+** All the shader param setting happens from item bar instead of each element.
+*** Then I am passing to each next visible item it's previous element alpha (0 to the first one) and it's own alpha.
+**** Then when that is tested, that just it's own alpha setting is used.
+***** I use lerp in the shader and lerp from the previous alpha to current alpha using UV.x
+* DONE There is still a problem that dropped items appear behind the background now.
+** Problem is not the shader, problem is bar shrinking objects later in hierarchy are movedover the falling parts.
+* DONE When there are no items in the bar the white arrow is still displayed, when the bar is dragged.
+* DONE Also have to implement so that if mouse moves over the bottom bar the coefficient increases the strength of the effect.
+** So that if mouse isn't over the bar there is no fading.
+* DONE If mouse is over certain item, that item opacity must become full.
+* TODO Add type hints to all variables.
 * TODO Level complete items fade in and out instead of just popping in and out.
+** Just look for all the visible = true/false places and make a list of all the specific items that must be managed and maybe they can be managed in a bunch.
 * TODO Level value points must be tuned so that the growth of the total score is taken into account.
-* IN-PROGRESS Implement music looping and starting correctly.
-** TODO Music must start later, to nicely loop.
-*** Consult with Nezvers about exact beginning of the track.
-*** Also maybe he can create story track too!
+** Just add the whole previous level value to each next, so that if player plays well he makes his life easier in long term.
 * TODO Disable next level button. [0/2]
 ** TODO Uncomment nextlevelButton setting visibility to false in MainCharacter in physics_process after this
 #+BEGIN_SRC godot-gdscript -n
@@ -191,4 +201,8 @@ if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD
 			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
 #+END_SRC
 ** TODO Set invisible next level button at the beginning.
-* TODO Implement (if possible) new story music.
+* IN-PROGRESS Musical improvements together with Nezvers.
+** TODO Music must start later, to nicely loop.
+*** Consult with Nezvers about exact beginning of the track.
+** TODO Implement (if possible) new story music.
+*** Maybe Nezvers can create story track too!

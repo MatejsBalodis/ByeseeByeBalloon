@@ -4,6 +4,9 @@ var alpha_must_be_managed = true # While this item is not dropped manage it's al
 
 const BLINK_PHASE = .02 # How quickly to blink the bottom line.
 
+func _ready():
+	set_material(get_material().duplicate(true))
+
 func modulate_bar_on_player_being_too_low(goal_c, goal_a):
 	self_modulate.a = goal_a
 	self_modulate.b = goal_c
