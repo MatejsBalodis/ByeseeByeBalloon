@@ -101,6 +101,8 @@ func calculate_actual_bar_width():
 
 func _process(delta):
 	if shrink_amount > 1:
+		var mouse_is_over_bar = false # For speed and convenience.
+		var relative_mouse_position = Vector2() # For speed and convenience.
 		if Global.current_level_stop_state != Global.Level_stop_states.NONE:
 			drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
 			drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
@@ -114,8 +116,9 @@ func _process(delta):
 					rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
 			else:
 				var bar_width = (get_viewport().size.x if get_viewport().size.x < current_x_offset else current_x_offset) # For speed and convenience.
-				var relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
+				relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
 				if relative_mouse_position.y > rect_position.y - button_height:
+					mouse_is_over_bar = true
 					bar_fadeout_coefficient = max(bar_fadeout_coefficient - delta * BAR_FADEOUT_COEFFICIENT_ENTER_EXIT_SPEED, .0)
 					if rect_position.x < .0:
 						drag_indicator_left.lerp_indicator_opacity(false, .0, delta)
@@ -159,13 +162,14 @@ func _process(delta):
 		for i in range(0, level_selection_bars[Global.current_level_index].size()):
 			var current_item = level_selection_bars[Global.current_level_index][i][0] # For speed and convenience.
 			if current_item != null && current_item.alpha_must_be_managed:
-				current_item.material.set_shader_param("bar_fadeout_coefficient", bar_fadeout_coefficient)
+				var	mouse_is_over_this_element = mouse_is_over_bar && relative_mouse_position.x > current_item.rect_position.x && relative_mouse_position.x < current_item.rect_position.x + current_item.rect_size.x # To show the currently hovered item with full opacity.
 				var current_transparency_coefficient = clamp(ITEM_ALPHA_TRANSITION_HARSHNESS * sin(ITEM_ALPHA_TRANSITION_PHASE * (max(rect_position.x + current_item.rect_position.x, .0) / get_viewport().size.x)), .0, 1.0) # For speed and convenience.
 				if previous_transparency_coefficient < .0:
-					current_item.material.set_shader_param("previous_transparency_coefficient", current_transparency_coefficient)
+					current_item.material.set_shader_param("previous_transparency_coefficient", current_transparency_coefficient if !mouse_is_over_this_element else 1.0)
 				else:
-					current_item.material.set_shader_param("previous_transparency_coefficient", previous_transparency_coefficient)
-				current_item.material.set_shader_param("current_transparency_coefficient", current_transparency_coefficient)
+					current_item.material.set_shader_param("previous_transparency_coefficient", previous_transparency_coefficient if !mouse_is_over_this_element else 1.0)
+				current_item.material.set_shader_param("current_transparency_coefficient", current_transparency_coefficient if !mouse_is_over_this_element else 1.0)
+				current_item.material.set_shader_param("bar_fadeout_coefficient", bar_fadeout_coefficient)
 				previous_transparency_coefficient = current_transparency_coefficient
 
 func _physics_process(delta):
