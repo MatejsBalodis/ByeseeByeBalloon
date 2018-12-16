@@ -142,7 +142,7 @@ func _process(delta):
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
 		var current_item = level_selection_bars[Global.current_level_index][i][0] # For speed and convenience.
 		if current_item.alpha_must_be_managed:
-			var current_transparency_coefficient = ITEM_ALPHA_TRANSITION_HARSHNESS * (max(rect_position.x + current_item.rect_position.x - ITEM_ALPHA_TRANSITION_START_OFFSET, .0) / get_viewport().size.x) # For speed and convenience.
+			var current_transparency_coefficient = sin(ITEM_ALPHA_TRANSITION_PHASE * (max(rect_position.x + current_item.rect_position.x, .0) / get_viewport().size.x)) # For speed and convenience.
 			if previous_transparency_coefficient < .0:
 				current_item.material.set_shader_param("previous_transparency_coefficient", current_transparency_coefficient)
 			else:
@@ -150,8 +150,7 @@ func _process(delta):
 			current_item.material.set_shader_param("current_transparency_coefficient", current_transparency_coefficient)
 			previous_transparency_coefficient = current_transparency_coefficient
 
-const ITEM_ALPHA_TRANSITION_HARSHNESS = 15.0 # How close to the side of the screen transparency must start.
-const ITEM_ALPHA_TRANSITION_START_OFFSET = 10.0 # How transparent must the first item be.
+const ITEM_ALPHA_TRANSITION_PHASE = 4.0 # How close to the sides of the screen transparency must start.
 
 func _physics_process(delta):
 	if bar_shrink_items.size() > 0:

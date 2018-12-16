@@ -191,11 +191,15 @@ if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD
 			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
 #+END_SRC
 ** TODO Set invisible next level button at the beginning.
-* IN-PROGRESS Make a shader for the the item selection bar to fade out at the ends.
+* DONE Make a shader for the the item selection bar to fade out at the ends.
 ** All the shader param setting happens from item bar instead of each element.
 *** Then I am passing to each next visible item it's previous element alpha (0 to the first one) and it's own alpha.
 **** Then when that is tested, that just it's own alpha setting is used.
 ***** I use lerp in the shader and lerp from the previous alpha to current alpha using UV.x
+* TODO There is still a problem that dropped items appear behind the background now.
+** Can I set render queue or some z index somehow?
+* TODO Also have to implement so that if mouse moves over the bottom bar the coefficient increases the strength of the effect.
+** So that if mouse isn't over the bar there is no fading.
 * IN-PROGRESS Musical improvements together with Nezvers.
 ** TODO Music must start later, to nicely loop.
 *** Consult with Nezvers about exact beginning of the track.
