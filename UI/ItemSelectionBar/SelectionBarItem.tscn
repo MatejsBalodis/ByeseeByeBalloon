@@ -68,7 +68,7 @@ group = null
 expand = true
 stretch_mode = 5
 script = ExtResource( 4 )
-_sections_unfolded = [ "Rect", "Textures", "Visibility", "custom_styles" ]
+_sections_unfolded = [ "Material", "Rect", "Textures", "Visibility", "custom_styles" ]
 
 [node name="Value" type="TextureRect" parent="UpItem" index="0"]
 

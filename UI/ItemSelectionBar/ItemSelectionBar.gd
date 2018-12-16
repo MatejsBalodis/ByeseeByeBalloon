@@ -70,6 +70,13 @@ func regenerate_items():
 		level_selection_bars[Global.current_level_index][i][0].rect_position.x = current_x_offset
 		level_selection_bars[Global.current_level_index][i][0].rect_position.y -= level_selection_bars[Global.current_level_index][0][0].texture.get_size().y - PUSH_DOWN_DISTANCE
 		current_x_offset += level_selection_bars[Global.current_level_index][i][0].texture.get_size().x + MARGIN_BETWEEN_BUTTONS
+
+	var reversed_child_count = get_child_count() # To hack around Godot's Control node order, when bar shrinks next item must not obscure children of the previous.
+	for i in range(0, reversed_child_count):
+		remove_child(level_selection_bars[Global.current_level_index][i][0])
+	for i in range(0, reversed_child_count):
+		add_child(level_selection_bars[Global.current_level_index][reversed_child_count - 1 - i][0])
+
 	button_height = level_selection_bars[Global.current_level_index][0][0].texture.get_size().y
 
 	drag_indicator_right.current_indicator_lerp_progress = .0
