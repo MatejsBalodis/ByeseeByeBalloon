@@ -162,7 +162,8 @@ func _process(delta):
 		for i in range(0, level_selection_bars[Global.current_level_index].size()):
 			var current_item = level_selection_bars[Global.current_level_index][i][0] # For speed and convenience.
 			if current_item != null && current_item.alpha_must_be_managed:
-				var	mouse_is_over_this_element = mouse_is_over_bar && relative_mouse_position.x > current_item.rect_position.x && relative_mouse_position.x < current_item.rect_position.x + current_item.rect_size.x # To show the currently hovered item with full opacity.
+				var current_item_x_offset = current_item.rect_position.x + rect_position.x # For speed and convenience.
+				var	mouse_is_over_this_element = mouse_is_over_bar && relative_mouse_position.x > current_item_x_offset && relative_mouse_position.x < current_item_x_offset + current_item.rect_size.x # To show the currently hovered item with full opacity.
 				var current_transparency_coefficient = clamp(ITEM_ALPHA_TRANSITION_HARSHNESS * sin(ITEM_ALPHA_TRANSITION_PHASE * (max(rect_position.x + current_item.rect_position.x, .0) / get_viewport().size.x)), .0, 1.0) # For speed and convenience.
 				if previous_transparency_coefficient < .0:
 					current_item.material.set_shader_param("previous_transparency_coefficient", current_transparency_coefficient if !mouse_is_over_this_element else 1.0)
