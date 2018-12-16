@@ -186,8 +186,9 @@
 * DONE There is still a problem that dropped items appear behind the background now.
 ** Problem is not the shader, problem is bar shrinking objects later in hierarchy are movedover the falling parts.
 * DONE When there are no items in the bar the white arrow is still displayed, when the bar is dragged.
-* TODO Also have to implement so that if mouse moves over the bottom bar the coefficient increases the strength of the effect.
+* DONE Also have to implement so that if mouse moves over the bottom bar the coefficient increases the strength of the effect.
 ** So that if mouse isn't over the bar there is no fading.
+* TODO If mouse is over certain item, that item opacity must become full.
 * TODO Add type hints to all variables.
 * TODO Level complete items fade in and out instead of just popping in and out.
 ** Just look for all the visible = true/false places and make a list of all the specific items that must be managed and maybe they can be managed in a bunch.

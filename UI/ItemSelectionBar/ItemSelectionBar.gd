@@ -22,6 +22,7 @@ const BAR_MOVE_IN_SPEED = 10.0 # How quickly to move in the bar after reset.
 const ITEM_SHRINK_SPEED = 1000.0 # How quickly to push items together.
 const ITEM_ALPHA_TRANSITION_PHASE = 3.8 # How close to the sides of the screen transparency must start.
 const ITEM_ALPHA_TRANSITION_HARSHNESS = 3.0 # How harshly to transition from full opacity to full transparency.
+const BAR_FADEOUT_COEFFICIENT_ENTER_EXIT_SPEED = 3.0 # How quickly to enable or disable the fadeout effect on mouse entering and exiting the bar.
 
 var old_mouse_position = Vector2() # To determine the direction of mouse movement.
 var current_x_offset = MARGIN_BETWEEN_BUTTONS # To place buttons one by another.
@@ -35,6 +36,7 @@ var original_item_positions = [] # Change positions relative to this.
 var one_item_width = .0 # For speed and convenience.
 var actual_bar_width = .0 # To correctly display indication arrows, even if bar width changes.
 var shrink_amount = 0 # To determine quickly, when bar is empty.
+var bar_fadeout_coefficient = 1.0 # To display fadeout only, when mouse is over the bar.
 
 func free_memory_from_the_previous_item_set():
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
@@ -114,6 +116,7 @@ func _process(delta):
 				var bar_width = (get_viewport().size.x if get_viewport().size.x < current_x_offset else current_x_offset) # For speed and convenience.
 				var relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
 				if relative_mouse_position.y > rect_position.y - button_height:
+					bar_fadeout_coefficient = max(bar_fadeout_coefficient - delta * BAR_FADEOUT_COEFFICIENT_ENTER_EXIT_SPEED, .0)
 					if rect_position.x < .0:
 						drag_indicator_left.lerp_indicator_opacity(false, .0, delta)
 					else:
@@ -126,6 +129,7 @@ func _process(delta):
 						drag_is_active = true
 						return_lerp_progress = .0
 				else:
+					bar_fadeout_coefficient = min(bar_fadeout_coefficient + delta * BAR_FADEOUT_COEFFICIENT_ENTER_EXIT_SPEED, 1.0)
 					drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
 					drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
 				if !Input.is_action_pressed("left_mouse_button"):
@@ -155,6 +159,7 @@ func _process(delta):
 		for i in range(0, level_selection_bars[Global.current_level_index].size()):
 			var current_item = level_selection_bars[Global.current_level_index][i][0] # For speed and convenience.
 			if current_item != null && current_item.alpha_must_be_managed:
+				current_item.material.set_shader_param("bar_fadeout_coefficient", bar_fadeout_coefficient)
 				var current_transparency_coefficient = clamp(ITEM_ALPHA_TRANSITION_HARSHNESS * sin(ITEM_ALPHA_TRANSITION_PHASE * (max(rect_position.x + current_item.rect_position.x, .0) / get_viewport().size.x)), .0, 1.0) # For speed and convenience.
 				if previous_transparency_coefficient < .0:
 					current_item.material.set_shader_param("previous_transparency_coefficient", current_transparency_coefficient)
