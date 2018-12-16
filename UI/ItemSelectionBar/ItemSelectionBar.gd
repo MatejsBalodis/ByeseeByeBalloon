@@ -34,6 +34,7 @@ var bar_shrink_items = [] # To know when and which items to remove from the bar.
 var original_item_positions = [] # Change positions relative to this.
 var one_item_width = .0 # For speed and convenience.
 var actual_bar_width = .0 # To correctly display indication arrows, even if bar width changes.
+var shrink_amount = 0 # To determine quickly, when bar is empty.
 
 func free_memory_from_the_previous_item_set():
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
@@ -71,7 +72,7 @@ func regenerate_items():
 		level_selection_bars[Global.current_level_index][i][0].rect_position.y -= level_selection_bars[Global.current_level_index][0][0].texture.get_size().y - PUSH_DOWN_DISTANCE
 		current_x_offset += level_selection_bars[Global.current_level_index][i][0].texture.get_size().x + MARGIN_BETWEEN_BUTTONS
 
-	var reversed_child_count = get_child_count() # To hack around Godot's Control node order, when bar shrinks next item must not obscure children of the previous.
+	var reversed_child_count = level_selection_bars[Global.current_level_index].size() # To hack around Godot's Control node order, when bar shrinks next item must not obscure children of the previous.
 	for i in range(0, reversed_child_count):
 		remove_child(level_selection_bars[Global.current_level_index][i][0])
 	for i in range(0, reversed_child_count):
@@ -88,6 +89,8 @@ func regenerate_items():
 	one_item_width = original_item_positions[1] - original_item_positions[0]
 	calculate_actual_bar_width()
 
+	shrink_amount = level_selection_bars[Global.current_level_index].size()
+
 func calculate_actual_bar_width():
 	actual_bar_width = .0
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
@@ -95,69 +98,70 @@ func calculate_actual_bar_width():
 			actual_bar_width += one_item_width
 
 func _process(delta):
-	if Global.current_level_stop_state != Global.Level_stop_states.NONE:
-		drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
-		drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
-	else:
-		if return_on_reset:
-			if return_lerp_progress > 1.0 - Global.APPROXIMATION_FLOAT:
-				rect_position.x = .0
-				return_on_reset = false
-			else:
-				return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
-				rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
+	if shrink_amount > 1:
+		if Global.current_level_stop_state != Global.Level_stop_states.NONE:
+			drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
+			drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
 		else:
-			var bar_width = (get_viewport().size.x if get_viewport().size.x < current_x_offset else current_x_offset) # For speed and convenience.
-			var relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
-			if relative_mouse_position.y > rect_position.y - button_height:
-				if rect_position.x < .0:
-					drag_indicator_left.lerp_indicator_opacity(false, .0, delta)
+			if return_on_reset:
+				if return_lerp_progress > 1.0 - Global.APPROXIMATION_FLOAT:
+					rect_position.x = .0
+					return_on_reset = false
 				else:
-					drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
-				if rect_position.x + actual_bar_width > get_viewport().size.x:
-					drag_indicator_right.lerp_indicator_opacity(false, .0, delta)
-				else:
-					drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
-				if Input.is_action_pressed("left_mouse_button"):
-					drag_is_active = true
-					return_lerp_progress = .0
-			else:
-				drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
-				drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
-			if !Input.is_action_pressed("left_mouse_button"):
-				drag_is_active = false
-				if rect_position.x > .0:
 					return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
 					rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
-				elif rect_position.x < -(current_x_offset - bar_width):
-					return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
-					rect_position.x = lerp(rect_position.x, -(current_x_offset - bar_width), return_lerp_progress)
-			if drag_is_active:
-				rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (bar_width / clamp(rect_position.x, 1.0, bar_width))))
-			old_mouse_position = relative_mouse_position
-
-	if Global.current_level_stop_state == Global.Level_stop_states.NONE:
-		manage_bar_visibility(1.0, original_y_position, delta * BAR_ALPHA_APPEAR_SPEED, delta * BAR_MOVE_IN_SPEED)
-		if player.position.y > get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD:
-			player_is_in_danger = true
-			var the_danger_threshold_distance = get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD # For speed and convenience.
-			player_danger_alpha_coefficient = ((player.position.y - the_danger_threshold_distance) / the_danger_threshold_distance) * PLAYER_DYNAMIC_DANGER_TRANSPARENCY_HANDLE
-		else:
-			player_is_in_danger = false
-	else:
-		manage_bar_visibility(.0, original_y_position + get_viewport().size.y, delta * BAR_ALPHA_DISSAPPEAR_SPEED, delta)
-
-	var previous_transparency_coefficient = -1.0 # For speed and convenience.
-	for i in range(0, level_selection_bars[Global.current_level_index].size()):
-		var current_item = level_selection_bars[Global.current_level_index][i][0] # For speed and convenience.
-		if current_item != null && current_item.alpha_must_be_managed:
-			var current_transparency_coefficient = clamp(ITEM_ALPHA_TRANSITION_HARSHNESS * sin(ITEM_ALPHA_TRANSITION_PHASE * (max(rect_position.x + current_item.rect_position.x, .0) / get_viewport().size.x)), .0, 1.0) # For speed and convenience.
-			if previous_transparency_coefficient < .0:
-				current_item.material.set_shader_param("previous_transparency_coefficient", current_transparency_coefficient)
 			else:
-				current_item.material.set_shader_param("previous_transparency_coefficient", previous_transparency_coefficient)
-			current_item.material.set_shader_param("current_transparency_coefficient", current_transparency_coefficient)
-			previous_transparency_coefficient = current_transparency_coefficient
+				var bar_width = (get_viewport().size.x if get_viewport().size.x < current_x_offset else current_x_offset) # For speed and convenience.
+				var relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
+				if relative_mouse_position.y > rect_position.y - button_height:
+					if rect_position.x < .0:
+						drag_indicator_left.lerp_indicator_opacity(false, .0, delta)
+					else:
+						drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
+					if rect_position.x + actual_bar_width > get_viewport().size.x:
+						drag_indicator_right.lerp_indicator_opacity(false, .0, delta)
+					else:
+						drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
+					if Input.is_action_pressed("left_mouse_button"):
+						drag_is_active = true
+						return_lerp_progress = .0
+				else:
+					drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
+					drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
+				if !Input.is_action_pressed("left_mouse_button"):
+					drag_is_active = false
+					if rect_position.x > .0:
+						return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
+						rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
+					elif rect_position.x < -(current_x_offset - bar_width):
+						return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
+						rect_position.x = lerp(rect_position.x, -(current_x_offset - bar_width), return_lerp_progress)
+				if drag_is_active:
+					rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (bar_width / clamp(rect_position.x, 1.0, bar_width))))
+				old_mouse_position = relative_mouse_position
+
+		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+			manage_bar_visibility(1.0, original_y_position, delta * BAR_ALPHA_APPEAR_SPEED, delta * BAR_MOVE_IN_SPEED)
+			if player.position.y > get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD:
+				player_is_in_danger = true
+				var the_danger_threshold_distance = get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD # For speed and convenience.
+				player_danger_alpha_coefficient = ((player.position.y - the_danger_threshold_distance) / the_danger_threshold_distance) * PLAYER_DYNAMIC_DANGER_TRANSPARENCY_HANDLE
+			else:
+				player_is_in_danger = false
+		else:
+			manage_bar_visibility(.0, original_y_position + get_viewport().size.y, delta * BAR_ALPHA_DISSAPPEAR_SPEED, delta)
+
+		var previous_transparency_coefficient = -1.0 # For speed and convenience.
+		for i in range(0, level_selection_bars[Global.current_level_index].size()):
+			var current_item = level_selection_bars[Global.current_level_index][i][0] # For speed and convenience.
+			if current_item != null && current_item.alpha_must_be_managed:
+				var current_transparency_coefficient = clamp(ITEM_ALPHA_TRANSITION_HARSHNESS * sin(ITEM_ALPHA_TRANSITION_PHASE * (max(rect_position.x + current_item.rect_position.x, .0) / get_viewport().size.x)), .0, 1.0) # For speed and convenience.
+				if previous_transparency_coefficient < .0:
+					current_item.material.set_shader_param("previous_transparency_coefficient", current_transparency_coefficient)
+				else:
+					current_item.material.set_shader_param("previous_transparency_coefficient", previous_transparency_coefficient)
+				current_item.material.set_shader_param("current_transparency_coefficient", current_transparency_coefficient)
+				previous_transparency_coefficient = current_transparency_coefficient
 
 func _physics_process(delta):
 	if bar_shrink_items.size() > 0:
@@ -171,6 +175,7 @@ func _physics_process(delta):
 					level_selection_bars[Global.current_level_index][bar_shrink_item][0].rect_position.x = original_item_positions[int(level_selection_bars[Global.current_level_index][bar_shrink_item][0].rect_position.x / one_item_width)]
 				bar_shrink_items.remove(0)
 				calculate_actual_bar_width()
+				shrink_amount -= 1
 				break
 
 func manage_bar_visibility(alpha_goal, y_goal, alpha_speed, y_speed):
