@@ -129,8 +129,9 @@ func _process(delta):
 					else:
 						drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
 					if Input.is_action_pressed("left_mouse_button"):
-						drag_is_active = true
-						return_lerp_progress = .0
+						if relative_mouse_position.x > rect_position.x && relative_mouse_position.x < rect_position.x + one_item_width * shrink_amount:
+							drag_is_active = true
+							return_lerp_progress = .0
 				else:
 					bar_fadeout_coefficient = min(bar_fadeout_coefficient + delta * BAR_FADEOUT_COEFFICIENT_ENTER_EXIT_SPEED, 1.0)
 					drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
