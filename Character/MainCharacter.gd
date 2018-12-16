@@ -93,10 +93,6 @@ func _ready():
 
 	Global.set_custom_button_style_texture(next_level_button, original_next_level_button_style_texture)
 
-	next_level_button.modulate.a = .0
-	game_over_restart_button.modulate.a = .0
-	game_over_menu_button.modulate.a = .0
-
 func reset():
 	level = get_parent().get_parent().get_node("Level")
 	finish_line = level.get_node("FinishLine/ParallaxLayer/FinishLine")
@@ -110,10 +106,14 @@ func reset():
 	current_up_force = Vector2()
 	current_up_item_index = 0
 	level_end_velocity_coefficient = 1.0
-	score_background.visible = false
 	if Global.current_level_stop_state != Global.Level_stop_states.TRANSITION_IN:
 		Global.current_level_stop_state = Global.Level_stop_states.NONE
 		Global.total_score -= current_level_score
+	else:
+		#next_level_button.modulate.a = .0
+		game_over_restart_button.modulate.a = .0
+		game_over_menu_button.modulate.a = .0
+		score_background.modulate.a = .0
 	display_score = 0
 	current_level_score = 0
 	for i in range(0, up_items[Global.current_level_index].size()):
@@ -173,17 +173,22 @@ func fade_out_game_over_elements(fade_speed):
 	if game_over_restart_button.modulate.a < Global.APPROXIMATION_FLOAT:
 		game_over_restart_button.visible = false
 		game_over_menu_button.visible = false
-		next_level_button.visible = false
+		#next_level_button.visible = false
+		score_background.visible = false
 	else:
 		game_over_restart_button.modulate.a = max(game_over_restart_button.modulate.a - fade_speed, .0)
 		game_over_menu_button.modulate.a = max(game_over_menu_button.modulate.a - fade_speed, .0)
-		next_level_button.modulate.a = max(next_level_button.modulate.a - fade_speed, .0)
+		#next_level_button.modulate.a = max(next_level_button.modulate.a - fade_speed, .0)
+		score_background.modulate.a = max(score_background.modulate.a - fade_speed, .0)
 
 func fade_in_game_over_elements(fade_speed):
 	pause_button.modulate.a = max(pause_button.modulate.a - fade_speed, .0)
 	game_over_restart_button.modulate.a = min(game_over_restart_button.modulate.a + fade_speed, 1.0)
 	game_over_menu_button.modulate.a = min(game_over_menu_button.modulate.a + fade_speed, 1.0)
-	next_level_button.modulate.a = min(next_level_button.modulate.a + fade_speed, 1.0)
+	#next_level_button.modulate.a = min(next_level_button.modulate.a + fade_speed, 1.0)
+	score_background.modulate.a = min(score_background.modulate.a + fade_speed, 1.0)
+
+const GAME_OVER_ELEMENT_FADE_SPEED = 4.0 # How quickly to fade in and out game over elements.
 
 func _physics_process(delta):
 	if (weakref(finish_line)).get_ref():
@@ -202,9 +207,9 @@ func _physics_process(delta):
 				set_facial_animation(3)
 			manage_level_end_audio_transition(delta)
 			set_character_blend_state(1.0, .0, 1.0, .0, .0, delta * DEATH_ANIMATION_SPEED)
-			fade_in_game_over_elements(delta)
+			fade_in_game_over_elements(delta * GAME_OVER_ELEMENT_FADE_SPEED)
 		elif position.x > finish_line.position.x:
-			fade_in_game_over_elements(delta)
+			fade_in_game_over_elements(delta * GAME_OVER_ELEMENT_FADE_SPEED)
 			if Global.total_score >= level.level_value:
 				if Global.current_level_stop_state == Global.Level_stop_states.NONE:
 					game_over_text.texture = level_complete_text_texture
@@ -250,7 +255,7 @@ func _physics_process(delta):
 				set_character_blend_state(.0, .0, .0, .0, .0, delta)
 				set_facial_animation(5)
 
-			fade_out_game_over_elements(delta)
+			fade_out_game_over_elements(delta * GAME_OVER_ELEMENT_FADE_SPEED)
 
 func initiate_level_end():
 	if Global.current_level_index > next_level_button.level_scenes.size() - 1:
