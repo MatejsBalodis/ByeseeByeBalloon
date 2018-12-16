@@ -196,8 +196,10 @@
 - Note taken on [2018-12-16 Sv 22:13] \\
   Not yet available in the Godot version that I am using.
 :END:
+* DONE Fix so that game over and level complete texts are just sprites on the same object.
 * TODO Level complete items fade in and out instead of just popping in and out.
 ** Just look for all the visible = true/false places and make a list of all the specific items that must be managed and maybe they can be managed in a bunch.
+* TODO It should not be possible to drag the bar even if the mouse is low enough, but isn't over any element on x.
 * TODO Level value points must be tuned so that the growth of the total score is taken into account.
 ** Just add the whole previous level value to each next, so that if player plays well he makes his life easier in long term.
 * TODO Disable next level button. [0/2]

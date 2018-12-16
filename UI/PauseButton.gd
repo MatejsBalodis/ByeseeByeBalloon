@@ -35,6 +35,7 @@ func _process(delta):
 		music_audio_stream_player.volume_db = lerp(music_audio_stream_player.volume_db, original_music_volume, delta)
 
 	if Global.current_level_stop_state == Global.Level_stop_states.LEVEL_COMPLETE || Global.current_level_stop_state == Global.Level_stop_states.GAME_OVER:
-		visible = false
+		if modulate.a < Global.APPROXIMATION_FLOAT:
+			visible = false
 	elif Global.current_level_stop_state != Global.Level_stop_states.TRANSITION_OUT:
 		visible = true

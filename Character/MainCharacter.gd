@@ -9,7 +9,6 @@ onready var	game_over_restart_button = game_over_wrapper.get_node("GameOverResta
 onready var	game_over_menu_button = game_over_wrapper.get_node("GameOverMenuButton") # For speed and convenience.
 onready var	next_level_button = game_over_wrapper.get_node("NextLevelButton") # For speed and convenience.
 onready var	game_over_text = game_over_wrapper.get_node("GameOverText") # For speed and convenience.
-onready var	level_complete_text = game_over_wrapper.get_node("LevelCompleteText") # For speed and convenience.
 onready var selection_item_bar = gui_layer.get_node("ItemSelectionBar") # For speed and convenience.
 onready var actual_mover = get_parent().get_node("ActualMover") # For speed and convenience.
 onready var game_over_audio_stream_player = game_over_wrapper.get_node("GameOverAudioStreamPlayer") # For speed and convenience.
@@ -28,6 +27,7 @@ onready var original_game_over_stream_player_volume_db = game_over_audio_stream_
 onready var music_manager_audio_stream_player = music_manager.get_node("AudioStreamPlayer") # For speed and convenience.
 onready var original_music_manager_volume_db = music_manager_audio_stream_player.volume_db # To know, where to reset the volume.
 onready var original_next_level_button_style_texture = next_level_button.get("custom_styles/hover").texture # To know, where to reset the texture.
+onready var game_over_text_texture = game_over_text.texture # For speed and convenience. Use this texture during the game over state.
 # These have to be reset on level change.
 onready var level = get_parent().get_parent().get_node("Level") # For speed and convenience.
 onready var finish_line = level.get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
@@ -64,6 +64,8 @@ export var forward_velocities = [] # At what speed in which direction to move.
 export var up_items = [] # Items must have various weights and prices.
 export var follow_speed = 2.0 # How tightly to follow the actual mover.
 export (PackedScene) var item_template # Instance preset sacrifice item.
+export (Texture) var level_complete_text_texture = null # Assign this texture to level complete text.
+export var game_over_text_offsets = [] # To position the text correctly despite of image size.
 
 const DEATH_ANIMATION_SPEED = 5.0 # How quickly to transition to death animation.
 const LEGS_UP_Y_THRESHOLD = .45 # How close to the bottom of the level character starts to rise his legs.
@@ -91,6 +93,10 @@ func _ready():
 
 	Global.set_custom_button_style_texture(next_level_button, original_next_level_button_style_texture)
 
+	next_level_button.modulate.a = .0
+	game_over_restart_button.modulate.a = .0
+	game_over_menu_button.modulate.a = .0
+
 func reset():
 	level = get_parent().get_parent().get_node("Level")
 	finish_line = level.get_node("FinishLine/ParallaxLayer/FinishLine")
@@ -99,14 +105,8 @@ func reset():
 	start_position_x = actual_mover.position.x
 	the_whole_level_distance = finish_line.position.x - start_position_x
 	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + get_viewport().size.x * .5
-	game_over_restart_button.visible = false
-	game_over_menu_button.visible = false
-	#next_level_button.visible = false
 	Global.set_custom_button_style_texture(pause_button, pause_button.original_button_style_texture)
-	pause_button.visible = false
-	pause_button.visible = true
 	game_over_text.visible = false
-	level_complete_text.visible = false
 	current_up_force = Vector2()
 	current_up_item_index = 0
 	level_end_velocity_coefficient = 1.0
@@ -168,13 +168,31 @@ func manage_level_complete_state(delta):
 	score_background.get_node("Score").text = int_display_score
 	score_background.get_node("Shadow").text = int_display_score
 
+func fade_out_game_over_elements(fade_speed):
+	pause_button.modulate.a = min(pause_button.modulate.a + fade_speed, 1.0)
+	if game_over_restart_button.modulate.a < Global.APPROXIMATION_FLOAT:
+		game_over_restart_button.visible = false
+		game_over_menu_button.visible = false
+		next_level_button.visible = false
+	else:
+		game_over_restart_button.modulate.a = max(game_over_restart_button.modulate.a - fade_speed, .0)
+		game_over_menu_button.modulate.a = max(game_over_menu_button.modulate.a - fade_speed, .0)
+		next_level_button.modulate.a = max(next_level_button.modulate.a - fade_speed, .0)
+
+func fade_in_game_over_elements(fade_speed):
+	pause_button.modulate.a = max(pause_button.modulate.a - fade_speed, .0)
+	game_over_restart_button.modulate.a = min(game_over_restart_button.modulate.a + fade_speed, 1.0)
+	game_over_menu_button.modulate.a = min(game_over_menu_button.modulate.a + fade_speed, 1.0)
+	next_level_button.modulate.a = min(next_level_button.modulate.a + fade_speed, 1.0)
+
 func _physics_process(delta):
 	if (weakref(finish_line)).get_ref():
 		velocity = PHYSICS_VELOCITY_QOEFFICIENT * delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
 		actual_mover.move_and_slide(velocity)
 		if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
 			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
-				#next_level_button.visible = false
+				game_over_text.texture = game_over_text_texture
+				game_over_text.rect_position = game_over_text_offsets[0]
 				game_over_text.visible = true
 				Global.current_level_stop_state = Global.Level_stop_states.GAME_OVER
 				game_over_audio_stream_player.stream = game_over_audio_stream
@@ -184,12 +202,16 @@ func _physics_process(delta):
 				set_facial_animation(3)
 			manage_level_end_audio_transition(delta)
 			set_character_blend_state(1.0, .0, 1.0, .0, .0, delta * DEATH_ANIMATION_SPEED)
+			fade_in_game_over_elements(delta)
 		elif position.x > finish_line.position.x:
+			fade_in_game_over_elements(delta)
 			if Global.total_score >= level.level_value:
 				if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+					game_over_text.texture = level_complete_text_texture
+					game_over_text.rect_position = game_over_text_offsets[1]
+					game_over_text.visible = true
 					next_level_button.visible = true
 					score_background.visible = true
-					level_complete_text.visible = true
 					Global.current_level_stop_state = Global.Level_stop_states.LEVEL_COMPLETE
 					game_over_audio_stream_player.stream = level_complete_audio_stream
 					main_character_audio_stream_player.play_win_sfx()
@@ -201,7 +223,8 @@ func _physics_process(delta):
 				set_character_blend_state(1.0, .0, 1.0, .0, 1.0, delta * DEATH_ANIMATION_SPEED)
 			else:
 				if Global.current_level_stop_state == Global.Level_stop_states.NONE:
-					next_level_button.visible = false
+					game_over_text.texture = game_over_text_texture
+					game_over_text.rect_position = game_over_text_offsets[0]
 					game_over_text.visible = true
 					Global.current_level_stop_state = Global.Level_stop_states.LEVEL_COMPLETE
 					game_over_audio_stream_player.stream = game_over_audio_stream
@@ -227,13 +250,15 @@ func _physics_process(delta):
 				set_character_blend_state(.0, .0, .0, .0, .0, delta)
 				set_facial_animation(5)
 
+			fade_out_game_over_elements(delta)
+
 func initiate_level_end():
 	if Global.current_level_index > next_level_button.level_scenes.size() - 1:
 		Global.set_custom_button_style_texture(next_level_button, victory_button_texture)
 		next_level_button.visible = false
+		next_level_button.visible = true
 	game_over_restart_button.visible = true
 	game_over_menu_button.visible = true
-	game_over_restart_button.visible = true
 	level_end_velocity_coefficient = .0
 	game_over_audio_stream_player.play()
 
