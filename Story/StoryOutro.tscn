@@ -30,7 +30,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 964.544, 617.251 ), Vector2( 964.544, 290.072 ) ]
+"values": [ Vector2( 964.544, 290.072 ), Vector2( 964.544, 617.251 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Scroll:position")
@@ -195,10 +195,10 @@ tracks/14/loop_wrap = true
 tracks/14/imported = false
 tracks/14/enabled = true
 tracks/14/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 2.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/15/type = "value"
 tracks/15/path = NodePath("Sun/SunFlare:self_modulate")
@@ -210,7 +210,7 @@ tracks/15/keys = {
 "times": PoolRealArray( 0, 5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.33149 ) ]
+"values": [ Color( 1, 1, 1, 0.33149 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/16/type = "value"
 tracks/16/path = NodePath("Sun/SunFlare:scale")
@@ -222,7 +222,7 @@ tracks/16/keys = {
 "times": PoolRealArray( 0, 5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ) ]
+"values": [ Vector2( 1.5, 1.5 ), Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="DynamicFontData" id=2]
@@ -323,34 +323,33 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.98, 0.98 ) ]
 }
 
-[node name="Story" type="Node2D"]
+[node name="Story" type="Node2D" index="0"]
 
 [node name="Sky" type="Sprite" parent="." index="0"]
 
 position = Vector2( 960, 540 )
 z_index = -2
 texture = ExtResource( 1 )
-_sections_unfolded = [ "Material", "Offset", "Transform", "Visibility", "Z Index" ]
+_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="NightSky" type="Sprite" parent="Sky" index="0"]
 
 self_modulate = Color( 1, 1, 1, 0 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Z Index" ]
 
 [node name="Sun" type="Sprite" parent="." index="1"]
 
-position = Vector2( 964.544, 475.418 )
+position = Vector2( 964.544, 290.072 )
 z_index = -2
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="SunFlare" type="Sprite" parent="Sun" index="0"]
 
-self_modulate = Color( 1, 1, 1, 0.701389 )
+self_modulate = Color( 1, 1, 1, 0.33149 )
 show_behind_parent = true
 position = Vector2( -0.424683, -0.424683 )
-scale = Vector2( 1.22334, 1.22334 )
+scale = Vector2( 1.5, 1.5 )
 z_index = -2
 texture = ExtResource( 4 )
 _sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
@@ -364,7 +363,7 @@ _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="Scroll" type="Sprite" parent="." index="3"]
 
-position = Vector2( 361.392, 96.9454 )
+position = Vector2( -378.363, 96.9454 )
 texture = ExtResource( 6 )
 _sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
@@ -389,6 +388,7 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="5"]
 
+editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -445,7 +445,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
-custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 1 )
+custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0 )
 text = "Dear Friend,"
 percent_visible = 1.0
 lines_skipped = 0
@@ -468,8 +468,8 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
-custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 1 )
-text = "I am hot air balloon, a merchant."
+custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0 )
+text = "Our journey has come to an end."
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -491,8 +491,8 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
-custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0.26681 )
-text = "My dream is to become the best hot"
+custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0 )
+text = "I have risen above the clouds higher"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -514,8 +514,8 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
-custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0.26681 )
-text = "air balloon merchant in the history"
+custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0 )
+text = "than I could ever imagine! It is all"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -537,8 +537,8 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
-custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0.26681 )
-text = "of hot air balloon merchants."
+custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0 )
+text = "thanks to you, kind companion. You"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -561,7 +561,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0 )
-text = "Indeed, I must not fall but rise, rise"
+text = "guided me through difficult times and"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -584,7 +584,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0 )
-text = "above the clouds."
+text = "helped me reach my dream of becoming"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -607,7 +607,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0 )
-text = "Above the clouds and across the world"
+text = "the best hot air balloon merchant in"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -630,7 +630,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0.292969, 0.292969, 0.292969, 0 )
-text = "I will travel and deliver my goods."
+text = "the history of hot air balloon merchants"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -718,7 +718,7 @@ modulate = Color( 0, 0, 0, 0 )
 
 [node name="MainCharacterAnimations" parent="." index="6" instance=ExtResource( 11 )]
 
-position = Vector2( 1949.11, 692.258 )
+position = Vector2( 2066.9, 717.499 )
 
 [node name="AnimationPlayerSkipButton" type="AnimationPlayer" parent="." index="7"]
 
