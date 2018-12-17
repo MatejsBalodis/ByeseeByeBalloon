@@ -19,15 +19,17 @@ onready var camera = get_node("Camera2D") # For speed and convenience.
 onready var balloon_indicator = gui_layer.get_node("ProgressBar").get_node("Balloon") # For speed and convenience.
 onready var balloon_indicator_finish = balloon_indicator.get_parent().get_node("Finish") # For speed and convenience.
 onready var texture_progress_bar = gui_layer.get_node("ProgressBar").get_node("TextureProgress") # For speed and convenience.
-onready var animation_blend_tree = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationTreePlayer") # To save resources.
-onready var face_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
-onready var body_animator = get_node("Body").get_node("MainCharacterAnimations").get_node("AnimationPlayer") # To save resources.
+onready var main_character_animations = get_node("Body").get_node("MainCharacterAnimations") # For speed and convenience.
+onready var animation_blend_tree = main_character_animations.get_node("AnimationTreePlayer") # To save resources.
+onready var face_animator = main_character_animations.get_node("Head").get_node("Head").get_node("MainCharacterFace").get_node("AnimationPlayer") # To save resources.
+onready var body_animator = main_character_animations.get_node("AnimationPlayer") # To save resources.
 onready var main_character_audio_stream_player = get_node("MainCharacterAudioStreamPlayer") # For speed and convenience.
 onready var original_game_over_stream_player_volume_db = game_over_audio_stream_player.volume_db # To know, where to reset the volume.
 onready var music_manager_audio_stream_player = music_manager.get_node("AudioStreamPlayer") # For speed and convenience.
 onready var original_music_manager_volume_db = music_manager_audio_stream_player.volume_db # To know, where to reset the volume.
 onready var original_next_level_button_style_texture = next_level_button.get("custom_styles/hover").texture # To know, where to reset the texture.
 onready var game_over_text_texture = game_over_text.texture # For speed and convenience. Use this texture during the game over state.
+onready var viewport_size = get_viewport().size # For speed and convenience.
 # These have to be reset on level change.
 onready var level = get_parent().get_parent().get_node("Level") # For speed and convenience.
 onready var finish_line = level.get_node("FinishLine/ParallaxLayer/FinishLine") # For speed and convenience.
@@ -67,6 +69,7 @@ export (PackedScene) var item_template # Instance preset sacrifice item.
 export (Texture) var level_complete_text_texture = null # Assign this texture to level complete text.
 export var game_over_text_offsets = [] # To position the text correctly despite of image size.
 
+const BALLOON_HEAD_SIZE_COEFFICIENT = .25 # Good enough size for the head to save resources.
 const DEATH_ANIMATION_SPEED = 5.0 # How quickly to transition to death animation.
 const LEGS_UP_Y_THRESHOLD = .45 # How close to the bottom of the level character starts to rise his legs.
 const ACTUAL_ANIMATION_RESET = 600 # Drop the item quicker than the animation end.
@@ -90,17 +93,18 @@ func _ready():
 
 	gui_layer = null
 	game_over_wrapper = null
+	main_character_animations = null
 
 	Global.set_custom_button_style_texture(next_level_button, original_next_level_button_style_texture)
 
 func reset():
 	level = get_parent().get_parent().get_node("Level")
 	finish_line = level.get_node("FinishLine/ParallaxLayer/FinishLine")
-	actual_mover.position = Vector2(get_viewport().size.x * .5, 80.0)
+	actual_mover.position = Vector2(viewport_size.x * .5, 80.0)
 	position = actual_mover.position
 	start_position_x = actual_mover.position.x
 	the_whole_level_distance = finish_line.position.x - start_position_x
-	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + get_viewport().size.x * .5
+	get_parent().transform.origin.x = -camera.get_global_transform().origin.x + viewport_size.x * .5
 	Global.set_custom_button_style_texture(pause_button, pause_button.original_button_style_texture)
 	current_up_force = Vector2()
 	current_up_item_index = 0
@@ -144,7 +148,7 @@ func _process(delta):
 		var tmp_lerp_speed = delta * follow_speed # For speed and convenience.
 		position.x = lerp(position.x, actual_mover.position.x, tmp_lerp_speed)
 		position.y = lerp(position.y, actual_mover.position.y, tmp_lerp_speed)
-		get_parent().transform.origin.x = lerp(get_parent().transform.origin.x, -camera.get_global_transform().origin.x + get_viewport().size.x * .5, tmp_lerp_speed)
+		get_parent().transform.origin.x = lerp(get_parent().transform.origin.x, -camera.get_global_transform().origin.x + viewport_size.x * .5, tmp_lerp_speed)
 
 		var tmp_force_diminish_speed = delta * 10.0 # For speed and convenience.
 		current_up_force.x = max(current_up_force.x - tmp_force_diminish_speed, .0)
@@ -154,6 +158,8 @@ func _process(delta):
 		texture_progress_bar.max_value = texture_progress_bar.rect_size.x * texture_progress_bar.rect_scale.x
 		balloon_indicator.rect_position.x = min(lerp(balloon_indicator.rect_position.x, new_progress_position_x, delta * (BALLOON_PROGRESS_LERP_SPEED if balloon_indicator.rect_position.x < new_progress_position_x else BALLOON_PROGRESS_LERP_RETURN_SPEED)), balloon_indicator_finish.rect_position.x - INITIAL_BALLOON_PROGRESS_OFFSET)
 		texture_progress_bar.value = balloon_indicator.rect_position.x
+
+var relative_mouse_position = Vector2() # For speed and convenience. This is useful to tell whether mouse is over something, because some nodes doesn't have mouse input events.
 
 func manage_level_end_audio_transition(delta):
 	level_end_delta_volume_lerp_progress = min(level_end_delta_volume_lerp_progress + delta, 1.0)
@@ -193,9 +199,11 @@ const GAME_OVER_ELEMENT_FADE_SPEED = 4.0 # How quickly to fade in and out game o
 
 func _physics_process(delta):
 	if (weakref(finish_line)).get_ref():
+		viewport_size = get_viewport().size
+		relative_mouse_position = camera.position + get_viewport().get_mouse_position() # For speed and convenience.
 		velocity = PHYSICS_VELOCITY_QOEFFICIENT * delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
 		actual_mover.move_and_slide(velocity)
-		if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
+		if position.y > viewport_size.y - viewport_size.y * BOTTOM_THRESHOLD:
 			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
 				game_over_text.texture = game_over_text_texture
 				game_over_text.rect_position = game_over_text_offsets[0]
@@ -244,7 +252,7 @@ func _physics_process(delta):
 			elif item_drop_pending:
 				item_drop_pending = false
 				manage_up_item_event()
-			elif position.y > get_viewport().size.y - get_viewport().size.y * LEGS_UP_Y_THRESHOLD:
+			elif position.y > viewport_size.y - viewport_size.y * LEGS_UP_Y_THRESHOLD:
 				set_character_blend_state(1.0, .0, .0, .0, .0, delta)
 				set_facial_animation(5)
 			elif velocity.y > .0:
@@ -256,6 +264,25 @@ func _physics_process(delta):
 
 			pause_button.modulate.a = min(pause_button.modulate.a + delta * GAME_OVER_ELEMENT_FADE_SPEED, 1.0)
 			fade_out_game_over_elements(delta * GAME_OVER_ELEMENT_FADE_SPEED)
+
+	if Global.current_level_stop_state == Global.Level_stop_states.NONE:
+		if Input.is_action_just_released("left_mouse_button"):
+			if !forbid_changing_facial_animation:
+				var balloon_head_edge_length = viewport_size * BALLOON_HEAD_SIZE_COEFFICIENT # To test if mouse is approximatelly over balloon, therefore save resources.
+				var current_position = Vector2(viewport_size.x * .5 - balloon_head_edge_length.x * .5, position.y - balloon_head_edge_length.y * .5)
+				if relative_mouse_position.x > current_position.x && relative_mouse_position.x < current_position.x + balloon_head_edge_length.x && relative_mouse_position.y > current_position.y && relative_mouse_position.y < current_position.y + balloon_head_edge_length.y:
+					main_character_audio_stream_player.play_win_sfx()
+					set_facial_animation(1)
+					forbid_changing_facial_animation = true
+					happy_face_time_left = 3.0
+		elif happy_face_time_left > .0:
+			happy_face_time_left = max(happy_face_time_left - delta, -.1)
+			if happy_face_time_left < .0:
+				if forbid_changing_facial_animation:
+					forbid_changing_facial_animation = false
+
+var happy_face_time_left = .0 # To calculate time to keep happy face on still.
+const HAPPY_FACE_TIME = 3.0 # How many seconds after click to keep happy face on if nothing interrupts it.
 
 func initiate_level_end():
 	if Global.current_level_index > next_level_button.level_scenes.size() - 1:
