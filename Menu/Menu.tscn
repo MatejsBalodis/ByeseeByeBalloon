@@ -796,7 +796,7 @@ modulate_color = Color( 1, 1, 1, 1 )
 draw_center = true
 _sections_unfolded = [ "Modulate" ]
 
-[node name="Menu" type="Node2D" index="0"]
+[node name="Menu" type="Node2D"]
 
 _sections_unfolded = [ "Z Index" ]
 
@@ -1097,6 +1097,7 @@ transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="Control" type="Control" parent="CanvasLayer" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -1211,6 +1212,7 @@ modulate = Color( 0, 0, 0, 0 )
 
 [node name="MusicManager" type="Node2D" parent="." index="9"]
 
+editor/display_folded = true
 _sections_unfolded = [ "Z Index" ]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicManager" index="0"]
