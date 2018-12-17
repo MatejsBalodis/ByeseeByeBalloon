@@ -59,6 +59,10 @@ var decline_death = .0 # To control the full character animation tree and be abl
 var incline_decline = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
 var death_levelcomplete = .0 # To control the full character animation tree and be able to lerp between states in a scope outside the function.
 var level_end_delta_volume_lerp_progress = .0 # To have a tight control over the lerping.
+var relative_mouse_position = Vector2() # For speed and convenience. This is useful to tell whether mouse is over something, because some nodes doesn't have mouse input events.
+var happy_face_time_left = .0 # To calculate time to keep happy face on still.
+enum Interpolation_states {GAMEPLAY, LEVEL_COMPLETE, LEVEL_COMPLETE_NOT_ENOUGH_POINTS, GAME_OVER}
+var current_interpolation_state = Interpolation_states.GAMEPLAY # To perform visual interpolations in _process instead of _physics_process
 
 export (Texture) var victory_button_texture = null # Use this texture to turn next level button into victory button.
 export var gravities = [] # At what rate objects fall.
@@ -84,6 +88,8 @@ const TOP_THRESHOLD = 100.0 # How high can the balloon fly.
 const BOTTOM_THRESHOLD = .2 # How low can balloon fall.
 const DEFAULT_DROP_PAUSE = 500 # Don't allow to drop items more frequently than this in any case.
 const NON_AUDIBLE_VOLUME_DB = -80.0 # Consider this to be quiet enough to be considered non audible.
+const HAPPY_FACE_TIME = 3.0 # How many seconds after click to keep happy face on if nothing interrupts it.
+const GAME_OVER_ELEMENT_FADE_SPEED = 4.0 # How quickly to fade in and out game over elements.
 
 func _ready():
 	level_complete_audio_stream.set_loop(false)
@@ -159,7 +165,35 @@ func _process(delta):
 		balloon_indicator.rect_position.x = min(lerp(balloon_indicator.rect_position.x, new_progress_position_x, delta * (BALLOON_PROGRESS_LERP_SPEED if balloon_indicator.rect_position.x < new_progress_position_x else BALLOON_PROGRESS_LERP_RETURN_SPEED)), balloon_indicator_finish.rect_position.x - INITIAL_BALLOON_PROGRESS_OFFSET)
 		texture_progress_bar.value = balloon_indicator.rect_position.x
 
-var relative_mouse_position = Vector2() # For speed and convenience. This is useful to tell whether mouse is over something, because some nodes doesn't have mouse input events.
+		if current_interpolation_state == Interpolation_states.GAMEPLAY:
+			if OS.get_ticks_msec() - item_drop_start_time < current_drop_animation_length:
+				set_character_blend_state(.0, 1.0, .0, .0, .0, delta * DROP_ANIMATION_TRANSITION_SPEED)
+			elif item_drop_pending:
+				item_drop_pending = false
+				manage_up_item_event()
+			elif position.y > viewport_size.y - viewport_size.y * LEGS_UP_Y_THRESHOLD:
+				set_character_blend_state(1.0, .0, .0, .0, .0, delta)
+				set_facial_animation(5)
+			elif velocity.y > .0:
+				set_character_blend_state(.0, .0, .0, 1.0, .0, delta)
+				set_facial_animation(5)
+			elif velocity.y < .0:
+				set_character_blend_state(.0, .0, .0, .0, .0, delta)
+				set_facial_animation(5)
+			pause_button.modulate.a = min(pause_button.modulate.a + delta * GAME_OVER_ELEMENT_FADE_SPEED, 1.0)
+			fade_out_game_over_elements(delta * GAME_OVER_ELEMENT_FADE_SPEED)
+		elif current_interpolation_state == Interpolation_states.LEVEL_COMPLETE:
+			manage_level_end_audio_transition(delta)
+			manage_level_complete_state(delta)
+			set_character_blend_state(1.0, .0, 1.0, .0, 1.0, delta * DEATH_ANIMATION_SPEED)
+		elif current_interpolation_state == Interpolation_states.LEVEL_COMPLETE_NOT_ENOUGH_POINTS:
+			manage_level_end_audio_transition(delta)
+			set_character_blend_state(.0, .0, .0, .0, .0, delta)
+		else:
+			manage_level_end_audio_transition(delta)
+			set_character_blend_state(1.0, .0, 1.0, .0, .0, delta * DEATH_ANIMATION_SPEED)
+			pause_button.modulate.a = max(pause_button.modulate.a - delta * GAME_OVER_ELEMENT_FADE_SPEED, .0)
+			fade_in_game_over_elements(delta * GAME_OVER_ELEMENT_FADE_SPEED)
 
 func manage_level_end_audio_transition(delta):
 	level_end_delta_volume_lerp_progress = min(level_end_delta_volume_lerp_progress + delta, 1.0)
@@ -195,8 +229,6 @@ func fade_in_game_over_elements(fade_speed):
 	score_background.modulate.a = min(score_background.modulate.a + fade_speed, 1.0)
 	game_over_text.modulate.a = min(game_over_text.modulate.a + fade_speed, 1.0)
 
-const GAME_OVER_ELEMENT_FADE_SPEED = 4.0 # How quickly to fade in and out game over elements.
-
 func _physics_process(delta):
 	if (weakref(finish_line)).get_ref():
 		viewport_size = get_viewport().size
@@ -213,10 +245,7 @@ func _physics_process(delta):
 				initiate_level_end()
 				forbid_changing_facial_animation = false
 				set_facial_animation(3)
-			manage_level_end_audio_transition(delta)
-			set_character_blend_state(1.0, .0, 1.0, .0, .0, delta * DEATH_ANIMATION_SPEED)
-			pause_button.modulate.a = max(pause_button.modulate.a - delta * GAME_OVER_ELEMENT_FADE_SPEED, .0)
-			fade_in_game_over_elements(delta * GAME_OVER_ELEMENT_FADE_SPEED)
+				current_interpolation_state = Interpolation_states.GAME_OVER
 		elif position.x > finish_line.position.x:
 			pause_button.modulate.a = max(pause_button.modulate.a - delta * GAME_OVER_ELEMENT_FADE_SPEED, .0)
 			fade_in_game_over_elements(delta * GAME_OVER_ELEMENT_FADE_SPEED)
@@ -231,9 +260,7 @@ func _physics_process(delta):
 					initiate_level_end()
 					forbid_changing_facial_animation = false
 					set_facial_animation(5)
-				manage_level_end_audio_transition(delta)
-				manage_level_complete_state(delta)
-				set_character_blend_state(1.0, .0, 1.0, .0, 1.0, delta * DEATH_ANIMATION_SPEED)
+					current_interpolation_state = Interpolation_states.LEVEL_COMPLETE
 			else:
 				if Global.current_level_stop_state == Global.Level_stop_states.NONE:
 					game_over_text.texture = game_over_text_texture
@@ -244,26 +271,9 @@ func _physics_process(delta):
 					initiate_level_end()
 					forbid_changing_facial_animation = false
 					set_facial_animation(0)
-				manage_level_end_audio_transition(delta)
-				set_character_blend_state(.0, .0, .0, .0, .0, delta)
+					current_interpolation_state = Interpolation_states.LEVEL_COMPLETE_NOT_ENOUGH_POINTS
 		else:
-			if OS.get_ticks_msec() - item_drop_start_time < current_drop_animation_length:
-				set_character_blend_state(.0, 1.0, .0, .0, .0, delta * DROP_ANIMATION_TRANSITION_SPEED)
-			elif item_drop_pending:
-				item_drop_pending = false
-				manage_up_item_event()
-			elif position.y > viewport_size.y - viewport_size.y * LEGS_UP_Y_THRESHOLD:
-				set_character_blend_state(1.0, .0, .0, .0, .0, delta)
-				set_facial_animation(5)
-			elif velocity.y > .0:
-				set_character_blend_state(.0, .0, .0, 1.0, .0, delta)
-				set_facial_animation(5)
-			elif velocity.y < .0:
-				set_character_blend_state(.0, .0, .0, .0, .0, delta)
-				set_facial_animation(5)
-
-			pause_button.modulate.a = min(pause_button.modulate.a + delta * GAME_OVER_ELEMENT_FADE_SPEED, 1.0)
-			fade_out_game_over_elements(delta * GAME_OVER_ELEMENT_FADE_SPEED)
+			current_interpolation_state = Interpolation_states.GAMEPLAY
 
 	if Global.current_level_stop_state == Global.Level_stop_states.NONE:
 		if Input.is_action_just_released("left_mouse_button"):
@@ -280,9 +290,6 @@ func _physics_process(delta):
 			if happy_face_time_left < .0:
 				if forbid_changing_facial_animation:
 					forbid_changing_facial_animation = false
-
-var happy_face_time_left = .0 # To calculate time to keep happy face on still.
-const HAPPY_FACE_TIME = 3.0 # How many seconds after click to keep happy face on if nothing interrupts it.
 
 func initiate_level_end():
 	if Global.current_level_index > next_level_button.level_scenes.size() - 1:
