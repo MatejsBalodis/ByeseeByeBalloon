@@ -1,7 +1,6 @@
 extends Control
 
 onready var player = get_parent().get_parent().get_node("CharacterLayer").get_node("MainCharacter") # For speed and convenience.
-onready var player_camera = player.get_node("Camera2D") # For speed and convenience.
 onready var drag_is_active = false # To disable drag only, when mouse is released.
 onready var drag_indicator_right = get_parent().get_node("DragIndicatorRight") # For speed and convenience.
 onready var drag_indicator_left = get_parent().get_node("DragIndicatorLeft") # For speed and convenience.
@@ -102,7 +101,6 @@ func calculate_actual_bar_width():
 func _process(delta):
 	if shrink_amount > 1:
 		var mouse_is_over_bar = false # For speed and convenience.
-		var relative_mouse_position = Vector2() # For speed and convenience.
 		if Global.current_level_stop_state != Global.Level_stop_states.NONE:
 			drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
 			drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
@@ -115,22 +113,22 @@ func _process(delta):
 					return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
 					rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
 			else:
-				var bar_width = (get_viewport().size.x if get_viewport().size.x < current_x_offset else current_x_offset) # For speed and convenience.
-				relative_mouse_position = player_camera.position + get_viewport().get_mouse_position() # For speed and convenience.
-				if relative_mouse_position.y > rect_position.y - button_height:
+				var bar_width = (player.viewport_size.x if player.viewport_size.x < current_x_offset else current_x_offset) # For speed and convenience.
+				if player.relative_mouse_position.y > rect_position.y - button_height:
 					mouse_is_over_bar = true
 					bar_fadeout_coefficient = max(bar_fadeout_coefficient - delta * BAR_FADEOUT_COEFFICIENT_ENTER_EXIT_SPEED, .0)
 					if rect_position.x < .0:
 						drag_indicator_left.lerp_indicator_opacity(false, .0, delta)
 					else:
 						drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
-					if rect_position.x + actual_bar_width > get_viewport().size.x:
+					if rect_position.x + actual_bar_width > player.viewport_size.x:
 						drag_indicator_right.lerp_indicator_opacity(false, .0, delta)
 					else:
 						drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
 					if Input.is_action_pressed("left_mouse_button"):
-						drag_is_active = true
-						return_lerp_progress = .0
+						if player.relative_mouse_position.x > rect_position.x && player.relative_mouse_position.x < rect_position.x + one_item_width * shrink_amount:
+							drag_is_active = true
+							return_lerp_progress = .0
 				else:
 					bar_fadeout_coefficient = min(bar_fadeout_coefficient + delta * BAR_FADEOUT_COEFFICIENT_ENTER_EXIT_SPEED, 1.0)
 					drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
@@ -144,26 +142,27 @@ func _process(delta):
 						return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
 						rect_position.x = lerp(rect_position.x, -(current_x_offset - bar_width), return_lerp_progress)
 				if drag_is_active:
-					rect_position.x += (relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (bar_width / clamp(rect_position.x, 1.0, bar_width))))
-				old_mouse_position = relative_mouse_position
+					rect_position.x += (player.relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (bar_width / clamp(rect_position.x, 1.0, bar_width))))
+				old_mouse_position = player.relative_mouse_position
 
 		if Global.current_level_stop_state == Global.Level_stop_states.NONE:
 			manage_bar_visibility(1.0, original_y_position, delta * BAR_ALPHA_APPEAR_SPEED, delta * BAR_MOVE_IN_SPEED)
-			if player.position.y > get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD:
+			if player.position.y > player.viewport_size.y - player.viewport_size.y * DANGER_THRESHOLD:
 				player_is_in_danger = true
-				var the_danger_threshold_distance = get_viewport().size.y - get_viewport().size.y * DANGER_THRESHOLD # For speed and convenience.
+				var the_danger_threshold_distance = player.viewport_size.y - player.viewport_size.y * DANGER_THRESHOLD # For speed and convenience.
 				player_danger_alpha_coefficient = ((player.position.y - the_danger_threshold_distance) / the_danger_threshold_distance) * PLAYER_DYNAMIC_DANGER_TRANSPARENCY_HANDLE
 			else:
 				player_is_in_danger = false
 		else:
-			manage_bar_visibility(.0, original_y_position + get_viewport().size.y, delta * BAR_ALPHA_DISSAPPEAR_SPEED, delta)
+			manage_bar_visibility(.0, original_y_position + player.viewport_size.y, delta * BAR_ALPHA_DISSAPPEAR_SPEED, delta)
 
 		var previous_transparency_coefficient = -1.0 # For speed and convenience.
 		for i in range(0, level_selection_bars[Global.current_level_index].size()):
 			var current_item = level_selection_bars[Global.current_level_index][i][0] # For speed and convenience.
 			if current_item != null && current_item.alpha_must_be_managed:
-				var	mouse_is_over_this_element = mouse_is_over_bar && relative_mouse_position.x > current_item.rect_position.x && relative_mouse_position.x < current_item.rect_position.x + current_item.rect_size.x # To show the currently hovered item with full opacity.
-				var current_transparency_coefficient = clamp(ITEM_ALPHA_TRANSITION_HARSHNESS * sin(ITEM_ALPHA_TRANSITION_PHASE * (max(rect_position.x + current_item.rect_position.x, .0) / get_viewport().size.x)), .0, 1.0) # For speed and convenience.
+				var current_item_x_offset = current_item.rect_position.x + rect_position.x # For speed and convenience.
+				var	mouse_is_over_this_element = mouse_is_over_bar && player.relative_mouse_position.x > current_item_x_offset && player.relative_mouse_position.x < current_item_x_offset + current_item.rect_size.x # To show the currently hovered item with full opacity.
+				var current_transparency_coefficient = clamp(ITEM_ALPHA_TRANSITION_HARSHNESS * sin(ITEM_ALPHA_TRANSITION_PHASE * (max(rect_position.x + current_item.rect_position.x, .0) / player.viewport_size.x)), .0, 1.0) # For speed and convenience.
 				if previous_transparency_coefficient < .0:
 					current_item.material.set_shader_param("previous_transparency_coefficient", current_transparency_coefficient if !mouse_is_over_this_element else 1.0)
 				else:

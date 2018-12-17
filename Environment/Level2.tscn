@@ -22,7 +22,7 @@ position = Vector2( 0, -541 )
 scale = Vector2( 2, 2 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Offset", "Transform", "Visibility" ]
-level_value = 700
+level_value = 1800
 
 [node name="Background" type="Sprite" parent="." index="0"]
 

@@ -189,20 +189,33 @@
 * DONE Also have to implement so that if mouse moves over the bottom bar the coefficient increases the strength of the effect.
 ** So that if mouse isn't over the bar there is no fading.
 * DONE If mouse is over certain item, that item opacity must become full.
-* TODO Add type hints to all variables.
-* TODO Level complete items fade in and out instead of just popping in and out.
+* DONE Looks like there is still some problem, when mouse is put on the last item and bar is pushed to the left side at some moment the very left item turns on full opacity.
+** Probably just forgot to add bar's own x offset.
+* CANCELLED Add type hints to all variables.
+:LOGBOOK:
+- Note taken on [2018-12-16 Sv 22:13] \\
+  Not yet available in the Godot version that I am using.
+:END:
+* DONE Fix so that game over and level complete texts are just sprites on the same object.
+* DONE Level complete items fade in and out instead of just popping in and out.
 ** Just look for all the visible = true/false places and make a list of all the specific items that must be managed and maybe they can be managed in a bunch.
-* TODO Level value points must be tuned so that the growth of the total score is taken into account.
-** Just add the whole previous level value to each next, so that if player plays well he makes his life easier in long term.
-* TODO Disable next level button. [0/2]
-** TODO Uncomment nextlevelButton setting visibility to false in MainCharacter in physics_process after this
-#+BEGIN_SRC godot-gdscript -n
-if position.y > get_viewport().size.y - get_viewport().size.y * BOTTOM_THRESHOLD:
-			if Global.current_level_stop_state == Global.Level_stop_states.NONE:
-#+END_SRC
-** TODO Set invisible next level button at the beginning.
+* DONE It should not be possible to drag the bar even if the mouse is low enough, but isn't over any element on x.
+* CANCELLED Fix so that if items are dropped and bar has become less wide, it isn't possible to drag it too far to the left, when bar is wider that viewport width.
+** It behaves exactly as it should.
+* DONE When pause is pressed restart and menu buttons must appear.
+* DONE Cache get_viewport().size in main_character.
+* DONE Implement so that if the balloon is clicked on it laughs (Visually - though I don't know if it has the happy face and audially)
+* DONE Move interpolations from physics_process to process.
+* DONE Level value points must be tuned so that the growth of the total score is taken into account.
+** I added the whole previous level value to each next, so that if player plays well he makes his life easier in long term.
+:LOGBOOK:
+- Note taken on [2018-12-17 P  06:40] \\
+  It looks like the new balancing works well.
+:END:
 * IN-PROGRESS Musical improvements together with Nezvers.
 ** TODO Music must start later, to nicely loop.
 *** Consult with Nezvers about exact beginning of the track.
 ** TODO Implement (if possible) new story music.
 *** Maybe Nezvers can create story track too!
+* WAITING Disable next level button (It is done in MainCharacter.gd by uncommenting commented out next_level_button visibility management).
+** Do it only, when for a release.

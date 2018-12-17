@@ -15,6 +15,8 @@ func set_custom_button_style_texture(button, current_texture):
 	button.get("custom_styles/pressed").texture = current_texture
 	button.get("custom_styles/disabled").texture = current_texture
 	button.get("custom_styles/normal").texture = current_texture
+	button.visible = false # A hack to update button texture, switch button visiblity off and on, otherwise the old texture is displayed until hove event is triggered.
+	button.visible = true
 
 func _ready():
 	var root = get_tree().get_root()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://Audio/Music/Gameover-ogg-converted.ogg" type="AudioStream" id=1]
 [ext_resource path="res://UI/Restart.png" type="Texture" id=2]
@@ -24,19 +24,18 @@
 [ext_resource path="res://Obstacles/ObstacleWrapper8.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Environment/Level9.tscn" type="PackedScene" id=23]
 [ext_resource path="res://Obstacles/ObstacleWrapper9.tscn" type="PackedScene" id=24]
-[ext_resource path="res://UI/LevelComplete.png" type="Texture" id=25]
-[ext_resource path="res://UI/GameOverText.png" type="Texture" id=26]
-[ext_resource path="res://UI/ScoreBackground.tscn" type="PackedScene" id=27]
-[ext_resource path="res://UI/ItemSelectionBar/ItemSelectionBar.tscn" type="PackedScene" id=28]
-[ext_resource path="res://UI/ProgressBar/ProgressBar.tscn" type="PackedScene" id=29]
-[ext_resource path="res://UI/ScrollIndicator.png" type="Texture" id=30]
-[ext_resource path="res://UI/ItemSelectionBar/DragIndicator.gd" type="Script" id=31]
-[ext_resource path="res://UI/Pause.png" type="Texture" id=32]
-[ext_resource path="res://UI/PauseButton.gd" type="Script" id=33]
-[ext_resource path="res://UI/UnPause.png" type="Texture" id=34]
-[ext_resource path="res://UI/RequiredScoreDeltaWrapper.gd" type="Script" id=35]
-[ext_resource path="res://Font/KismetNF.otf" type="DynamicFontData" id=36]
-[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=37]
+[ext_resource path="res://UI/GameOverText.png" type="Texture" id=25]
+[ext_resource path="res://UI/ScoreBackground.tscn" type="PackedScene" id=26]
+[ext_resource path="res://UI/ItemSelectionBar/ItemSelectionBar.tscn" type="PackedScene" id=27]
+[ext_resource path="res://UI/ProgressBar/ProgressBar.tscn" type="PackedScene" id=28]
+[ext_resource path="res://UI/ScrollIndicator.png" type="Texture" id=29]
+[ext_resource path="res://UI/ItemSelectionBar/DragIndicator.gd" type="Script" id=30]
+[ext_resource path="res://UI/Pause.png" type="Texture" id=31]
+[ext_resource path="res://UI/PauseButton.gd" type="Script" id=32]
+[ext_resource path="res://UI/UnPause.png" type="Texture" id=33]
+[ext_resource path="res://UI/RequiredScoreDeltaWrapper.gd" type="Script" id=34]
+[ext_resource path="res://Font/KismetNF.otf" type="DynamicFontData" id=35]
+[ext_resource path="res://UI/LevelTransition.tscn" type="PackedScene" id=36]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -195,7 +194,7 @@ content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
-texture = ExtResource( 32 )
+texture = ExtResource( 31 )
 region_rect = Rect2( 0, 0, 439, 298 )
 margin_left = 0.0
 margin_right = 0.0
@@ -215,7 +214,7 @@ content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
-texture = ExtResource( 32 )
+texture = ExtResource( 31 )
 region_rect = Rect2( 0, 0, 439, 298 )
 margin_left = 0.0
 margin_right = 0.0
@@ -242,7 +241,7 @@ content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
-texture = ExtResource( 32 )
+texture = ExtResource( 31 )
 region_rect = Rect2( 0, 0, 439, 298 )
 margin_left = 0.0
 margin_right = 0.0
@@ -261,7 +260,7 @@ content_margin_left = -1.0
 content_margin_right = -1.0
 content_margin_top = -1.0
 content_margin_bottom = -1.0
-texture = ExtResource( 32 )
+texture = ExtResource( 31 )
 region_rect = Rect2( 0, 0, 439, 298 )
 margin_left = 0.0
 margin_right = 0.0
@@ -279,10 +278,10 @@ draw_center = true
 size = 90
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 36 )
+font_data = ExtResource( 35 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="GUILayer" type="CanvasLayer" index="0"]
+[node name="GUILayer" type="CanvasLayer"]
 
 layer = 1
 offset = Vector2( 0, 0 )
@@ -391,16 +390,16 @@ script = ExtResource( 6 )
 _sections_unfolded = [ "Rect", "custom_styles" ]
 level_scenes = [ [ ExtResource( 7 ), ExtResource( 8 ) ], [ ExtResource( 9 ), ExtResource( 10 ) ], [ ExtResource( 11 ), ExtResource( 12 ) ], [ ExtResource( 13 ), ExtResource( 14 ) ], [ ExtResource( 15 ), ExtResource( 16 ) ], [ ExtResource( 17 ), ExtResource( 18 ) ], [ ExtResource( 19 ), ExtResource( 20 ) ], [ ExtResource( 21 ), ExtResource( 22 ) ], [ ExtResource( 23 ), ExtResource( 24 ) ] ]
 
-[node name="LevelCompleteText" type="TextureRect" parent="GameOverWrapper" index="4"]
+[node name="GameOverText" type="TextureRect" parent="GameOverWrapper" index="4"]
 
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 150.0
-margin_top = 179.0
-margin_right = 1750.0
-margin_bottom = 464.0
+margin_left = 105.0
+margin_top = 184.0
+margin_right = 1705.0
+margin_bottom = 535.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 1
@@ -409,39 +408,21 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 texture = ExtResource( 25 )
 stretch_mode = 0
+_sections_unfolded = [ "Rect" ]
 
-[node name="GameOverText" type="TextureRect" parent="GameOverWrapper" index="5"]
-
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 265.0
-margin_top = 114.0
-margin_right = 1614.0
-margin_bottom = 465.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 1
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-texture = ExtResource( 26 )
-stretch_mode = 0
-
-[node name="ScoreBackground" parent="GameOverWrapper" index="6" instance=ExtResource( 27 )]
+[node name="ScoreBackground" parent="GameOverWrapper" index="5" instance=ExtResource( 26 )]
 
 margin_top = 533.0
 margin_bottom = 831.0
 
-[node name="ItemSelectionBar" parent="." index="1" instance=ExtResource( 28 )]
+[node name="ItemSelectionBar" parent="." index="1" instance=ExtResource( 27 )]
 
 pause_mode = 2
 anchor_right = 1.0
 margin_right = 0.0
 _sections_unfolded = [ "Pause" ]
 
-[node name="ProgressBar" parent="." index="2" instance=ExtResource( 29 )]
+[node name="ProgressBar" parent="." index="2" instance=ExtResource( 28 )]
 
 margin_top = 17.0
 margin_bottom = 109.0
@@ -464,9 +445,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 30 )
+texture = ExtResource( 29 )
 stretch_mode = 0
-script = ExtResource( 31 )
+script = ExtResource( 30 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="DragIndicatorLeft" type="TextureRect" parent="." index="4"]
@@ -487,9 +468,9 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 30 )
+texture = ExtResource( 29 )
 stretch_mode = 0
-script = ExtResource( 31 )
+script = ExtResource( 30 )
 _sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="PauseButton" type="Button" parent="." index="5"]
@@ -521,9 +502,9 @@ shortcut = null
 group = null
 flat = false
 align = 1
-script = ExtResource( 33 )
+script = ExtResource( 32 )
 _sections_unfolded = [ "Pause", "Rect", "custom_styles" ]
-unpause_button_texture = ExtResource( 34 )
+unpause_button_texture = ExtResource( 33 )
 
 [node name="RequiredScoreDeltaWrapper" type="Control" parent="." index="6"]
 
@@ -541,7 +522,7 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 35 )
+script = ExtResource( 34 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="DeltaScoreShadow" type="Label" parent="RequiredScoreDeltaWrapper" index="0"]
@@ -594,7 +575,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_fonts" ]
 
-[node name="LevelTransition" parent="." index="7" instance=ExtResource( 37 )]
+[node name="LevelTransition" parent="." index="7" instance=ExtResource( 36 )]
 
 modulate = Color( 0, 0, 0, 0 )
 
