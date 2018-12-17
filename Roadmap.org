@@ -212,6 +212,7 @@
 - Note taken on [2018-12-17 P  06:40] \\
   It looks like the new balancing works well.
 :END:
+* TODO Matejs told, that Victory button crashes game.
 * IN-PROGRESS Musical improvements together with Nezvers.
 ** TODO Music must start later, to nicely loop.
 *** Consult with Nezvers about exact beginning of the track.
