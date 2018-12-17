@@ -206,9 +206,12 @@
 * DONE Cache get_viewport().size in main_character.
 * DONE Implement so that if the balloon is clicked on it laughs (Visually - though I don't know if it has the happy face and audially)
 * DONE Move interpolations from physics_process to process.
-* IN-PROGRESS Level value points must be tuned so that the growth of the total score is taken into account.
+* DONE Level value points must be tuned so that the growth of the total score is taken into account.
 ** I added the whole previous level value to each next, so that if player plays well he makes his life easier in long term.
-*** Though it's not balanced and Matejs should balance out longterm and shortterm spendings.
+:LOGBOOK:
+- Note taken on [2018-12-17 P  06:40] \\
+  It looks like the new balancing works well.
+:END:
 * IN-PROGRESS Musical improvements together with Nezvers.
 ** TODO Music must start later, to nicely loop.
 *** Consult with Nezvers about exact beginning of the track.
