@@ -200,7 +200,10 @@
 * DONE Level complete items fade in and out instead of just popping in and out.
 ** Just look for all the visible = true/false places and make a list of all the specific items that must be managed and maybe they can be managed in a bunch.
 * DONE It should not be possible to drag the bar even if the mouse is low enough, but isn't over any element on x.
-* TODO Fix so that if items are dropped and bar has become less wide, it isn't possible to drag it too far to the left, when bar is wider that viewport width.
+* CANCELLED Fix so that if items are dropped and bar has become less wide, it isn't possible to drag it too far to the left, when bar is wider that viewport width.
+** It behaves exactly as it should.
+* DONE When pause is pressed restart and menu buttons must appear.
+* TODO Implement so that if the balloon is clicked on it laughs (Visually - though I don't know if it has the happy face and audially)
 * IN-PROGRESS Level value points must be tuned so that the growth of the total score is taken into account.
 ** I added the whole previous level value to each next, so that if player plays well he makes his life easier in long term.
 *** Though it's not balanced and Matejs should balance out longterm and shortterm spendings.
