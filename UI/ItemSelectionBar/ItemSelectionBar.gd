@@ -138,9 +138,11 @@ func _process(delta):
 					if rect_position.x > .0:
 						return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
 						rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
-					elif rect_position.x < -(current_x_offset - bar_width):
-						return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
-						rect_position.x = lerp(rect_position.x, -(current_x_offset - bar_width), return_lerp_progress)
+					else:
+						var bar_left_drag_threshold = min(player.viewport_size.x - one_item_width * shrink_amount - MARGIN_BETWEEN_BUTTONS, .0) # For speed and convenience.
+						if rect_position.x < bar_left_drag_threshold:
+							return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
+							rect_position.x = lerp(rect_position.x, bar_left_drag_threshold, return_lerp_progress)
 				if drag_is_active:
 					rect_position.x += (player.relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (bar_width / clamp(rect_position.x, 1.0, bar_width))))
 				old_mouse_position = player.relative_mouse_position
