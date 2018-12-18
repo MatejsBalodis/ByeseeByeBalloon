@@ -23,6 +23,7 @@ func _on_NextLevelButton_pressed():
 		Global.current_level_stop_state = Global.Level_stop_states.SWITCH_LEVEL_OUT
 		level_transition.current_transition_is_in_progress = true
 		if Global.current_level_index - 1 > level_scenes.size() - 1:
+			Global.current_level_index = level_scenes.size() - 1
 			Global.transition_to_scene(VICTORY_SCENE_PATH)
 			return
 
