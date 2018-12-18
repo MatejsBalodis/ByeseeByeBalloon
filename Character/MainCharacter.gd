@@ -168,9 +168,6 @@ func _process(delta):
 		if current_interpolation_state == Interpolation_states.GAMEPLAY:
 			if OS.get_ticks_msec() - item_drop_start_time < current_drop_animation_length:
 				set_character_blend_state(.0, 1.0, .0, .0, .0, delta * DROP_ANIMATION_TRANSITION_SPEED)
-			elif item_drop_pending:
-				item_drop_pending = false
-				manage_up_item_event()
 			elif position.y > viewport_size.y - viewport_size.y * LEGS_UP_Y_THRESHOLD:
 				set_character_blend_state(1.0, .0, .0, .0, .0, delta)
 				set_facial_animation(5)
@@ -231,6 +228,8 @@ func fade_in_game_over_elements(fade_speed):
 
 func _physics_process(delta):
 	if (weakref(finish_line)).get_ref():
+		if item_drop_pending:
+			manage_up_item_event()
 		viewport_size = get_viewport().size
 		relative_mouse_position = camera.position + get_viewport().get_mouse_position() # For speed and convenience.
 		velocity = PHYSICS_VELOCITY_QOEFFICIENT * delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
@@ -322,6 +321,7 @@ func manage_up_item_event():
 	if current_up_force < up_items[Global.current_level_index][current_up_item_index][0]:
 		current_up_force = up_items[Global.current_level_index][current_up_item_index][0] + up_items[Global.current_level_index][current_up_item_index][0] * .1
 	main_character_audio_stream_player.play_ascend_sfx()
+	item_drop_pending = false
 
 func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_goal, incline_decline_goal, death_levelcomplete_goal, new_state_reach_lerp_speed):
 	float_dead = lerp(float_dead, float_dead_goal, new_state_reach_lerp_speed)

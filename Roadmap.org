@@ -216,6 +216,8 @@
 * DONE 1st level item values decreased
 * DONE It looks like the item selection bar can be moved too far to the left, when it's being shrunk.
 * DONE Implement so that the item selection bar is always centered.
+* DONE Fixed so that clicking on item box bar items, it always works.
+** Previously there sometimes was a problem due to asynchronization.
 * TODO Outro Story scene added [0/2]
 ** TODO Add outro story scene to the game.
 ** TODO "Skip" button leads to end screen.
