@@ -218,13 +218,12 @@
 * DONE Implement so that the item selection bar is always centered.
 * DONE Fixed so that clicking on item box bar items, it always works.
 ** Previously there sometimes was a problem due to asynchronization.
-* TODO Outro Story scene added [0/2]
-** TODO Add outro story scene to the game.
-** TODO "Skip" button leads to end screen.
+* DONE Outro Story scene added [2/2]
+** DONE Add outro story scene to the game.
+** DONE "Skip" button leads to end screen.
+* TODO Implement that nextLevelButton button can be checked to be on from inspector.
 * IN-PROGRESS Musical improvements together with Nezvers.
 ** TODO Music must start later, to nicely loop.
 *** Consult with Nezvers about exact beginning of the track.
 ** TODO Implement (if possible) new story music.
 *** Maybe Nezvers can create story track too!
-* WAITING Disable next level button (It is done in MainCharacter.gd by uncommenting commented out next_level_button visibility management).
-** Do it only, when for a release.

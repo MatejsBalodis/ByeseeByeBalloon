@@ -1,6 +1,6 @@
 extends Button
 
-const VICTORY_SCENE_PATH = "res://Victory.tscn" # To load the victory scene.
+const OUTRO_SCENE_PATH = "res://Story/StoryOutro.tscn" # To load the victory scene.
 
 export var level_scenes = [] # To load appropriate levels.
 
@@ -24,7 +24,7 @@ func _on_NextLevelButton_pressed():
 		level_transition.current_transition_is_in_progress = true
 		if Global.current_level_index - 1 > level_scenes.size() - 1:
 			Global.current_level_index = level_scenes.size() - 1
-			Global.transition_to_scene(VICTORY_SCENE_PATH)
+			Global.transition_to_scene(OUTRO_SCENE_PATH)
 			return
 
 func _process(delta):

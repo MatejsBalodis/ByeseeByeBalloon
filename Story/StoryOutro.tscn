@@ -388,7 +388,6 @@ _sections_unfolded = [ "Playback Options" ]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." index="5"]
 
-editor/display_folded = true
 layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
@@ -711,6 +710,8 @@ flat = false
 align = 1
 script = ExtResource( 9 )
 _sections_unfolded = [ "Rect", "custom_styles" ]
+skip_index = 1
+skip_paths = [ "res://World.tscn", "res://Victory.tscn" ]
 
 [node name="LevelTransition" parent="CanvasLayer" index="2" instance=ExtResource( 10 )]
 
