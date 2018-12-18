@@ -89,6 +89,7 @@
 position = Vector2( 78.1926, 82.2651 )
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Transform", "Z Index", "collision" ]
+enable_next_level_button_for_debugging = true
 victory_button_texture = ExtResource( 2 )
 gravities = [ Vector2( 0, 100 ) ]
 forward_velocities = [ Vector2( 100, 0 ) ]

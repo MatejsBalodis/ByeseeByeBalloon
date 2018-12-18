@@ -64,6 +64,7 @@ var happy_face_time_left = .0 # To calculate time to keep happy face on still.
 enum Interpolation_states {GAMEPLAY, LEVEL_COMPLETE, LEVEL_COMPLETE_NOT_ENOUGH_POINTS, GAME_OVER}
 var current_interpolation_state = Interpolation_states.GAMEPLAY # To perform visual interpolations in _process instead of _physics_process
 
+export var enable_next_level_button_for_debugging = true # Just for debugging to enable disable next level button.
 export (Texture) var victory_button_texture = null # Use this texture to turn next level button into victory button.
 export var gravities = [] # At what rate objects fall.
 export var forward_velocities = [] # At what speed in which direction to move.
@@ -94,14 +95,13 @@ const GAME_OVER_ELEMENT_FADE_SPEED = 4.0 # How quickly to fade in and out game o
 func _ready():
 	level_complete_audio_stream.set_loop(false)
 	game_over_audio_stream.set_loop(false)
+	Global.set_custom_button_style_texture(next_level_button, original_next_level_button_style_texture)
 	reset()
 	balloon_indicator.rect_position.x = INITIAL_BALLOON_PROGRESS_OFFSET
 
 	gui_layer = null
 	game_over_wrapper = null
 	main_character_animations = null
-
-	Global.set_custom_button_style_texture(next_level_button, original_next_level_button_style_texture)
 
 func reset():
 	level = get_parent().get_parent().get_node("Level")
@@ -119,7 +119,7 @@ func reset():
 		Global.current_level_stop_state = Global.Level_stop_states.NONE
 		Global.total_score -= current_level_score
 	else:
-		#next_level_button.visible = false
+		next_level_button.visible = true if enable_next_level_button_for_debugging else false
 		game_over_restart_button.visible = false
 		game_over_menu_button.visible = false
 		score_background.visible = false
@@ -168,9 +168,6 @@ func _process(delta):
 		if current_interpolation_state == Interpolation_states.GAMEPLAY:
 			if OS.get_ticks_msec() - item_drop_start_time < current_drop_animation_length:
 				set_character_blend_state(.0, 1.0, .0, .0, .0, delta * DROP_ANIMATION_TRANSITION_SPEED)
-			elif item_drop_pending:
-				item_drop_pending = false
-				manage_up_item_event()
 			elif position.y > viewport_size.y - viewport_size.y * LEGS_UP_Y_THRESHOLD:
 				set_character_blend_state(1.0, .0, .0, .0, .0, delta)
 				set_facial_animation(5)
@@ -212,25 +209,27 @@ func fade_out_game_over_elements(fade_speed):
 	if game_over_restart_button.modulate.a < Global.APPROXIMATION_FLOAT:
 		game_over_restart_button.visible = false
 		game_over_menu_button.visible = false
-		#next_level_button.visible = false
+		next_level_button.visible = true if enable_next_level_button_for_debugging else false
 		score_background.visible = false
 		game_over_text.visible = false
 	else:
 		game_over_restart_button.modulate.a = max(game_over_restart_button.modulate.a - fade_speed, .0)
 		game_over_menu_button.modulate.a = max(game_over_menu_button.modulate.a - fade_speed, .0)
-		#next_level_button.modulate.a = max(next_level_button.modulate.a - fade_speed, .0)
+		next_level_button.modulate.a = 1.0 if enable_next_level_button_for_debugging else max(next_level_button.modulate.a - fade_speed, .0)
 		score_background.modulate.a = max(score_background.modulate.a - fade_speed, .0)
 		game_over_text.modulate.a = max(game_over_text.modulate.a - fade_speed, .0)
 
 func fade_in_game_over_elements(fade_speed):
 	game_over_restart_button.modulate.a = min(game_over_restart_button.modulate.a + fade_speed, 1.0)
 	game_over_menu_button.modulate.a = min(game_over_menu_button.modulate.a + fade_speed, 1.0)
-	#next_level_button.modulate.a = min(next_level_button.modulate.a + fade_speed, 1.0)
+	next_level_button.modulate.a = 1.0 if enable_next_level_button_for_debugging else min(next_level_button.modulate.a + fade_speed, 1.0)
 	score_background.modulate.a = min(score_background.modulate.a + fade_speed, 1.0)
 	game_over_text.modulate.a = min(game_over_text.modulate.a + fade_speed, 1.0)
 
 func _physics_process(delta):
 	if (weakref(finish_line)).get_ref():
+		if item_drop_pending:
+			manage_up_item_event()
 		viewport_size = get_viewport().size
 		relative_mouse_position = camera.position + get_viewport().get_mouse_position() # For speed and convenience.
 		velocity = PHYSICS_VELOCITY_QOEFFICIENT * delta * (gravities[current_gravity_index] - (current_up_force if position.y > TOP_THRESHOLD else Vector2()) + forward_velocities[current_forward_velocity_index]) * level_end_velocity_coefficient
@@ -257,6 +256,7 @@ func _physics_process(delta):
 					Global.current_level_stop_state = Global.Level_stop_states.LEVEL_COMPLETE
 					game_over_audio_stream_player.stream = level_complete_audio_stream
 					main_character_audio_stream_player.play_win_sfx()
+					next_level_button.visible = true
 					initiate_level_end()
 					forbid_changing_facial_animation = false
 					set_facial_animation(5)
@@ -295,7 +295,6 @@ func initiate_level_end():
 	if Global.current_level_index > next_level_button.level_scenes.size() - 1:
 		Global.set_custom_button_style_texture(next_level_button, victory_button_texture)
 	game_over_text.visible = true
-	next_level_button.visible = true
 	game_over_restart_button.visible = true
 	game_over_menu_button.visible = true
 	level_end_velocity_coefficient = .0
@@ -322,6 +321,7 @@ func manage_up_item_event():
 	if current_up_force < up_items[Global.current_level_index][current_up_item_index][0]:
 		current_up_force = up_items[Global.current_level_index][current_up_item_index][0] + up_items[Global.current_level_index][current_up_item_index][0] * .1
 	main_character_audio_stream_player.play_ascend_sfx()
+	item_drop_pending = false
 
 func set_character_blend_state(float_dead_goal, float_drop_goal, decline_death_goal, incline_decline_goal, death_levelcomplete_goal, new_state_reach_lerp_speed):
 	float_dead = lerp(float_dead, float_dead_goal, new_state_reach_lerp_speed)

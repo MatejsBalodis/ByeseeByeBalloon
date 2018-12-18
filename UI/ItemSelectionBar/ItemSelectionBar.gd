@@ -36,6 +36,7 @@ var one_item_width = .0 # For speed and convenience.
 var actual_bar_width = .0 # To correctly display indication arrows, even if bar width changes.
 var shrink_amount = 0 # To determine quickly, when bar is empty.
 var bar_fadeout_coefficient = 1.0 # To display fadeout only, when mouse is over the bar.
+var left_offset_for_centering = .0 # To center the bar in the middle.
 
 func free_memory_from_the_previous_item_set():
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
@@ -92,6 +93,9 @@ func regenerate_items():
 
 	shrink_amount = level_selection_bars[Global.current_level_index].size()
 
+	left_offset_for_centering = max(player.viewport_size.x * .5 - one_item_width * shrink_amount * .5, .0)
+	rect_position.x = left_offset_for_centering
+
 func calculate_actual_bar_width():
 	actual_bar_width = .0
 	for i in range(0, level_selection_bars[Global.current_level_index].size()):
@@ -105,13 +109,14 @@ func _process(delta):
 			drag_indicator_right.lerp_indicator_opacity(true, -1.0, delta)
 			drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
 		else:
+			left_offset_for_centering = max(player.viewport_size.x * .5 - one_item_width * shrink_amount * .5, .0)
 			if return_on_reset:
 				if return_lerp_progress > 1.0 - Global.APPROXIMATION_FLOAT:
-					rect_position.x = .0
+					rect_position.x = left_offset_for_centering
 					return_on_reset = false
 				else:
 					return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
-					rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
+					rect_position.x = lerp(rect_position.x, left_offset_for_centering, return_lerp_progress)
 			else:
 				var bar_width = (player.viewport_size.x if player.viewport_size.x < current_x_offset else current_x_offset) # For speed and convenience.
 				if player.relative_mouse_position.y > rect_position.y - button_height:
@@ -135,12 +140,14 @@ func _process(delta):
 					drag_indicator_left.lerp_indicator_opacity(true, -1.0, delta)
 				if !Input.is_action_pressed("left_mouse_button"):
 					drag_is_active = false
-					if rect_position.x > .0:
+					if rect_position.x > left_offset_for_centering:
 						return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
-						rect_position.x = lerp(rect_position.x, .0, return_lerp_progress)
-					elif rect_position.x < -(current_x_offset - bar_width):
-						return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
-						rect_position.x = lerp(rect_position.x, -(current_x_offset - bar_width), return_lerp_progress)
+						rect_position.x = lerp(rect_position.x, left_offset_for_centering, return_lerp_progress)
+					else:
+						var bar_left_drag_threshold = min(player.viewport_size.x - one_item_width * shrink_amount - MARGIN_BETWEEN_BUTTONS, .0) + left_offset_for_centering # For speed and convenience.
+						if rect_position.x < bar_left_drag_threshold:
+							return_lerp_progress = min(return_lerp_progress + delta * BAR_RETURN_SPEED, 1.0)
+							rect_position.x = lerp(rect_position.x, bar_left_drag_threshold, return_lerp_progress)
 				if drag_is_active:
 					rect_position.x += (player.relative_mouse_position.x - old_mouse_position.x) * (1.0 - (1.0 / (bar_width / clamp(rect_position.x, 1.0, bar_width))))
 				old_mouse_position = player.relative_mouse_position
